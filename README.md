@@ -1,2 +1,2 @@
 # arcgis-docker
-docker copose up -d
+docker compose up -d
