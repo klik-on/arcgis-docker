@@ -1,0 +1,20 @@
+
+$ docker cp patch datastore:/tmp/
+
+ ArcGIS Data Store
+    - ArcGIS Data Store Log4j Patch (!)
+      https://support.esri.com/download/7980
+      Release Date: 3/7/22
+% tar -xvf ArcGIS-1091-DS-Log4j-Patch-linux.tar 
+% ./applypatch 
+
+    - ArcGIS Data Store 10.9.1 Durability Enhancement Patch
+      https://support.esri.com/download/8057
+      Release Date: 9/2/2
+% tar -xvf ArcGIS-1091-DS-DE-Patch-linux.tar
+% ./applypatch
+# mkdir -p data/{config-store,directories,logs,sysgen}
+
+for patchfile in /tmp/*.tar; do
+tar -xvf $patchfile
+done

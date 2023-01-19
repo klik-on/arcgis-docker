@@ -1,0 +1,10 @@
+# Change prompt
+export PS1="Data Store$ "
+echo My hostname is $HOSTNAME
+NEWPROPERTIES=".ESRI.properties.${HOSTNAME}.${ESRI_VERSION}"
+PROPERTIES=".ESRI.properties.*.${ESRI_VERSION}"
+if ! [ -f "$NEWPROPERTIES" ] ; then
+    echo "Moved $PROPERTIES to $NEWPROPERTIES"
+    mv $PROPERTIES $NEWPROPERTIES
+fi
+

@@ -1,0 +1,36 @@
+docker build -t arcgis/webadaptor:10.9.1 .
+
+docker run -d --name webadaptor \
+ --hostname webadaptor.arcgis.lan \
+ --net arcgis.lan -p 80:80 -p 443:443 \
+ --restart always \
+arcgis/webadaptor:10.9.1
+
+### Update tomcat:9.0-jre8-temurin-focal
+docker build -t arcgis/webadaptor:9.0.68 .
+
+docker run -d --name webadaptor \
+ --hostname webadaptor.arcgis.lan \
+ --net arcgis.lan -p 80:80 -p 443:443 \
+ --restart always \
+arcgis/webadaptor:9.0.68
+
+## https (config https include http)
+docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server \
+ -w https://webadaptor.arcgis.lan/server/webadaptor \
+ -g https://server.arcgis.lan:6443 \
+ -u siteadmin -p ipsdh2022 -a true
+
+docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal \
+ -w https://webadaptor.arcgis.lan/portal/webadaptor \
+ -g https://portal.arcgis.lan:7443 \
+ -u portaladmin -p ipsdh2022
+
+######
+I also added a property setting to Portal, 
+going to the portaladmin page, system->properties and pasting this in:
+
+https://server.arcgis.lan:6443/arcgis/admin
+  {"WebContextURL":"https://agsipsdh.menlhk.go.id/server"}
+https://portal.arcgis.lan:7443/arcgis/portaladmin
+  {"WebContextURL":"https://agsipsdh.menlhk.go.id/portal"}

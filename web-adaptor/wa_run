@@ -1,0 +1,37 @@
+docker run -d --name webadaptor \
+ --hostname webadaptor.arcgis.lan \
+ --net arcgis.lan -p 8080:80 -p 8443:443 \
+ --restart always \
+arcgis/webadaptor:10.9.1
+
+# --link portal:portal.arcgis.lan \
+
+## https (config https include http)
+docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server \
+ -w https://webadaptor.arcgis.lan/server/webadaptor \
+ -g https://server.arcgis.lan:6443 \
+ -u siteadmin -p ipsdh2022 -a true
+
+docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal \
+ -w https://webadaptor.arcgis.lan/portal/webadaptor \
+ -g https://portal.arcgis.lan:7443 \
+ -u portaladmin -p ipsdh2022
+
+docker exec -it webadaptor bash -c "mkdir /usr/local/tomcat/webapps/ROOT"
+docker cp index.jsp webadaptor:/usr/local/tomcat/webapps/ROOT/
+
+###nginx webserver
+sudo apt -y install nginx
+sudo cp nginx_virtual.host.conf /etc/nginx/sites-available/virtual.host.conf
+sudo unlink /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/virtual.host.conf /etc/nginx/sites-enabled/virtual.host.conf
+sudo service nginx configtest
+sudo service nginx restart
+
+You don't have to have a complete name for the proxy server here, j
+ust the machine the dockers are running on is good enough.
+I also added a property setting to Portal, 
+going to the portaladmin page, system->properties and pasting this in:
+
+{"WebContextURL":"https://outside.com/portal"}
+

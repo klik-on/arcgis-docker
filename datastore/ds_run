@@ -1,0 +1,14 @@
+### datastore2 ( Relational,TileCache )
+docker run -d --name=datastore \
+--hostname datastore.arcgis.lan \
+--net=arcgis.lan -p 9876:9876 -p 2443:2443 \
+--restart=always \
+arcgis/datastore:10.9.1
+# -v datastore:/arcgis/datastore \
+
+### datastore2 ( Spatiotemporal,Graph )
+docker run -d --name=datastore2 \
+--hostname datastore2.arcgis.lan \
+--restart=always \
+--net=arcgis.lan -p 9878:9876 -p 2445:2443 \
+arcgis/datastore:10.9.1
