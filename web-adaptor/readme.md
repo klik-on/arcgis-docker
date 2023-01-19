@@ -2,11 +2,9 @@ Apache Tomcat
 https://github.com/docker-library/tomcat
 
 /etc/hosts lokal server tambahkan
-103.52.213.213   portal.arcgis.lan
-103.52.213.213   server.arcgis.lan
-103.52.213.213   datastore.arcgis.lan  # Relational, Tile Cache
-103.52.213.213   datastore2.arcgis.lan # Spatio,Graph 
-103.52.213.213   webadaptor.arcgis.lan
+IP  SERVER.WEBGIS.LOKAL
+IP  PORTAL.WEBGIS.LOKAL
+IP  DATASTORE.WEBGIS.LOKAL
 
 
 ###webadaptor docker run
