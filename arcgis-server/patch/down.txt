@@ -1,0 +1,11 @@
+$ portainer.io Exec Console => server/tools/patchnotification/patchnotification
+% wget https://gisupdates.esri.com/QFE/S-1091-P-824/ArcGIS-1091-S-SEC2022U2-Patch-linux.tar
+$ docker cp patch server:/tmp/
+$ tar -xvf ArcGIS-1091-S-SEC2022U2-Patch-linux.tar
+$ cd S-1091-P-824/
+$ ./applypatch 
+# mkdir -p data/{config-store,directories,logs,sysgen}
+
+for patchfile in /tmp/*.tar; do
+tar -xvf $patchfile
+done

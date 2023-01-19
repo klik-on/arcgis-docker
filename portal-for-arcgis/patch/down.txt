@@ -1,0 +1,41 @@
+
+    Portal for ArcGIS                             10.9.1
+
+================================================================================
+
+Available Updates
+
+ Portal for ArcGIS
+    - Portal for ArcGIS Log4j Patch (!)
+      https://support.esri.com/download/7970
+      Release Date: 4/20/22
+$ tar -xvf ArcGIS-1091-PFA-Log4j-PatchB-linux.tar 
+$ ./applypatch
+
+    - Portal for ArcGIS Security 2022 Update 1 Patch (!)
+      https://support.esri.com/download/7948
+      Release Date: 9/14/22
+% tar -xvf ArcGIS-1091-PFA-SEC2022U1-PatchB-linux.tar 
+% ./applypatch 
+
+##### ERROR PATCH proses lama
+    - Portal for ArcGIS QuickCapture Security Patch (!)
+      https://support.esri.com/download/8051
+     Release Date: 10/10/22
+% tar -xvf ArcGIS-<Version>-PFA-QCS-Patch-linux.tar
+% ./applypatch 
+#######
+
+### WebStyles
+$ docker cp Portal_for_ArcGIS_Web_Styles_Linux_1091_180201.tar.gz portal:/tmp/
+Exec Console ==> portainer.io
+$ tar -xvf Portal_for_ArcGIS_Web_Styles_Linux_1091_180201.tar.gz
+Portal$ cp .ESRI.properties.95094da7dd04.10.9.1 .ESRI.properties.portal.arcgis.lan.10.9.1
+Portal$ cd /tmp/WebStyles/
+Portal$ ./WebStyles-Setup.sh 
+Installing Portal for ArcGIS 10.9.1 Web Styles in /home/arcgis/portal...
+# mkdir -p data/{config-store,directories,logs,sysgen}
+
+for patchfile in /tmp/*.tar; do
+tar -xvf $patchfile
+done
