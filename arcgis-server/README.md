@@ -1,8 +1,4 @@
-Fix
-Dockerfile ==> CMD ./server/startserver.sh && tail -f ./server/framework/etc/service_error.log
-Exec Console  Portainer.io >> /home/arcgis/server/tools/authorizeSoftware -f Server_Ent_Adv.prvc -e abiyasa@gmail.com
-
-Create Site https://server.arcgis.lan:6443/arcgis/manager/
+Create Site https://SERVER.WEBGIS.LOKAL:6443/arcgis/manager/
 
 
 # arcgis-server
@@ -43,7 +39,7 @@ to the "my.esri.com" web site, clicked the Developer tab, then clicked
 Now you that you have added the proprietary files in the right place
 you can build an image,
 
-    docker build -t wildsong/arcgis-server .
+    docker build -t arcgis/arcgis-server .
 
 At the end of the build it will something similar to this
 
