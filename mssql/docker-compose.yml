@@ -1,0 +1,22 @@
+version: '3.8'
+volumes:
+  db_data:
+    name: sqlserver_data
+
+services:
+  sqlserver:
+    hostname: agsipsdh.menlhk.go.id
+    container_name: MSSQL
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    env_file: .env
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${SA_PASSWORD}
+      TZ: ${TIMEZONE}
+    volumes:
+      - db_data:/var/opt/mssql
+    ports:
+      - 1433:1433
+    networks:
+      -  webgis
+

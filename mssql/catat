@@ -1,0 +1,20 @@
+docker exec -it sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ipsdh#2020
+
+CREATE DATABASE [dblhk]
+ON
+PRIMARY
+(
+  NAME = N'dblhk',
+  FILENAME = N'/var/opt/mssql/data\dblhk.ndf',
+  SIZE = 8MB,
+  MAXSIZE = UNLIMITED,
+  FILEGROWTH = 64MB
+)
+LOG ON
+(
+  NAME = N'dblhk_log',
+  FILENAME = N'/var/opt/mssql/data\dblhk_log.ldf',
+  SIZE = 8MB,
+  MAXSIZE = UNLIMITED,
+  FILEGROWTH = 64MB
+)

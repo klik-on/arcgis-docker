@@ -1,0 +1,18 @@
+
+Portainer Container console
+mssql@agsipsdh:/$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "ipsdh#2022"
+
+1> CREATE DATABASE db_lhk;
+2> ALTER DATABASE "db_lhk" SET READ_COMMITTED_SNAPSHOT ON;
+3> ALTER DATABASE "db_lhk" SET ALLOW_SNAPSHOT_ISOLATION ON;
+4> GO
+5> exit
+
+https://go.microsoft.com/fwlink/?linkid=2200731
+Supported SQL Server clients are as follows:
+    SQL Server 2019
+       Microsoft ODBC Driver 17 for SQL Server
+    SQL Server 2017
+       Microsoft ODBC Driver 17 for SQL Server
+    SQL Server 2016
+       Microsoft ODBC Driver 17 for SQL Server
