@@ -2,9 +2,7 @@ Apache Tomcat
 https://github.com/docker-library/tomcat
 
 /etc/hosts lokal server tambahkan
-IP  SERVER.WEBGIS.LOKAL
-IP  PORTAL.WEBGIS.LOKAL
-IP  DATASTORE.WEBGIS.LOKAL
+IP  SERVER.WEBGIS.LOKAL PORTAL.WEBGIS.LOKAL DATASTORE.WEBGIS.LOKAL
 
 
 ###webadaptor docker run
