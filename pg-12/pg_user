@@ -1,0 +1,116 @@
+-- buat user 34 produsen ###
+-- Role: PKTL
+CREATE ROLE "pktl_ipsdh" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pktl_ipsdh" AUTHORIZATION "pktl_ipsdh";
+
+CREATE ROLE "pktl_rpkhpwph" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pktl_rpkhpwph" AUTHORIZATION "pktl_rpkhpwph";
+
+CREATE ROLE "pktl_ppkh" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pktl_ppkh" AUTHORIZATION "pktl_ppkh";
+
+CREATE ROLE "pktl_pdlkws" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pktl_pdlkws" AUTHORIZATION "pktl_pdlkws";
+
+CREATE ROLE "pktl_pdluk" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pktl_pdluk" AUTHORIZATION "pktl_pdluk";
+
+-- Role: KSDAE
+
+CREATE ROLE "ksdae_rkk" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ksdae_rkk" AUTHORIZATION "ksdae_rkk";
+
+CREATE ROLE "ksdae_kkhsg" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ksdae_kkhsg" AUTHORIZATION "ksdae_kkhsg";
+
+CREATE ROLE "ksdae_pkk" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ksdae_pkk" AUTHORIZATION "ksdae_pkk";
+
+CREATE ROLE "ksdae_bppe" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ksdae_bppe" AUTHORIZATION "ksdae_bppe";
+
+CREATE ROLE "ksdae_pjlkk" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ksdae_pjlkk" AUTHORIZATION "ksdae_pjlkk";
+
+-- Role: PDASRH
+CREATE ROLE "pdasrh_p3das" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pdasrh_p3das" AUTHORIZATION "pdasrh_p3das";
+
+CREATE ROLE "pdasrh_kta" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pdasrh_kta" AUTHORIZATION "pdasrh_kta";
+
+CREATE ROLE "pdasrh_pth" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pdasrh_pth" AUTHORIZATION "pdasrh_pth";
+
+CREATE ROLE "pdasrh_rh" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pdasrh_rh" AUTHORIZATION "pdasrh_rh";
+
+CREATE ROLE "pdasrh_rpdm" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pdasrh_rpdm" AUTHORIZATION "pdasrh_rpdm";
+
+-- Role: PHL
+CREATE ROLE "phl_brph" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "phl_brph" AUTHORIZATION "phl_brph";
+
+CREATE ROLE "phl_buph" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "phl_buph" AUTHORIZATION "phl_buph";
+
+-- belum ada data
+CREATE ROLE "phl_pphh" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "phl_pphh" AUTHORIZATION "phl_pphh";
+
+CREATE ROLE "phl_puph" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "phl_puph" AUTHORIZATION "phl_puph";
+
+-- Role: PPKL
+CREATE ROLE "ppkl_pkeg" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppkl_pkeg" AUTHORIZATION "ppkl_pkeg";
+
+CREATE ROLE "ppkl_pkl" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppkl_pkl" AUTHORIZATION "ppkl_pkl";
+
+CREATE ROLE "ppkl_ppkpl" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppkl_ppkpl" AUTHORIZATION "ppkl_ppkpl";
+
+-- belum ada data
+CREATE ROLE "ppkl_ppa" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppkl_ppa" AUTHORIZATION "ppkl_ppa";
+
+CREATE ROLE "ppkl_ppu" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppkl_ppu" AUTHORIZATION "ppkl_ppu";
+
+-- Role: PHLHK
+CREATE ROLE "phlhk_pslh" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "phlhk_pslh" AUTHORIZATION "phlhk_pslh";
+
+-- Role: PSLB3
+CREATE ROLE "pslb3_ps" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pslb3_ps" AUTHORIZATION "pslb3_ps";
+
+CREATE ROLE "pslb3_pb3" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pslb3_pb3" AUTHORIZATION "pslb3_pb3";
+
+-- Role: PPI
+CREATE ROLE "ppi_pkhl" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppi_pkhl" AUTHORIZATION "ppi_pkhl";
+
+CREATE ROLE "ppi_api" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppi_api" AUTHORIZATION "ppi_api";
+
+CREATE ROLE "ppi_igrkmpv" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "ppi_igrkmpv" AUTHORIZATION "ppi_igrkmpv";
+
+-- Role: PSKL
+CREATE ROLE "pskl_pkps" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pskl_pkps" AUTHORIZATION "pskl_pkps";
+
+CREATE ROLE "pskl_pktha" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "pskl_pktha" AUTHORIZATION "pskl_pktha";
+
+-- Role: SILHK
+CREATE ROLE "silhk_sbsilhk" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "silhk_sbsilhk" AUTHORIZATION "silhk_sbsilhk";
+
+CREATE ROLE "silhk_psiphb" LOGIN PASSWORD  'test#2022';
+CREATE SCHEMA "silhk_psiphb" AUTHORIZATION "silhk_psiphb";
+

@@ -1,0 +1,7 @@
+$ docker cp st_geometry.so debian-11-postgresql-1:/opt/bitnami/postgresql/lib
+$ docker cp PGSQLEngine.so debian-11-postgresql-1:/opt/bitnami/postgresql/lib
+
+for pg_ags in *.so; do
+  docker cp $pg_ags debian-11-postgresql-1:/opt/bitnami/postgresql/lib
+done
+
