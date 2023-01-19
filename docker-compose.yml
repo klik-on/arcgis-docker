@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+
+  portal:
+    build: portal-for-arcgis
+    image: arcgis/portal:10.9.1
+    restart: always
+    hostname: PORTAL.WEBGIS.LOKAL
+    container_name: PORTAL
+    ports:
+      -  "7080:7080"
+      -  "7443:7443"
+    networks:
+      -  webgis
+    healthcheck:
+      test: ["CMD", "/usr/bin/curl", "-Lkf", "https://localhost:7443/arcgis/home"]
+      interval: 1m 
+      timeout: 10s
+      retries: 3
+
+  server:
+    build: arcgis-server
+    image: arcgis/server:10.9.1
+    restart: always
+    hostname: SERVER.WEBGIS.LOKAL
+    container_name: SERVER
+    ports:
+      -  "6080:6080"
+      -  "6443:6443"
+    networks:
+      -  webgis
+    healthcheck:
+      test: ["CMD", "/usr/bin/curl", "-Lkf", "https://localhost:6443/arcgis/manager"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+
+  datastore:
+    build: datastore
+    image: arcgis/datastore:10.9.1
+    restart: always
+    hostname: DATASTORE.WEBGIS.LOKAL
+    container_name: DATASTORE
+    ports:
+      -  "2443:2443"
+      -  "9876:9876"
+    networks:
+      -  webgis
+    depends_on:
+      server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/usr/bin/curl", "-Lkf", "https://localhost:2443/arcgis/datastore"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+
+networks:
+  webgis:
+    driver: bridge
