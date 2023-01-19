@@ -21,7 +21,7 @@ $ docker run -d --name=webadaptor \
   --restart=always \
   arcgis/webadaptor:10.9.1
 
-### Updatec Test
+### Update Test
 docker run -d --name=webadaptor \
   --hostname=webadaptor.arcgis.lan \
   -p 8080:80 -p 8443:443 \
