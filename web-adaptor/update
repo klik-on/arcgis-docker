@@ -10,6 +10,7 @@ Container console
 root@agsipsdh:/usr/local/tomcat#
 # cd /tmp
 tmp# ./as_wa.sh
+tmp# ./ap_wa.sh
 
 federate server
 Service URL https://agsipsdh.menlhk.go.id/server
