@@ -1,0 +1,17 @@
+unregister webadaptor dan unfederate
+
+https://portal.webgis.lokal:7443/arcgis/portaladmin
+https://server.webgis.lokal:6443/arcgis/admin
+
+### remove images docker
+docker compose up -d
+
+portainer ==> WEBADAPTOR ==> network samakan
+Container console
+root@agsipsdh:/usr/local/tomcat#
+# cd /tmp
+tmp# ./as_wa.sh
+
+federate server
+Service URL https://agsipsdh.menlhk.go.id/server
+Administration URL https://SERVER.WEBGIS.LOKAL:6443/arcgis
