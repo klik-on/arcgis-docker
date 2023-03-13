@@ -1,4 +1,12 @@
 unregister webadaptor dan unfederate
+### jika tidak bisa
+1. Go to https://SERVER.WEBGIS.LOKAL:6443/arcgis/admin
+2. Navigate through Security > Config
+   - Here you will see that it still reads 'ARCGIS_PORTAL'
+3. Update this page so the 'Authentication Tier' is 'GIS_SERVER'
+This should resolve the issue you are seeing and allow you to federate your server with the portal.
+###
+
 https://portal.webgis.lokal:7443/arcgis/portaladmin
 https://server.webgis.lokal:6443/arcgis/admin
 
