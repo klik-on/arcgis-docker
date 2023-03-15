@@ -1,0 +1,10 @@
+$ svn ls https://github.com/bitnami/containers/
+branches/
+trunk/
+
+$ svn ls https://github.com/bitnami/containers/trunk/bitnami/postgresql/12/debian-11/
+$ svn co https://github.com/bitnami/containers/trunk/bitnami/postgresql/12/debian-11
+
+$ cp ../../debian-11/docker-compose.yml .
+$ cp -r ../../debian-11/rootfs/opt/bitnami/postgresql rootfs/opt/bitnami/
+$ docker-compose up -d
