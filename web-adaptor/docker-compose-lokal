@@ -6,7 +6,7 @@ services:
     build: .
     image: arcgis/webadaptor:10.9.1
     restart: always
-    hostname: geoportal.menlhk.go.id
+    hostname: agsipsdh.ddns.net
     container_name: WEBADAPTOR
     network_mode: "host"
     environment:
