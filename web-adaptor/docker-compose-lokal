@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  webadaptor:
+    build: .
+    image: arcgis/webadaptor:10.9.1
+    restart: always
+    hostname: geoportal.menlhk.go.id
+    container_name: web-adaptor
+    network_mode: "host"
+    environment:
+      -  HOST_IP_ADDRESS=103.52.213.139
+    ports:
+      -  "80:80"
+      -  "443:443"
