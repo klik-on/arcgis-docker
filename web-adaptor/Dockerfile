@@ -14,7 +14,7 @@ RUN sed -i "s/redirectPort=\"8443\"//g" /usr/local/tomcat/conf/server.xml
 
 # Create and install a self-signed certificate.
 RUN keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -keystore /home/tomcat.keystore \
-    -storepass 123456 -keypass 123456 \
+    -storepass 123456 -keypass 123456 -validity 365 \
     -dname "CN=*.WEBGIS.LOKAL, OU=IPSDH, O=Kementerian Lingkungan Hidup dan Kehutanan, L=Jakarta Pusat, ST=DKI Jakarta, C=ID"
 # Modify server.xml to activate the TLS service
 RUN sed -i "s/<Service name=\"Catalina\">/<Service name=\"Catalina\">\n    <Connector port=\"443\" maxThreads=\"200\" scheme=\"https\" secure=\"true\" SSLEnabled=\"true\" keystorePass=\"123456\" clientAuth=\"false\" sslProtocol=\"TLS\" keystoreFile=\"\/home\/star.menlhk.go.id.pfx\" \/>/" \
