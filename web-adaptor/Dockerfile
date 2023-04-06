@@ -12,7 +12,7 @@ RUN sed -i "s/8080/80/" /usr/local/tomcat/conf/server.xml
 RUN sed -i "s/redirectPort=\"8443\"//g" /usr/local/tomcat/conf/server.xml
 
 
-# Create and install a self-signed certificate.
+# Create and install a self-signed certificate. ***star.menlhk.go.id.pfx
 RUN keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -keystore /home/tomcat.keystore \
     -storepass 123456 -keypass 123456 -validity 365 \
     -dname "CN=*.WEBGIS.LOKAL, OU=IPSDH, O=Kementerian Lingkungan Hidup dan Kehutanan, L=Jakarta Pusat, ST=DKI Jakarta, C=ID"
