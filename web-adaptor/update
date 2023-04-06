@@ -21,5 +21,5 @@ tmp# ./as_wa.sh
 tmp# ./ap_wa.sh
 
 federate server
-Service URL https://agsipsdh.menlhk.go.id/server
+Service URL https://agsipsdh.ddns.net/server
 Administration URL https://SERVER.WEBGIS.LOKAL:6443/arcgis
