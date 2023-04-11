@@ -46,6 +46,6 @@ RUN cp /arcgis/webadaptor10.9.1/java/arcgis.war /usr/local/tomcat/webapps/portal
 
 RUN mkdir -p /usr/local/tomcat/webapps/ROOT
 RUN cp /tmp/index.jsp  /usr/local/tomcat/webapps/ROOT/
-# RUN cat /tmp/etc_hosts >> /etc/hosts && rm -f /tmp/etc_hosts
+RUN cat /tmp/etc_hosts >> /etc/hosts && rm -f /tmp/etc_hosts
 
 CMD /usr/local/tomcat/bin/startup.sh && tail -f /usr/local/tomcat/logs/catalina.out
