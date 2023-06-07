@@ -15,13 +15,13 @@ services:
       -  "443:443"
     networks:
       - webgis
-      
+    volumes:
+      - webapps:/usr/local/tomcat/webapps
+
 networks:
   webgis:
     name: docker-arcgis-enterprise_webgis
     external: true
-  volumes:
-      - webapps:/usr/local/tomcat/webapps
 
 volumes:
   webapps:
