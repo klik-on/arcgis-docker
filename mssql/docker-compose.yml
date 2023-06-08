@@ -5,7 +5,7 @@ volumes:
 
 services:
   sqlserver:
-    hostname: agsipsdh.menlhk.go.id
+    hostname: agsipsdh.ddns.net
     container_name: MSSQL
     image: mcr.microsoft.com/mssql/server:2019-latest
     env_file: .env
