@@ -17,6 +17,4 @@ services:
       - db_data:/var/opt/mssql
     ports:
       - 1433:1433
-    networks:
-      -  webgis
 
