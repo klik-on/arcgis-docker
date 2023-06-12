@@ -14,7 +14,7 @@ https://server.webgis.lokal:6443/arcgis/admin
 docker compose up -d
 
 portainer ==> WEBADAPTOR ==> network samakan
-Container console
+Container console ==> $ docker exec -it WEBADAPTOR /bin/bash
 root@agsipsdh:/usr/local/tomcat#
 # cd /tmp
 tmp# ./as_wa.sh
