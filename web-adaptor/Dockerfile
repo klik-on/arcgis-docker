@@ -1,4 +1,4 @@
-FROM tomcat:9.0.75-jdk17-temurin-jammy
+FROM tomcat:9.0.76-jdk17-temurin-jammy
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
 
