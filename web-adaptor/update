@@ -23,3 +23,8 @@ tmp# ./ap_wa.sh
 federate server
 Service URL https://agsipsdh.ddns.net/server
 Administration URL https://SERVER.WEBGIS.LOKAL:6443/arcgis
+
+Reff:
+Tomcat Server With LetsEncrypt
+https://tecadmin.net/how-to-install-lets-encrypt-ssl-with-tomcat/
+https://medium.com/@mashrur123/a-step-by-step-guide-to-securing-a-tomcat-server-with-letsencrypt-ssl-certificate-65cd26290b70
