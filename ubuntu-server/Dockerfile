@@ -30,13 +30,13 @@ RUN pip install --upgrade pip && pip install requests
 # RUN apt-get update && apt-get install -y postgresql-client-12
 
 # -- ODBC MSSQL
-RUN apt-get -y install gpg curl apt-transport-https unixodbc-dev
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated msodbcsql17
-RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated mssql-tools
-RUN apt-get upgrade
+# RUN apt-get -y install gpg curl apt-transport-https unixodbc-dev
+# RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# RUN curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# RUN apt-get update
+# RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated msodbcsql17
+# RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated mssql-tools
+# RUN apt-get upgrade
 
 # This will make the system work better and eliminate warnings from the temporal store checks
 # COPY arcgis.conf /etc/sysctl.d/
