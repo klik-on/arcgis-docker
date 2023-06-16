@@ -36,6 +36,7 @@ COPY FIXED.txt /tmp/
 COPY nginx*.conf /tmp/
 ADD ArcGIS_Web_Adaptor_Java_Linux_109*.tar.gz /tmp/
 COPY *.pfx /home/
+COPY *.xml /tmp/
 
 EXPOSE 80 443
 
@@ -46,6 +47,7 @@ RUN cp /arcgis/webadaptor10.9.1/java/arcgis.war /usr/local/tomcat/webapps/portal
 
 RUN mkdir -p /usr/local/tomcat/webapps/ROOT
 RUN cp /tmp/index.jsp  /usr/local/tomcat/webapps/ROOT/
+RUN cp /tmp/*.xml /usr/local/tomcat/conf/
 
 CMD /usr/local/tomcat/bin/startup.sh && tail -f /usr/local/tomcat/logs/catalina.out
 
