@@ -30,7 +30,7 @@ https://tecadmin.net/how-to-install-lets-encrypt-ssl-with-tomcat/
 https://medium.com/@mashrur123/a-step-by-step-guide-to-securing-a-tomcat-server-with-letsencrypt-ssl-certificate-65cd26290b70
 
 #### Forward to HTTPS/SSL
-# vi /usr/share/tomcat/conf/web.xml
+# vi /usr/share/tomcat/conf/web.xml ==> tekan ]]
 Tambahkan diakhir baris sebelum  tag </web-app>
     <security-constraint>
         <web-resource-collection>
