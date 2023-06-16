@@ -36,7 +36,7 @@ COPY FIXED.txt /tmp/
 COPY nginx*.conf /tmp/
 ADD ArcGIS_Web_Adaptor_Java_Linux_109*.tar.gz /tmp/
 COPY *.pfx /home/
-COPY *.xml /tmp/
+COPY ./conf/*.xml /tmp/
 
 EXPOSE 80 443
 
