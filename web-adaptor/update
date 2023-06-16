@@ -28,6 +28,50 @@ Reff:
 Tomcat Server With LetsEncrypt
 https://tecadmin.net/how-to-install-lets-encrypt-ssl-with-tomcat/
 https://medium.com/@mashrur123/a-step-by-step-guide-to-securing-a-tomcat-server-with-letsencrypt-ssl-certificate-65cd26290b70
+// https://www.nusa.id/knowledge-base/membangun-server-proxy-dengan-nginx-proxy-manager/
+buat SSL => Let's Encrypt   ::: port 80, 443 dan 81 jangan aktif/sedang digunakan
+$ mkdir nginx-proxy && cd nginx-proxy
+$ vi docker-compose.yml
+$ mkdir {data,letsencrypt}
+$ docker network create npm-nw
+$ docker-compose up -d
+http://IP_Address:81
+Silahkan login dengan kredensial default :
+Email address: admin@example.com
+Password: changeme
+1. Add Proxy Host
+Domain Names silahkan tambahkan domain yang sesuai dengan FQDN kemudian enter.
+Isi bagian Forward Hostname dengan IP Address server nginx proxy manager.
+Tambahkan Forward Port dengan nilai 81, dan enable Block Common Exploits.
+2. Pada bagian SSL Certificate pilih Request a new SSL Certificate.
+   Aktifkan pilihan Force SSL dan HTTP/2 Support.
+   Isi email dengan email Anda dan centang Term of Service.
+
+### convert Let's Encrypt certificate to pfx (tomcat)
+$ wget https://raw.githubusercontent.com/klik-on/nginx-arcgis/main/certificate.zip
+$ unzip certificate.zip
+$ openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out fullchain.pfx
+Enter Export Password: 123456
+Verifying - Enter Export Password: 123456
+### atau ****
+# Export PFX into /tmp/wildcard.pfx
+$ openssl pkcs12 -export -out /tmp/wildcard.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
+$ docker cp /tmp/wildcard.pfx WEBADAPTOR:/home
+
+$ docker cp wildcard.pfx WEBADAPTOR:/home
+# cd /usr/local/tomcat/conf/
+# vi server.xml
+  <Service name="Catalina">
+   <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+    port="443" maxThreads="200"
+    scheme="https" secure="true" SSLEnabled="true"
+    keystoreFile="/home/wildcard.pfx" keystorePass="123456"
+    clientAuth="false" sslProtocol="TLS" />
+
+### NGINX
+# vi /etc/nginx/sites-available/default
+   ssl_certificate "/etc/letsencrypt/fullchain.pem";
+   ssl_certificate_key "/etc/letsencrpt/privkey.pem";
 
 #### Forward to HTTPS/SSL
 # vi /usr/share/tomcat/conf/web.xml ==> tekan ]]
