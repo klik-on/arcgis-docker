@@ -1,0 +1,36 @@
+
+##### APACHE2 ==> /etc/apache2/sites-available/000-default.conf
+#        SSLCertificateFile /etc/apache2/certificate/star.menlhk.go.id.crt
+#        SSLCertificateKeyFile /etc/apache2/certificate/star.menlhk.go.id.key
+#        SSLCertificateChainFile /etc/apache2/certificate/CAIntermediate.crt
+        SSLCertificateFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.pem
+        SSLCertificateKeyFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.key
+        SSLCertificateChainFile /etc/apache2/certificate/ssl_2023/RootCA.crt
+
+###### NGINX ==> /etc/nginx/nginx.conf
+       ssl_certificate "/etc/ssl/newcert/star_menlhk_go_id_cert.pem";
+       ssl_certificate_key "/etc/ssl/newcert/star_menlhk_go_id_cert.key";
+       ssl_session_cache shared:SSL:1m;
+       ssl_session_timeout  10m;
+       ssl_ciphers HIGH:!aNULL:!MD5;
+       ssl_prefer_server_ciphers on;
+
+###### ARCGIS WEBADAPTOR
+  == > /usr/local/tomcat/conf/server.xml
+  <Service name="Catalina">
+    <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+       port="443" maxThreads="200" scheme="https" secure="true" SSLEnabled="true"
+       keystoreFile="/home/wildcard.pfx" keystorePass="123456"
+       clientAuth="false" sslProtocol="TLS" />
+
+  ==>  /usr/local/tomcat/conf/web.xml
+    <security-constraint>
+         <web-resource-collection>
+         <web-resource-name>Automatic Forward to HTTPS/SSL
+         </web-resource-name>
+         <url-pattern>/*</url-pattern>
+         </web-resource-collection>
+         <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+         </user-data-constraint>
+     </security-constraint>
