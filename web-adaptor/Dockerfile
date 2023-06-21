@@ -17,7 +17,7 @@ RUN keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -keystore /home/
     -storepass 123456 -keypass 123456 -validity 365 \
     -dname "CN=*.WEBGIS.LOKAL, OU=IPSDH, O=Kementerian Lingkungan Hidup dan Kehutanan, L=Jakarta Pusat, ST=DKI Jakarta, C=ID"
 # Modify server.xml to activate the TLS service
-RUN sed -i "s/<Service name=\"Catalina\">/<Service name=\"Catalina\">\n    <Connector protocol=\"org.apache.coyote.http11.Http11NioProtocol\"\n       port=\"443\" maxThreads=\"200\" scheme=\"https\" secure=\"true\" SSLEnabled=\"true\"\n       keystoreFile=\"\/home\/wildcard.pfx\" keystorePass=\"123456\"\n       clientAuth=\"false\" sslProtocol=\"TLS\" \/>/" \
+RUN sed -i "s/<Service name=\"Catalina\">/<Service name=\"Catalina\">\n    <Connector protocol=\"org.apache.coyote.http11.Http11NioProtocol\"\n       port=\"443\" maxThreads=\"200\" scheme=\"https\" secure=\"true\" SSLEnabled=\"true\"\n       keystoreFile=\"\/home\/wildcard.pfx\" keystorePass=\"P4ssw0rd@1\"\n       clientAuth=\"false\" sslProtocol=\"TLS\" \/>/" \
 /usr/local/tomcat/conf/server.xml
 
 # Close the Tomcat
