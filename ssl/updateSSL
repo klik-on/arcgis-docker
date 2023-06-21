@@ -1,3 +1,5 @@
+Reff:
+https://www.jagoanhosting.com/tutorial/tutorial-vps/cara-install-ssl-di-nginx
 
 ##### APACHE2 ==> /etc/apache2/sites-available/000-default.conf
 #        SSLCertificateFile /etc/apache2/certificate/star.menlhk.go.id.crt
