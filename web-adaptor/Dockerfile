@@ -21,16 +21,16 @@ RUN sed -i "s/<Service name=\"Catalina\">/<Service name=\"Catalina\">\n    <Conn
 /usr/local/tomcat/conf/server.xml
 
 # Forward to HTTPS/SSL
-RUN sed -i 's|</web-app>|    <security-constraint> \n \
-        <web-resource-collection> \n \
-        <web-resource-name>Automatic Forward to HTTPS/SSL  \n \
-        </web-resource-name> \n \
-        <url-pattern>/*</url-pattern> \n \
-        </web-resource-collection> \n \
-        <user-data-constraint> \n \
-           <transport-guarantee>CONFIDENTIAL</transport-guarantee> \n \
-        </user-data-constraint> \n \
-    </security-constraint> \n \
+RUN sed -i 's|</web-app>|    <security-constraint>\n \
+        <web-resource-collection>\n \
+        <web-resource-name>Automatic Forward to HTTPS/SSL\n \
+        </web-resource-name>\n \
+        <url-pattern>/*</url-pattern>\n \
+        </web-resource-collection>\n \
+        <user-data-constraint>\n \
+           <transport-guarantee>CONFIDENTIAL</transport-guarantee>\n \
+        </user-data-constraint>\n \
+    </security-constraint>\n \
 </web-app> |g' /usr/local/tomcat/conf/web.xml
 
 
