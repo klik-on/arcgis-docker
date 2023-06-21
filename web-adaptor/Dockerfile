@@ -19,8 +19,19 @@ RUN keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -keystore /home/
 # Modify server.xml to activate the TLS service
 RUN sed -i "s/<Service name=\"Catalina\">/<Service name=\"Catalina\">\n    <Connector protocol=\"org.apache.coyote.http11.Http11NioProtocol\"\n       port=\"443\" maxThreads=\"200\" scheme=\"https\" secure=\"true\" SSLEnabled=\"true\"\n       keystoreFile=\"\/home\/wildcard.pfx\" keystorePass=\"P4ssw0rd@1\"\n       clientAuth=\"false\" sslProtocol=\"TLS\" \/>/" \
 /usr/local/tomcat/conf/server.xml
-# RUN sed -i "s/</web-app>\"/<security-constraint>\n   <web-resource-collection>\n   <web-resource-name>Automatic Forward to HTTPS/SSL\n   </web-resource-name>\n   <url-pattern>/*</url-pattern>\n  </web-resource-collection>\n   <user-data-constraint>\n     <transport-guarantee>CONFIDENTIAL</transport-guarantee>\n     </user-data-constraint>\n  </security-constraint>\n  </web-app>" \
-#/usr/local/tomcat/conf/web.xml
+
+# Forward to HTTPS/SSL
+RUN sed -i 's|</web-app>|    <security-constraint> \
+        <web-resource-collection> \
+        <web-resource-name>Automatic Forward to HTTPS/SSL  \
+        </web-resource-name> \
+        <url-pattern>/*</url-pattern> \
+        </web-resource-collection> \
+        <user-data-constraint> \
+           <transport-guarantee>CONFIDENTIAL</transport-guarantee> \
+        </user-data-constraint> \
+    </security-constraint> \
+</web-app> |g' /usr/local/tomcat/conf/web.xml
 
 # Close the Tomcat
 RUN /usr/local/tomcat/bin/shutdown.sh
