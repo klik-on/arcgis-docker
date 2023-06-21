@@ -7,7 +7,7 @@ https://www.jagoanhosting.com/tutorial/tutorial-vps/cara-install-ssl-di-nginx
 #        SSLCertificateChainFile /etc/apache2/certificate/CAIntermediate.crt
         SSLCertificateFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.pem
         SSLCertificateKeyFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.key
-        SSLCertificateChainFile /etc/apache2/certificate/ssl_2023/RootCA.crt
+        SSLCertificateChainFile /etc/apache2/certificate/ssl_2023/Chain_RootCA_Bundle.crt
 
 ###### NGINX ==> /etc/nginx/nginx.conf
 $ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cert.crt
