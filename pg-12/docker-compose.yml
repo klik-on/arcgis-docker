@@ -9,7 +9,8 @@ services:
       - 'postgresql_data:/bitnami/postgresql'
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
-
+    container_name: PGSQL-12
+   
 volumes:
   postgresql_data:
     driver: local
