@@ -2,7 +2,9 @@ version: '3'
 
 services:
   postgresql:
-    image: docker.io/bitnami/postgresql:12
+    build: .
+    image: arcgis/pgsql:12
+    restart: always
     ports:
       - '5432:5432'
     volumes:
@@ -10,7 +12,7 @@ services:
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
     container_name: PGSQL-12
-   
+
 volumes:
   postgresql_data:
     driver: local
