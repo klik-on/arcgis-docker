@@ -37,3 +37,17 @@ $ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cer
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
          </user-data-constraint>
      </security-constraint>
+
+SSL Update Portal for ArcGIS
+https://sigap.menlhk.go.id:7443/arcgis/portaladmin/
+	user  :  adminportal
+	pass : GISportalsigap2021
+Home > Machines > SIGAP...> SSLCertificates > Import Existing Server Certificate
+	Certificate password : P4ssw0rd@1
+	Alias : menlhk2023
+	File : star_menlhk_go_id_.pfx
+
+SSL Update ArcGIS Server
+https://sigap.menlhk.go.id:6443/arcgis/admin/
+	user  :  adminsite
+	pass : GISsigap2021
