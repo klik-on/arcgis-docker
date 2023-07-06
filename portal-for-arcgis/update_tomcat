@@ -4,6 +4,9 @@ ArcGISPortal$  /home/arcgis/portal/framework/runtime/tomcat/bin/version.sh
 ... Server version: Apache Tomcat/9.0.50
 ArcGISPortal$ cd /tmp
 ArcGISPortal$  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.tar.gz
+... apache-tomcat-9.0.76.tar.g 100%[=======================================>]  11.14M  16.3MB/s    in 0.7s    
+... 2023-07-06 20:48:16 (16.3 MB/s) - ‘apache-tomcat-9.0.76.tar.gz’ saved [11677655/11677655]
+
 ArcGISPortal$ tar -xvf apache-tomcat-9.0.76.tar.
 ArcGISPortal$ /home/arcgis/portal/stopportal.sh
 ArcGISPortal$ cd /home/arcgis/portal/framework/runtime/tomcat/
