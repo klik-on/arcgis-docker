@@ -1,0 +1,16 @@
+https://agsipsdh.ddns.net:9443
+My hostname is PORTAL.WEBGIS.LOKAL
+ArcGISPortal$  /home/arcgis/portal/framework/runtime/tomcat/bin/version.sh
+... Server version: Apache Tomcat/9.0.50
+ArcGISPortal$ cd /tmp
+ArcGISPortal$  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.tar.gz
+ArcGISPortal$ tar -xvf apache-tomcat-9.0.76.tar.
+ArcGISPortal$ /home/arcgis/portal/stopportal.sh
+ArcGISPortal$ cd /home/arcgis/portal/framework/runtime/tomcat/
+ArcGISPortal$ cp -r bin bin_bak
+ArcGISPortal$ cp -r lib lib_bak
+ArcGISPortal$ cp -fv /tmp/apache-tomcat-9.0.76/bin/*.jar /home/arcgis/portal/framework/runtime/tomcat/bin/
+ArcGISPortal$ cp -fv /tmp/apache-tomcat-9.0.76/lib/*.jar /home/arcgis/portal/framework/runtime/tomcat/lib/
+ArcGISPortal$ /home/arcgis/portal/framework/runtime/tomcat/bin/version.sh
+... Server version: Apache Tomcat/9.0.76
+ArcGISPortal$ /home/arcgis/portal/startportal.sh
