@@ -1,5 +1,8 @@
 https://agsipsdh.ddns.net:9443 ==> Console >
-My hostname is PORTAL.WEBGIS.LOKAL
+My hostname is PORTAL.WEBGIS.LOKAL    ==> /home/arcgis/portal/
+My hostname is SERVER.WEBGIS.LOKAL    ==> /home/arcgis/server/
+My hostname is DATASTORE.WEBGIS.LOKAL ==> /home/arcgis/datastore/
+
 ArcGISPortal$  /home/arcgis/portal/framework/runtime/tomcat/bin/version.sh
 ... Server version: Apache Tomcat/9.0.50
 ArcGISPortal$ cd /tmp
