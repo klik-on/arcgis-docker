@@ -15,4 +15,4 @@ cp -fv /tmp/apache-tomcat-9.0.76/lib/*.jar /home/arcgis/portal/framework/runtime
 
 /home/arcgis/portal/startportal.sh
 
-rm -f /tmp/apache-tomcat-9*
+rm -rf /tmp/apache-tomcat-9*
