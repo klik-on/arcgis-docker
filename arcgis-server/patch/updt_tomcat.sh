@@ -11,7 +11,7 @@ cp -r lib lib_bak
 
 cp -fv /tmp/apache-tomcat-9.0.76/bin/*.jar /home/arcgis/server/framework/runtime/tomcat/bin/
 cp -fv /tmp/apache-tomcat-9.0.76/lib/*.jar /home/arcgis/server/framework/runtime/tomcat/lib/
- /home/arcgis/server/framework/runtime/tomcat/bin/version.sh
+/home/arcgis/server/framework/runtime/tomcat/bin/version.sh
 
 /home/arcgis/server/startserver.sh
 
