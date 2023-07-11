@@ -1,8 +1,9 @@
 # buat volume docker =>  mkdir -p data/{config-store,directories,logs,sysgen}
 # docker cp patch PORTAL:/tmp
 
-# cara update os
+# cara update os 
 # docker exec -it -u root PORTAL /bin/bash
+# atau pakai portainer => Container console isi user : root
 # apt update && apt upgrade
 
 for patchfile in *.tar; do
