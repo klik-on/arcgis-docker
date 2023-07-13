@@ -1,6 +1,7 @@
 # Akses datastore ==> https://www.youtube.com/watch?v=hZaDThRjGTo
 
-Datastore/tools
+My hostname is DATASTORE.WEBGIS.LOKAL
+Data Store$ cd datastore/tools/
 Data Store$ ./listmanageduser.sh 
 Managed user for relational data store ds_vcycuo5g
 ================================================
