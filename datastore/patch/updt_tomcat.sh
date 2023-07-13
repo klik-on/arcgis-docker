@@ -2,7 +2,7 @@
 
 tver = 9.0.78
 cd /tmp
-wget https://dlcdn.apache.org/tomcat/tomcat-9/v$ver/bin/apache-tomcat-$tver.tar.gz
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v$tver/bin/apache-tomcat-$tver.tar.gz
 tar -xvf apache-tomcat-$tver.tar.gz
 
 /home/arcgis/datastore/stopdatastore.sh
