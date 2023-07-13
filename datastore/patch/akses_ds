@@ -1,0 +1,19 @@
+# Akses datastore ==> https://www.youtube.com/watch?v=hZaDThRjGTo
+
+Datastore/tools
+Data Store$ ./listmanageduser.sh 
+Managed user for relational data store ds_vcycuo5g
+================================================
+UserName     Password             Database    
+hsu_e6dki    el6d8QECEBk=         db_cyy4i    
+
+Managed user for tile cache store tcs_kkz8jj8o
+================================================
+UserName     Password            
+usr_i2z09    x72uui763t          
+
+Operation completed successfully.
+
+Usage : allowconnection.sh <hostname> <username> [database]
+$ allowconnection DATASTORE.WEBGIS.LOKAL hsu_e6dki
+Operation completed successfully
