@@ -15,6 +15,9 @@ usr_i2z09    x72uui763t
 
 Operation completed successfully.
 
+Data Store$ hostname
+DATASTORE.WEBGIS.LOKAL
+Data Store$ ./allowconnection.sh --help 
 Usage : allowconnection.sh <hostname> <username> [database]
 $ allowconnection DATASTORE.WEBGIS.LOKAL hsu_e6dki
 Operation completed successfully
