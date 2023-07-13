@@ -16,4 +16,4 @@ cp -fv /tmp/apache-tomcat-$tver/lib/*.jar /home/arcgis/datastore/framework/runti
 
 /home/arcgis/datastore/startdatastore.sh
 
-rm -rf /tmp/apache-tomcat-9*
+rm -rf /tmp/apache-tomcat-$tver*
