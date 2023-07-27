@@ -16,9 +16,8 @@ Successfully copied 6.91MB to /home/ags/docker-arcgis-enterprise/postgis/backup/
 $ docker cp PGIS-12:/tmp/pgisdb_qgis.sql .
 Successfully copied 12.3kB to /home/ags/docker-arcgis-enterprise/postgis/backup/.
 
-RESTORE
 Restore database
-ags@agsipsdh:~/sigap_tatakelola/database$ docker exec -it PGIS-12 /bin/bash
+$ docker exec -it PGIS-12 /bin/bash
 # cd /tmp
 tmp# ls
 geodb_ags.sql.sql  pgisdb_qgis.sql
@@ -26,16 +25,15 @@ tmp# psql -U postgres -h localhost -p 5432
 psql (PostgreSQL) 12.15 (Debian 12.15-1.pgdg100+1)
 Type "help" for help.
 
-postgres=# CREATE DATABASE sigap_geodb;
+postgres=# CREATE DATABASE geodb;
 CREATE DATABASE
-postgres=# \c sigap_geodb
-You are now connected to database "sigap_geodb" as user "postgres".
+postgres=# \c geodb
+You are now connected to database "geodb" as user "postgres".
 sigap_geodb=# CREATE EXTENSION postgis;
 CREATE EXTENSION
 sigap_geodb=# \q
-root@ee2123584819:/tmp# psql -U postgres -h localhost -p 5432
-psql (14.5 (Debian 14.5-1.pgdg110+1))
-Type "help" for help.
+root@ee2123584819:/tmp# psql -U postgres -h localhost -d geodb -p 5432 -f geodb_ags.sql
+
 
 postgres=# CREATE DATABASE sigap_pub;
 CREATE DATABASE
