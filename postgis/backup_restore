@@ -12,3 +12,35 @@ psql (PostgreSQL) 12.15 (Debian 12.15-1.pgdg100+1)
 $ mkdir database
 $ cd database
 $ docker cp PGIS-12:/tmp/*.sql .
+
+RESTORE
+Restore database
+ags@agsipsdh:~/sigap_tatakelola/database$ docker exec -it PGIS-12 /bin/bash
+# cd /tmp
+tmp# ls
+geodb_ags.sql.sql  pgisdb_qgis.sql
+tmp# psql -U postgres -h localhost -p 5432
+psql (PostgreSQL) 12.15 (Debian 12.15-1.pgdg100+1)
+Type "help" for help.
+
+postgres=# CREATE DATABASE sigap_geodb;
+CREATE DATABASE
+postgres=# \c sigap_geodb
+You are now connected to database "sigap_geodb" as user "postgres".
+sigap_geodb=# CREATE EXTENSION postgis;
+CREATE EXTENSION
+sigap_geodb=# \q
+root@ee2123584819:/tmp# psql -U postgres -h localhost -p 5432
+psql (14.5 (Debian 14.5-1.pgdg110+1))
+Type "help" for help.
+
+postgres=# CREATE DATABASE sigap_pub;
+CREATE DATABASE
+postgres=# \c sigap_pub
+You are now connected to database "sigap_pub" as user "postgres".
+sigap_pub=# CREATE EXTENSION postgis;
+CREATE EXTENSION
+sigap_pub=# \q
+root@ee2123584819:/tmp# psql -U postgres -h localhost -d sigap_geodb -p 5432 -f sigap_geodb_20230720.sql
+SET ...
+...
