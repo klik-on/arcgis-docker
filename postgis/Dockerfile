@@ -7,3 +7,8 @@ LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
 
 COPY ./lib/* /usr/lib/postgresql/12/lib
 
+# Cleanup resources
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
