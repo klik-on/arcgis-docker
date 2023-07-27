@@ -1,0 +1,14 @@
+Backup database dari  server
+$ docker exec -it PGIS-12  /bin/bash
+
+# psql --version
+psql (PostgreSQL) 12.15 (Debian 12.15-1.pgdg100+1)
+# pg_dump --version
+# cd /tmp
+# pg_dump -U postgres -h localhost geodb > geodb_ags.sql
+# pg_dump -U postgres -h localhost pgisdb > pgisdb_qgis.sql
+
+# exit
+$ mkdir database
+$ cd database
+$ docker cp PGIS-12:/tmp/*.sql .
