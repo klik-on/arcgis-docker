@@ -11,7 +11,11 @@ psql (PostgreSQL) 12.15 (Debian 12.15-1.pgdg100+1)
 # exit
 $ mkdir database
 $ cd database
-$ docker cp PGIS-12:/tmp/*.sql .
+$ docker cp PGIS-12:/tmp/geodb_ags.sql .
+Successfully copied 6.91MB to /home/ags/docker-arcgis-enterprise/postgis/backup/.
+$ docker cp PGIS-12:/tmp/pgisdb_qgis.sql .
+Successfully copied 12.3kB to /home/ags/docker-arcgis-enterprise/postgis/backup/.
+
 
 RESTORE
 Restore database
