@@ -16,7 +16,6 @@ Successfully copied 6.91MB to /home/ags/docker-arcgis-enterprise/postgis/backup/
 $ docker cp PGIS-12:/tmp/pgisdb_qgis.sql .
 Successfully copied 12.3kB to /home/ags/docker-arcgis-enterprise/postgis/backup/.
 
-
 RESTORE
 Restore database
 ags@agsipsdh:~/sigap_tatakelola/database$ docker exec -it PGIS-12 /bin/bash
