@@ -65,3 +65,7 @@ RUN cp /tmp/index.jsp  /usr/local/tomcat/webapps/ROOT/
 
 CMD /usr/local/tomcat/bin/startup.sh && tail -f /usr/local/tomcat/logs/catalina.out
 
+# Cleanup resources
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
