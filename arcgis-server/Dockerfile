@@ -56,3 +56,9 @@ ADD ags.sh ${HOME}/
 # Command that will be run by default when you do "docker run" 
 # CMD ./start.sh && tail -f ./server/framework/etc/service_error.log
 CMD ./server/startserver.sh && tail -f ./server/framework/etc/service_error.log
+
+# Cleanup resources
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
