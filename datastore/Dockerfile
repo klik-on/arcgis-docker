@@ -43,3 +43,9 @@ ADD UPPER.py UPPER.py
 
 # Command that will be run by default when you do "docker run" 
 CMD ./datastore/startdatastore.sh && tail -f ./datastore/framework/etc/service_error.log
+
+# Cleanup resources
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
