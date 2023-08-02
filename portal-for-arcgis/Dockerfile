@@ -77,3 +77,9 @@ ENV PATH $PATH:${HOME}/portal/framework/runtime/pgsql/bin
 # HEALTHCHECK --interval=60s --timeout=10s --retries=3 CMD curl -sS 127.0.0.1:7080 || exit 1
 
 CMD cd /home/arcgis && ./portal/startportal.sh  && tail -f portal/usr/arcgisportal/logs/service.log
+
+# Cleanup resources
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
