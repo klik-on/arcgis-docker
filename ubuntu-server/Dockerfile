@@ -54,3 +54,8 @@ WORKDIR ${HOME}
 
 # Note the user is still set to root here, we want this so that
 # containers that pull from this one still have root when they start.
+
+# Cleanup resources
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
