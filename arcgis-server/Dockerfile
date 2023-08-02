@@ -3,6 +3,12 @@ LABEL maintainer="abiyasa@gmail.com"
 ENV REFRESHED_AT 2022-10-25
 ENV ESRI_VERSION 10.9.1
 
+# Cleanup resources
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+    
 EXPOSE 6080 6443
 # If you are not using a Docker network to connect containers
 # you might want to expose these ports, too.
@@ -57,8 +63,4 @@ ADD ags.sh ${HOME}/
 # CMD ./start.sh && tail -f ./server/framework/etc/service_error.log
 CMD ./server/startserver.sh && tail -f ./server/framework/etc/service_error.log
 
-# Cleanup resources
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get -y --purge autoremove  \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+
