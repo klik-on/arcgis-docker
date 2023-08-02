@@ -3,6 +3,12 @@ LABEL maintainer="abiyasa@gmail.com"
 ENV REFRESHED_AT 2022-10-25
 ENV ESRI_VERSION 10.9.1
 
+# Cleanup resources
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y --purge autoremove  \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Port information: http://server.arcgis.com/en/portal/latest/install/windows/ports-used-by-portal-for-arcgis.htm
 EXPOSE 7080 7443
 
@@ -78,8 +84,3 @@ ENV PATH $PATH:${HOME}/portal/framework/runtime/pgsql/bin
 
 CMD cd /home/arcgis && ./portal/startportal.sh  && tail -f portal/usr/arcgisportal/logs/service.log
 
-# Cleanup resources
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get -y --purge autoremove  \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
