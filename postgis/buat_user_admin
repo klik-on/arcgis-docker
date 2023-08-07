@@ -1,0 +1,11 @@
+# su postgres
+$ psql
+postgres=# CREATE DATABASE tutorial_postgis;
+postgres=# CREATE ROLE admin_db;
+postgres=# ALTER DATABASE tutorial_postgis OWNER TO admin_db;
+postgres=# ALTER ROLE admin_db WITH SUPERUSER LOGIN;
+postgres=# ALTER ROLE admin_db WITH PASSWORD '12345';
+postgres=# \c tutorial_postgis 
+tutorial_postgis=# CREATE EXTENSION postgis;
+tutorial_postgis=# \q
+$ exit
