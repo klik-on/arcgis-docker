@@ -1,3 +1,6 @@
+Reff:
+https://github.com/GUI/postgis-docker/tree/main
+
 # su postgres
 $ psql
 postgres=# CREATE DATABASE tutorial_postgis;
