@@ -2,6 +2,15 @@ $ ssh arcgis@172.16.2.139
 $ wget https://github.com/Esri/resource-proxy/archive/refs/tags/v1.1.2.zip
 $ unzip v1.1.2.zip
 $ cd resource-proxy-1.1.2
+$ vi ./Java/proxy.jsp ==> sesuaikan
+   //Line 106
+   //set the default values
+   //String PROXY_REFERER = "http://localhost/proxy.jsp";
+   //String DEFAULT_OAUTH = "https://www.arcgis.com/sharing/oauth2/";
+    String PROXY_REFERER = "http://geoportal.menlhk.go.id/Java/proxy.jsp";
+    String DEFAULT_OAUTH = "https://geoportal.menlhk.go.id/portal/sharing/rest/oauth2/";
+    int CLEAN_RATEMAP_AFTER = 10000;
+
 $ docker cp Java WEBADAPTOR:/usr/local/tomcat/webapps
 Successfully copied 60.4kB to WEBADAPTOR:/usr/local/tomcat/webapps
 
