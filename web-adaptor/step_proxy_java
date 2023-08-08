@@ -43,8 +43,9 @@ root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/clas
 >
   <serverUrls>
     <serverUrl url="https://geoportal.menlhk.go.id"
-                           matchAll="true"
-                           username="publik" password="KLHK12345678"
+                            matchAll="true"
+                            username="publik"
+                            password="KLHK12345678"
                            />
   </serverUrls>
 
