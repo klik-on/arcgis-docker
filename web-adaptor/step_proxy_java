@@ -1,0 +1,31 @@
+$ ssh arcgis@172.16.2.139
+$ wget https://github.com/Esri/resource-proxy/archive/refs/tags/v1.1.2.zip
+$ unzip v1.1.2.zip
+$ cd resource-proxy-1.1.2
+$ docker cp Java WEBADAPTOR:/usr/local/tomcat/webapps
+Successfully copied 60.4kB to WEBADAPTOR:/usr/local/tomcat/webapps
+
+https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
+
+https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
+{ "Proxy Version": "1.1.2", "Configuration File": "OK", "Log File": "OK"}
+
+$ unzip Interaktif.zip
+$ vi ./Interaktif/config.json
+
+  "httpProxy": {
+    "useProxy": true,
+    "url": "",
+    "alwaysUseProxy": false,
+    "rules": [
+        {
+            "urlPrefix": "https://geoportal.menlhk.go.id/",
+            "proxyUrl": "https://geoportal.menlhk.go.id/Java/proxy.jsp"
+            }
+
+$ docker cp Interaktif WEBADAPTOR:/usr/local/tomcat/webapps
+Successfully copied 108MB to WEBADAPTOR:/usr/local/tomcat/webapps
+
+Cek masih ERROR
+https://geoportal.menlhk.go.id/Interaktif/
+Unable to load //geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/portal/sharing/rest/portals/self?f=json status: 403
