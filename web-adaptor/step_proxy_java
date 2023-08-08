@@ -13,16 +13,18 @@ https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
 $ unzip Interaktif.zip
 $ vi ./Interaktif/config.json
 
+
   "httpProxy": {
     "useProxy": true,
     "url": "",
     "alwaysUseProxy": false,
-    ## "rules": [
-       "urlUtils.addProxyRule": [
+    "rules":[
         {
             "urlPrefix": "https://geoportal.menlhk.go.id/",
             "proxyUrl": "https://geoportal.menlhk.go.id/Java/proxy.jsp"
             }
+]
+},
 
 $ docker cp Interaktif WEBADAPTOR:/usr/local/tomcat/webapps
 Successfully copied 108MB to WEBADAPTOR:/usr/local/tomcat/webapps
