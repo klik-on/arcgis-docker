@@ -7,7 +7,7 @@ $ vi ./Java/proxy.jsp ==> sesuaikan
    //set the default values
    //String PROXY_REFERER = "http://localhost/proxy.jsp";
    //String DEFAULT_OAUTH = "https://www.arcgis.com/sharing/oauth2/";
-    String PROXY_REFERER = "http://geoportal.menlhk.go.id/Java/proxy.jsp";
+    String PROXY_REFERER = "https://geoportal.menlhk.go.id/Java/proxy.jsp";
     String DEFAULT_OAUTH = "https://geoportal.menlhk.go.id/portal/sharing/rest/oauth2/";
     int CLEAN_RATEMAP_AFTER = 10000;
 
