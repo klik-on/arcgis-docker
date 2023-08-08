@@ -55,6 +55,8 @@ root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/clas
 
 <!-- See https://github.com/Esri/resource-proxy for more information -->
 
+$ docker restart WEBADAPTOR
+
 CEK ==>
 https://geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/server/rest/services/?f=pjson
 https://geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/server/rest/services/SIGAP_Interaktif/?f=pjson
