@@ -21,8 +21,6 @@ https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
 
 $ unzip Interaktif.zip  ==> download dari web app PORTAL
 $ vi ./Interaktif/config.json
-
-
   "httpProxy": {
     "useProxy": true,
     "url": "",
@@ -59,9 +57,7 @@ root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/clas
                             password="KLHK12345678"
                            />
   </serverUrls>
-
 </ProxyConfig>
-
 <!-- See https://github.com/Esri/resource-proxy for more information -->
 
 $ docker restart WEBADAPTOR
