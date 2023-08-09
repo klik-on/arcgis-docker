@@ -51,6 +51,7 @@ COPY nginx*.conf /tmp/
 ADD ArcGIS_Web_Adaptor_Java_Linux_109*.tar.gz /tmp/
 COPY *.pfx /home/
 COPY ./conf/*.xml /tmp/
+COPY ./proxy/ /usr/local/tomcat/webapps/proxy/
 
 EXPOSE 80 443
 
