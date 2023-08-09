@@ -15,8 +15,6 @@ $ docker cp Java WEBADAPTOR:/usr/local/tomcat/webapps
 Successfully copied 60.4kB to WEBADAPTOR:/usr/local/tomcat/webapps
 
 https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
-
-https://geoportal.menlhk.go.id/Java/proxy.jsp?ping
 { "Proxy Version": "1.1.2", "Configuration File": "OK", "Log File": "OK"}
 
 $ unzip Interaktif.zip  ==> download dari web app PORTAL
