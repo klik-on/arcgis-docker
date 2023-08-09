@@ -13,7 +13,7 @@ RUN sed -i "s/redirectPort=\"8443\"//g" /usr/local/tomcat/conf/server.xml
 
 
 # Create and install a self-signed certificate.
-RUN keytool -genkey -alias tomcat -keyalg RSA -keysize 1024 -storetype PKCS12 -keystore /home/wildcard.pfx \
+RUN keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -keystore /home/wildcard.pfx \
     -storepass P4ssw0rd@1 -keypass P4ssw0rd@1 -validity 36500 \
     -dname "CN=*.WEBGIS.LOKAL, OU=IPSDH, O=Kementerian Lingkungan Hidup dan Kehutanan, L=Jakarta Pusat, ST=DKI Jakarta, C=ID"
 # Modify server.xml to activate the TLS service
