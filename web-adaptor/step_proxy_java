@@ -42,20 +42,17 @@ Unable to load //geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.
 
 $ docker exec -it WEBADAPTOR /bin/bash
 root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/classes
-# cp proxy.config proxy.config_ori
 # vi proxy.config
 <?xml version="1.0" encoding="utf-8" ?>
 <ProxyConfig allowedReferers="*"
                 logFile="proxy_log.log"
                 logLevel="INFO"
-                mustMatch="true"
->
+                mustMatch="true">
   <serverUrls>
     <serverUrl url="https://geoportal.menlhk.go.id"
                             matchAll="true"
                             username="publik"
-                            password="KLHK12345678"
-                           />
+                            password="KLHK12345678"/>                           
   </serverUrls>
 </ProxyConfig>
 <!-- See https://github.com/Esri/resource-proxy for more information -->
