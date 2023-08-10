@@ -1,0 +1,269 @@
+Executing: QuickExport 'Database Connections\KLHK- dbspasial2.menlhk.go.id.sde\dbklhk.pktl_ipsdh.Penutupan_Hutan\dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K' POSTGIS,pgisdb,"RUNTIME_MACROS,""STRICT_TEMPORAL_TYPE_HANDLING,Yes,NAMED_CONNECTION,pgisdb,SPATIAL_COLUMN_TYPE,geometry,SPATIAL_COLUMN_NAME,geom,GENERIC_GEOMETRY,yes,LOWERCASE_ATTRIBUTE_NAMES,Yes,COORDINATE_SYSTEM_GRANULARITY,FEATURE_TYPE,ADVANCED,,BULK_COPY,YES,START_TRANSACTION,0,TRANSACTION_INTERVAL,1000,INSERT_TEXT_GEOMETRY,NO,BEGIN_SQL,,END_SQL,"",META_MACROS,""DestSTRICT_TEMPORAL_TYPE_HANDLING,Yes,DestNAMED_CONNECTION,pgisdb,DestSPATIAL_COLUMN_TYPE,geometry,DestSPATIAL_COLUMN_NAME,geom,DestGENERIC_GEOMETRY,yes,DestLOWERCASE_ATTRIBUTE_NAMES,Yes,DestCOORDINATE_SYSTEM_GRANULARITY,FEATURE_TYPE,DestADVANCED,,DestBULK_COPY,YES,DestSTART_TRANSACTION,0,DestTRANSACTION_INTERVAL,1000,DestINSERT_TEXT_GEOMETRY,NO,DestBEGIN_SQL,,DestEND_SQL,"",METAFILE,POSTGIS,COORDSYS,,__FME_DATASET_IS_SOURCE__,false"
+Start Time: Thu Aug 10 15:23:32 2023
+Using translation engine build 20218.
+QuickExport log results will be reported in file: C:\Users\user\AppData\Local\Safe Software\Interoperability\logs\interop-log-20230810-152333-RuntimeLocalServer-1691655813896_5608-QuickExport_001.log
+                FME 2020.0.1.0 (20200407 - Build 20218 - WIN32)
+                    Data Interoperability (node locked-crc)
+                               Permanent License.
+                          Machine host name is: JIGLHK
+          Operating System: Microsoft Windows 10 64-bit  (Build 22621)
+                 Copyright (c) 1994 - 2020, Safe Software Inc.
+                               Safe Software Inc.
+
+
+Python version 3.7 loaded successfully
+Opening ARCGISMAP reader for dataset C:\Users\user\AppData\Local\Safe Software\Interoperability\logs\interop-log-20230810-152333-RuntimeLocalServer-1691655813896_5608-QuickExport_001.mxd
+Creating reader for format: Esri ArcGIS Map Document
+Trying to find a DYNAMIC plugin for reader named `ARCGISMAP'
+Loaded module 'ARCGISMAP' from file 'C:\Program Files (x86)\Esri\Data Interoperability (x86)\plugins/ARCGISMAP.dll'
+FME API version of module 'ARCGISMAP' matches current internal version (3.8 20200115)
+Opening POSTGIS writer for dataset pgisdb
+FME Configuration: Connection Storage: 'C:\Users\user\AppData\Roaming\Safe Software\FME\'
+FME Configuration: Using connection values from 'pgisdb' for W_1
+Creating writer for format: PostGIS
+Trying to find a DYNAMIC plugin for writer named `POSTGIS'
+Loaded module 'POSTGIS' from file 'C:\Program Files (x86)\Esri\Data Interoperability (x86)\plugins/POSTGIS.dll'
+FME API version of module 'POSTGIS' matches current internal version (3.8 20200115)
+FME Configuration: No destination coordinate system set
+Reading schema features
+Creating reader for format: Esri ArcGIS Map Document
+Trying to find a DYNAMIC plugin for reader named `ARCGISMAP'
+FME API version of module 'ARCGISMAP' matches current internal version (3.8 20200115)
+An ArcGIS license is already checked out. The product checked out is 'Advanced'
+The extents of the map are: min x: '92.71394916685004', min y: '-11.840458820199983', max x: '143.3202741481501', max y: '6.752252508200028'
+Only data within the extents of the map will be read
+Merged 1 schema features read from 1 datasets into 1 resulting feature types
+Read 1 schema features
+Reading features
+An ArcGIS license is already checked out. The product checked out is 'Advanced'
+The extents of the map are: min x: '92.71394916685004', min y: '-11.840458820199983', max x: '143.3202741481501', max y: '6.752252508200028'
+Only data within the extents of the map will be read
+Data from invisible layers will be skipped
+Using the selection set to determine which features to read
+R_1 Reader: Using Enhanced Geometry
+None of the layers to be read contain features in the selection set. Therefore all the features in the layers will be read
+The OGC definition of the FME coordinate system '_LL-WGS84_0' is 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]'
+Reading table/layer 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K' ...
+FME Configuration: Source coordinate system for reader R_1[ARCGISMAP] set to `_LL-WGS84_0' as read from input data
+Coordinate System `_LL-WGS84_0' parameters: CS_NAME=`_LL-WGS84_0' DESC_NM=`WGS84 Lat/Longs' DT_NAME=`WGS84' ESRI_WKT=`GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]' GROUP=`LL' MAP_SCL=`1' PROJ=`LL' QUAD=`1' SCL_RED=`1' UNIT=`DEGREE'
+FME API version of module 'POSTGIS' matches current internal version (3.8 20200115)
+FME API version of module 'POSTGIS' matches current internal version (3.8 20200115)
+Opening POSTGIS writer for dataset 'pgisdb'...
+PostGIS client encoding: 'UTF8'
+PostgreSQL 12.15 (Debian 12.15-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+3.3 USE_GEOS=1 USE_PROJ=1 USE_STATS=1
+Testing for the existence of table 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'...
+Creating table 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'...
+POSTGIS Writer: Creating 'unquoted WKB' geometry processor for feature type 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'
+POSTGIS Writer: Creating 'streaming Bulk Copy' feature type processor for feature type 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'
+500 features read
+1000 features read
+Committed transaction at feature '1000'
+1500 features read
+2000 features read
+Committed transaction at feature '2000'
+2500 features read
+3000 features read
+Committed transaction at feature '3000'
+3500 features read
+4000 features read
+Committed transaction at feature '4000'
+4500 features read
+5000 features read
+Committed transaction at feature '5000'
+5500 features read
+6000 features read
+Committed transaction at feature '6000'
+6500 features read
+7000 features read
+Committed transaction at feature '7000'
+7500 features read
+8000 features read
+Committed transaction at feature '8000'
+8500 features read
+9000 features read
+Committed transaction at feature '9000'
+9500 features read
+10000 features read
+Committed transaction at feature '10000'
+10500 features read
+11000 features read
+Committed transaction at feature '11000'
+11500 features read
+12000 features read
+Committed transaction at feature '12000'
+12500 features read
+13000 features read
+Committed transaction at feature '13000'
+13500 features read
+14000 features read
+Committed transaction at feature '14000'
+14500 features read
+15000 features read
+Committed transaction at feature '15000'
+15500 features read
+16000 features read
+Committed transaction at feature '16000'
+16500 features read
+17000 features read
+Committed transaction at feature '17000'
+17500 features read
+18000 features read
+Committed transaction at feature '18000'
+18500 features read
+19000 features read
+Committed transaction at feature '19000'
+19500 features read
+20000 features read
+Committed transaction at feature '20000'
+20500 features read
+21000 features read
+Committed transaction at feature '21000'
+21500 features read
+22000 features read
+Committed transaction at feature '22000'
+22500 features read
+23000 features read
+Committed transaction at feature '23000'
+23500 features read
+24000 features read
+Committed transaction at feature '24000'
+24500 features read
+25000 features read
+Committed transaction at feature '25000'
+25500 features read
+26000 features read
+Committed transaction at feature '26000'
+26500 features read
+27000 features read
+Committed transaction at feature '27000'
+27500 features read
+28000 features read
+Committed transaction at feature '28000'
+28500 features read
+29000 features read
+Committed transaction at feature '29000'
+29500 features read
+30000 features read
+Committed transaction at feature '30000'
+30500 features read
+31000 features read
+Committed transaction at feature '31000'
+31500 features read
+32000 features read
+Committed transaction at feature '32000'
+32500 features read
+33000 features read
+Committed transaction at feature '33000'
+33500 features read
+34000 features read
+Committed transaction at feature '34000'
+34500 features read
+35000 features read
+Committed transaction at feature '35000'
+35500 features read
+36000 features read
+Committed transaction at feature '36000'
+36500 features read
+37000 features read
+Committed transaction at feature '37000'
+37500 features read
+38000 features read
+Committed transaction at feature '38000'
+38500 features read
+39000 features read
+Committed transaction at feature '39000'
+39500 features read
+40000 features read
+Committed transaction at feature '40000'
+40500 features read
+41000 features read
+Committed transaction at feature '41000'
+41500 features read
+42000 features read
+Committed transaction at feature '42000'
+42500 features read
+43000 features read
+Committed transaction at feature '43000'
+43500 features read
+44000 features read
+Committed transaction at feature '44000'
+44500 features read
+45000 features read
+Committed transaction at feature '45000'
+45500 features read
+46000 features read
+Committed transaction at feature '46000'
+46500 features read
+47000 features read
+Committed transaction at feature '47000'
+47500 features read
+48000 features read
+Committed transaction at feature '48000'
+48500 features read
+49000 features read
+Committed transaction at feature '49000'
+49500 features read
+50000 features read
+Committed transaction at feature '50000'
+50500 features read
+51000 features read
+Committed transaction at feature '51000'
+51500 features read
+52000 features read
+Committed transaction at feature '52000'
+52500 features read
+53000 features read
+Committed transaction at feature '53000'
+53500 features read
+54000 features read
+Committed transaction at feature '54000'
+54500 features read
+55000 features read
+Committed transaction at feature '55000'
+55500 features read
+56000 features read
+Committed transaction at feature '56000'
+56500 features read
+57000 features read
+Committed transaction at feature '57000'
+57500 features read
+58000 features read
+Committed transaction at feature '58000'
+58500 features read
+59000 features read
+Committed transaction at feature '59000'
+59500 features read
+60000 features read
+Committed transaction at feature '60000'
+60500 features read
+61000 features read
+Committed transaction at feature '61000'
+61500 features read
+62000 features read
+Committed transaction at feature '62000'
+62500 features read
+63000 features read
+Committed transaction at feature '63000'
+63500 features read
+64000 features read
+Committed transaction at feature '64000'
+Unable to retrieve feature from table/feature class 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'. Aborting reading from table 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'. The error number from ArcObjects is: '-2147155559'
+Reading complete. 64090 features read
+Creating 'GIST' index on column "geom" of table 'dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K'...
+Successfully closed POSTGIS database writer
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Feature output statistics for `POSTGIS' writer using keyword `W_1':
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+                               Features Written
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+dbklhk.pktl_ipsdh.PENUTUPAN_HUTAN_2022_AR_250K                           64090
+==============================================================================
+Total Features Written                                                   64090
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Translation successfully completed
+FME Session Duration: 16 minutes 32.7 seconds. (CPU: 128.7s user, 6.3s system)
+END - ProcessID: 16240, peak process memory usage: 380880 kB, current process memory usage: 198160 kB
+Translation was SUCCESSFUL
+Done Export.  Wrote 64090 features.
+Succeeded at Thu Aug 10 15:40:42 2023 (Elapsed Time: 17 minutes 9 seconds)
