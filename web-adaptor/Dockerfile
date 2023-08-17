@@ -1,4 +1,4 @@
-FROM tomcat:9.0.78-jdk11-temurin-focal
+FROM tomcat:9.0.79-jdk11-temurin-focal
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
 
