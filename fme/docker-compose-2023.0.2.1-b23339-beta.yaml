@@ -1,0 +1,181 @@
+# To disable HTTPS, start with ENV vars WEBPROTOCOL=http EXTERNALPORT=80 and comment port 80 out in the nginx section.
+# Custom HTTPS certificate: Start with ENV var SSLCERTLOCATION=/local/path/to/ssslcert
+
+version: '3.2'
+services:
+  fmeserverdb:
+    image: postgres:11.18-bullseye
+    environment:
+      - POSTGRES_PASSWORD=pgadmin
+    volumes:
+      - 'database:/var/lib/postgresql/data'
+    restart: always
+    networks:
+      - database
+    healthcheck:
+      test: pg_isready --host fmeserverdb -U fmeserver || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  fmeservercore:
+    image: 'docker.io/safesoftware/fmeserver-core:23339'
+    environment:
+      - PRIMARY_PROCESS=core
+      - EXTERNALHOSTNAME=${EXTERNALHOSTNAME:-localhost}
+      - EXTERNALPORT=${EXTERNALPORT:-443}
+      - WEBPROTOCOL=${WEBPROTOCOL:-https}
+      - RUNSETUP=true
+      - DEBUGLEVEL=NONE
+    volumes:
+      - 'fmeserver:/data/fmeserverdata'
+    hostname: fmeservercore
+    restart: always
+    healthcheck:
+      test: nc -z fmeservercore 7071 || exit 1
+      interval: 10s
+      timeout: 1s
+      retries: 6
+    depends_on:
+      - fmeserverdb
+      - fmeserverqueue
+      - fmeserverdbinit
+    networks:
+      - database
+      - web
+      - queue
+  fmeserverdbinit:
+    image: 'docker.io/safesoftware/fmeserver-core:23339'
+    networks:
+      - database
+    restart: "no"
+    depends_on:
+      - fmeserverdb
+    environment:
+      - PRIMARY_PROCESS=initpgsql
+      - PGSQLADMINPASSWORD=pgadmin
+  fmeserverwebsocket:
+    image: 'docker.io/safesoftware/fmeserver-core:23339'
+    environment:
+      - PRIMARY_PROCESS=websocket
+    volumes:
+      - 'fmeserver:/data/fmeserverdata'
+    hostname: fmeserverwebsocket
+    restart: always
+    healthcheck:
+      test: nc -z fmeserverwebsocket 7078 || exit 1
+      interval: 10s
+      timeout: 1s
+      retries: 6
+    networks:
+      - web
+  fmeserverqueue:
+    image: 'docker.io/safesoftware/fmeserver-queue:23339'
+    volumes:
+      - 'fmeserver:/data/fmeserverdata'
+    hostname: fmeserverqueue
+    restart: always
+    healthcheck:
+      test: redis-cli -a sozPpbLfgdI9WJoPejNMpSxGw -h fmeserverqueue ping || exit 1
+      interval: 5s
+      timeout: 1s
+      retries: 5
+    networks:
+      - queue
+      - web
+  nginx:
+    image: 'docker.io/safesoftware/fmeserver-nginx-proxy:23339'
+    environment:
+      - EXTERNALHOSTNAME=${EXTERNALHOSTNAME:-localhost}
+      - EXTERNALPORT=${EXTERNALPORT:-443}
+      - WEBPROTOCOL=${WEBPROTOCOL:-https}
+      - NGINX_WORKER_PROCESSES=${NGINX_WORKER_PROCESSES:-1}
+    ports:
+      - '${EXTERNALPORT:-443}:8443'
+      # HTTP to HTTPS port, enable if protocol is https and redirect is requested
+      - 80:8080
+    restart: always
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://nginx:8080/healthz || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    networks:
+      - web
+    volumes:
+      - '${SSLCERTLOCATION:-sslcerts}:/etc/ssl/private'
+    depends_on:
+      - fmeserverweb
+      - fmeserverwebsocket
+      - fmeservercore
+  fmeserverweb:
+    image: 'docker.io/safesoftware/fmeserver-web:23339'
+    volumes:
+      - 'fmeserver:/data/fmeserverdata'
+    environment:
+      - EXTERNALPORT=${EXTERNALPORT:-443}
+      - WEBPROTOCOL=${WEBPROTOCOL:-https}
+      - DEBUGLEVEL=NONE
+    hostname: fmeserverweb
+    restart: always
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://fmeserverweb:8080/ || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    depends_on:
+      - fmeservercore
+    networks:
+      - web
+      - database
+  fmeserverengine:
+    image: 'docker.io/safesoftware/fmeserver-engine:23339'
+    volumes:
+       - 'fmeserver:/data/fmeserverdata'
+    restart: always
+    depends_on:
+      - fmeservercore
+    environment:
+      - EXTERNALPORT=${EXTERNALPORT:-443}
+      - WEBPROTOCOL=${WEBPROTOCOL:-https}
+      - DEBUGLEVEL=NONE
+    # This is to prevent sick engines from generating too many core dump files. Remove this if you would like to enable core dumps by the engine
+    ulimits:
+      core:
+        hard: 0
+        soft: 0
+    networks:
+      - database
+      - web
+
+  # --- Uncomment to deploy Dynamic Engines with FME Server ---
+
+  # fmeserverenginedynamic:
+  #   image: 'docker.io/safesoftware/fmeserver-engine:23339'
+  #   volumes:
+  #      - 'fmeserver:/data/fmeserverdata'
+  #   restart: always
+  #   depends_on:
+  #     - fmeservercore
+  #   environment:
+  #     - EXTERNALHOSTNAME=${EXTERNALHOSTNAME:-localhost}
+  #     - EXTERNALPORT=${EXTERNALPORT:-443}
+  #     - WEBPROTOCOL=${WEBPROTOCOL:-https}
+  #     - ENGINETYPE=DYNAMIC
+  #   networks:
+  #     - database
+  #     - web
+  # -------------------------------------------------------------
+networks:
+  database:
+    driver: bridge
+  web:
+    driver: bridge
+  queue:
+    driver: bridge
+volumes:
+  database:
+    driver: local
+  fmeserver:
+    driver: local
+  sslcerts:
+    driver: local

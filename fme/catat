@@ -1,0 +1,60 @@
+https://community.safe.com/s/article/useful-commands-for-fme-server-for-docker
+$ mkdir fme
+$ cd fme
+$ wget https://downloads.safe.com/fme/2023/platform_independent/docker-compose-2023.0.2.1-b23339-beta.yaml
+$ docker compose -f docker-compose-2023.0.2.1-b23339-beta.yaml up -d
+[+] Running 104/21
+ - fmeserverdb 	13 layers 
+ - fmeserverengine 	15 layers 
+ -  fmeserverqueue 	12 layers 
+ -  fmeservercore Pulled    
+ -  fmeserverweb 	27 layers 
+ -  fmeserverdbinit 	17 layers
+ -  nginx 		12 layers
+ -  fmeserverwebsocket Pulled 
+
+[+] Running 14/14
+ -  Network fme_database            	Created 
+ -  Network fme_web                     	Created 
+ -  Network fme_queue                   	Created  
+ -  Volume "fme_fmeserver"              	Created   
+ -  Volume "fme_sslcerts"               	Created 
+ -  Volume "fme_database"               	Created 
+ -  Container fme-fmeserverdb-1         	Started 
+ -  Container fme-fmeserverqueue-1      	Started  
+ -  Container fme-fmeserverwebsocket-1 	Started 
+ -  Container fme-fmeserverdbinit-1     	Started  
+ -  Container fme-fmeservercore-1       	Started  
+ -  Container fme-fmeserverengine-1     	Started
+ -  Container fme-fmeserverweb-1        	Started  
+ -  Container fme-nginx-1               	Started 
+
+http://localhost
+	u:admin
+	p:admin
+Change password :***
+
+lisence :
+https:/localhost/fmeserver/license
+Request a New License
+Machine Key	: 4290585553
+
+SSL
+$ docker exec -it fme-nginx-1 /bin/bash
+root@26320c8cf88d:/#
+# apt update
+# apt install nano
+# nano /etc/nginx/conf.d/ssl.conf
+ssl_certificate /etc/ssl/private/nginx.crt;
+ssl_certificate_key /etc/ssl/private/nginx.key;
+# ubah menjadi
+ssl_certificate /etc/nginx/ssl/fullchain.pem;
+ssl_certificate_key /etc/nginx/ssl/privkey.pem;
+
+for ssl in *.pem; do
+  docker cp $ssl fme-nginx-1:/etc/nginx/ssl
+done
+
+
+LIB POSTGRESQL
+/usr/lib/postgresql/11/lib
