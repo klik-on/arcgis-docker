@@ -1,0 +1,8 @@
+https://community.safe.com/s/article/example-using-the-clipper-transformer
+
+https://community.safe.com/s/article/How-to-create-an-FME-Web-Connection-for-Esri-ArcGIS-Portal-Feature-Service-OAuth-2-0
+
+https://www-linkedin-com.translate.goog/pulse/what-projected-coordinate-system-should-i-use-ivinny-araujo?trk=article-ssr-frontend-pulse_more-articles_related-content-card&_x_tr_sl=en&_x_tr_tl=id&_x_tr_hl=id&_x_tr_pto=tc
+
+
+https://community.safe.com/s/article/working-with-geodatabase-database-transformers
