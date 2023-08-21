@@ -1,0 +1,13 @@
+https://community.safe.com/s/article/tutorial-getting-started-with-complex-geodatabase
+
+How To Use Feature Caching In FME To Save You Time
+https://www.youtube.com/watch?v=5TDmC-Px38Y
+
+Calculating Area Of Polygons Using FME
+https://www.youtube.com/watch?v=4DkYpPKcI6M
+
+
+
+https://community.safe.com/s/article/example-using-the-clipper-transformer
+https://community.safe.com/s/article/How-to-create-an-FME-Web-Connection-for-Esri-ArcGIS-Portal-Feature-Service-OAuth-2-0
+https://community.safe.com/s/article/working-with-geodatabase-database-transformers
