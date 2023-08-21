@@ -6,6 +6,8 @@ https://www.youtube.com/watch?v=5TDmC-Px38Y
 Calculating Area Of Polygons Using FME
 https://www.youtube.com/watch?v=4DkYpPKcI6M
 
+Normalize Data Using FME Desktop
+https://www.youtube.com/watch?v=3YnryQ7CaYk
 
 
 https://community.safe.com/s/article/example-using-the-clipper-transformer
