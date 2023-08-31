@@ -1,4 +1,5 @@
-FROM kartoza/postgis:12.4 
+# FROM kartoza/postgis:12.4
+FROM postgis/postgis:12-3.4
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
 LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
