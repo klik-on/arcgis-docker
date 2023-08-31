@@ -7,18 +7,19 @@ services:
 
   pgis:
     build: .
-    image: arcgis/pgis:12.4      
+    image: arcgis/pgis:12     
     volumes:
-      - postgis-data:/var/lib/postgresql
+      - postgis-data:/var/lib/postgresql/data
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
       - POSTGRES_DB=pgisdb
       - POSTGRES_USER=docker
-      - POSTGRES_PASS=docker
-      - ALLOW_IP_RANGE=0.0.0.0/0
+      - POSTGRES_PASSWORD=docker
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      # - ALLOW_IP_RANGE=0.0.0.0/0
       # Add extensions you need to be enabled by default in the DB. Default are the five specified below
-      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
-      - RUN_AS_ROOT=true
+      # - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      # - RUN_AS_ROOT=true
     container_name: PGIS-12    
     ports:
       - "5432:5432"
