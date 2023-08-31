@@ -20,7 +20,7 @@ Tambahkan Forward Port dengan nilai 81, dan enable Block Common Exploits.
 ### convert Let's Encrypt certificate to pfx (tomcat)
 $ wget https://raw.githubusercontent.com/klik-on/nginx-arcgis/main/certificate.zip
 $ unzip certificate.zip
-$ openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out fullchain.pfx
+$ openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out wildcard.pfx
 Enter Export Password: P4ssw0rd@1
 Verifying - Enter Export Password: P4ssw0rd@1
 ### atau ****
