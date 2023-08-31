@@ -49,7 +49,7 @@ COPY readme.md /tmp/
 COPY FIXED.txt /tmp/
 COPY nginx*.conf /tmp/
 ADD ArcGIS_Web_Adaptor_Java_Linux_109*.tar.gz /tmp/
-# COPY *.pfx /home/
+COPY wildcard.pfx /home/
 COPY ./conf/*.xml /tmp/
 COPY ./proxy/ /usr/local/tomcat/webapps/proxy/
 
