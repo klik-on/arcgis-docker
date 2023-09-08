@@ -1,8 +1,8 @@
 https://community.safe.com/s/article/useful-commands-for-fme-server-for-docker
 $ mkdir fme
 $ cd fme
-$ wget https://downloads.safe.com/fme/2023/platform_independent/docker-compose-2023.0.2.1-b23339-beta.yaml
-$ docker compose -f docker-compose-2023.0.2.1-b23339-beta.yaml up -d
+$ wget https://downloads.safe.com/fme/2023/platform_independent/docker-compose-2023.1-b23619-beta.yaml
+$ docker compose -f docker-compose-2023.1-b23619-beta.yaml up -d
 [+] Running 104/21
  - fmeserverdb 	13 layers 
  - fmeserverengine 	15 layers 
@@ -57,4 +57,6 @@ done
 
 
 LIB POSTGRESQL
+$ docker exec -it fme-fmeserverdb-1 /bin/bash
+# pg_config --pkglibdir
 /usr/lib/postgresql/11/lib
