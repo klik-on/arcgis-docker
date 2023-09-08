@@ -60,9 +60,12 @@ for ssl in nginx.*; do
   docker cp $ssl fme-nginx-1:/etc/ssl/private
 done
 
-
-
 LIB POSTGRESQL
 $ docker exec -it fme-fmeserverdb-1 /bin/bash
 root@10f58340ba14:/#  pg_config --pkglibdir
 /usr/lib/postgresql/11/lib
+
+# lib ArcGIS Desktop 10.8.2
+for pg_ags in ./lib/*.so; do
+  docker cp $pg_ags PGSQL-11:/usr/lib/postgresql/11/lib 
+done
