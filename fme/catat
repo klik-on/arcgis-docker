@@ -55,8 +55,14 @@ for ssl in *.pem; do
   docker cp $ssl fme-nginx-1:/etc/nginx/ssl
 done
 
+### atau langsung rename fullchain.pem,privkey.pem jadi nginx.crt,nginx.key
+for ssl in nginx.*; do
+  docker cp $ssl fme-nginx-1:/etc/ssl/private
+done
+
+
 
 LIB POSTGRESQL
 $ docker exec -it fme-fmeserverdb-1 /bin/bash
-# pg_config --pkglibdir
+root@10f58340ba14:/#  pg_config --pkglibdir
 /usr/lib/postgresql/11/lib
