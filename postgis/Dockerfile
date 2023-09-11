@@ -1,5 +1,6 @@
 # FROM kartoza/postgis:12.4
 FROM postgis/postgis:12-3.4
+ENV TZ Asia/Jakarta
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
 LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
