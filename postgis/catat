@@ -1,0 +1,17 @@
+-overwrite (erases any mess you may have already inserted) and
+-progress (displays a dot or number for every 10,000 or 10% records added):
+--config PG_USE_COPY YES (greatly improves speed)
+
+ogr2ogr 
+    -f "PostgreSQL" 
+    PG:"host=localhost port=5432 dbname=SampleNY user=postgres" 
+    NYPluto/Pluto.gdb 
+    -overwrite -progress --config PG_USE_COPY YES
+
+If there are multiple features in the gdb and you want to specify the Postgres schema and table names then follow:
+#First get the featurenames from the gdb:
+ogrinfo geodbname.gdb
+
+#then import a feature into a table:
+ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres" geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
+
