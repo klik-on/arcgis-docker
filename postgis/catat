@@ -15,3 +15,8 @@ ogrinfo geodbname.gdb
 #then import a feature into a table:
 ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres" geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
 
+Type the following command in cmd terminal (Start >> run cmd)
+ogr2ogr -f "PostgreSQL" “PG:host=[host] port=[port] dbname=[dbName] user=[user]" “[PathtoFileGDB]” -overwrite -skipfailures –progress --config PG_USE_COPY YES
+Example:
+ogr2ogr –f “PostgreSQL” “PG:host=localhost port=5432 dbname=CCHGIS user=postgres” “C:\Temp\CCH_HoLIS_PostGIS.gdb” –overwrite –skipfailures -progress –-ogr2ogrconfig PG_USE_COPY YES
+
