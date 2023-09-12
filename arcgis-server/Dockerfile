@@ -1,4 +1,5 @@
-From arcgis/ubuntu-server:latest
+FROM arcgis/ubuntu-server:latest
+ENV TZ Asia/Jakarta
 LABEL maintainer="abiyasa@gmail.com"
 ENV REFRESHED_AT 2022-10-25
 ENV ESRI_VERSION 10.9.1
