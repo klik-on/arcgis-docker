@@ -1,5 +1,6 @@
 FROM arcgis/ubuntu-server:latest
-#FROM ubuntu:22.04
+ENV TZ Asia/Jakarta
+
 LABEL maintainer="abiyasa@gmail.com"
 ENV REFRESHED_AT 2022-10-25
 ENV ESRI_VERSION 10.9.1
