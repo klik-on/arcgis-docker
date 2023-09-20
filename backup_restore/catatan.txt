@@ -1,0 +1,11 @@
+$ docker images
+$ docker save -o datastore.tar arcgis/datastore
+$ docker save -o ags_portal.tar arcgis/portal
+$ docker save -o ags_server.tar arcgis/server
+
+$ ls -lh
+$ docker load < datastore.tar
+$ docker load < ags_portal.tar
+$ docker load < ags_server.tar
+
+$ docker compose up -d
