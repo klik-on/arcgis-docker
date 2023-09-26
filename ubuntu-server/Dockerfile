@@ -1,22 +1,26 @@
 FROM ubuntu:focal
 LABEL maintainer="abiyasa@gmail.com"
-ENV REFRESHED_AT 2022-10-26
+ENV REFRESHED_AT 2023-09-26
 
 ENV RELEASE=focal
 # "focal" is currently the latest LTS (Long Term Support) release.
 RUN apt-get update && apt-get -yq install apt-utils locales tzdata
-ENV TZ="Asia/Jakarta"
 
 # Set up the locale. 
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
+# Set Timezone
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
 # The gettext package is needed to install ArcGIS Server,
 # Others can be convenient
-RUN apt-get -y install gettext less vim net-tools unzip
+RUN apt-get -yq install gettext less vim net-tools unzip
 
 # Some useful tools; can't go far without python.
-RUN apt-get -y install bind9-host iputils-ping wget python3 python3-pip 
+RUN apt-get -yq install bind9-host iputils-ping wget python3 python3-pip 
 RUN ln -s /etc/alternatives/python /usr/bin/python &&\
     ln -s /usr/bin/python3 /etc/alternatives/python
 
@@ -42,7 +46,7 @@ RUN pip install --upgrade pip && pip install requests
 RUN echo "vm.max_map_count = 262144\nvm.swappiness = 1" >> /etc/sysctl.conf
 
 # These are needed by Portal For ArcGIS
-RUN apt-get -y install libice6 libsm6 libxtst6 libxrender1 dos2unix
+RUN apt-get -yq install libice6 libsm6 libxtst6 libxrender1 dos2unix
 
 # Create the user/group who will run ArcGIS services
 # I set them to my own UID/GID so that the VOLUMES I create will be read/write
@@ -55,7 +59,7 @@ WORKDIR ${HOME}
 # containers that pull from this one still have root when they start.
 
 # Cleanup resources
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get -y --purge autoremove  \
+RUN apt-get update && apt-get -yq upgrade
+RUN apt-get -yq --purge autoremove  \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
