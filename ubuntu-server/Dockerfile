@@ -4,9 +4,8 @@ ENV REFRESHED_AT 2022-10-26
 
 ENV RELEASE=focal
 # "focal" is currently the latest LTS (Long Term Support) release.
-ENV TZ=Asia/Jakarta
-
-RUN apt-get update && apt-get -y install apt-utils locales 
+RUN apt-get update && apt-get -yq install apt-utils locales tzdata
+ENV TZ="Asia/Jakarta"
 
 # Set up the locale. 
 RUN locale-gen en_US.UTF-8
