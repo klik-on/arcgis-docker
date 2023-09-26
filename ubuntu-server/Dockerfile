@@ -1,9 +1,9 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 LABEL maintainer="abiyasa@gmail.com"
 ENV REFRESHED_AT 2023-09-26
 
-ENV RELEASE=focal
-# "focal" is currently the latest LTS (Long Term Support) release.
+ENV RELEASE=jammy
+# "jammy" is currently the latest LTS (Long Term Support) release.
 RUN apt-get update && apt-get -yq install apt-utils locales tzdata
 
 # Set up the locale. 
