@@ -9,7 +9,8 @@ LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
 COPY ./lib/* /usr/lib/postgresql/12/lib
 
 # Update apt-get and instal some tools
-RUN apt-get update && apt install -yq tzdata
+RUN apt update && apt upgrade -yq
+RUN apt install -yq tzdata
 # Set Timezone
 ENV TZ=Asia/Jakarta
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
