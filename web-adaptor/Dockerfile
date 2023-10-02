@@ -38,8 +38,12 @@ RUN sed -i 's|</web-app>|    <security-constraint>\n \
 RUN /usr/local/tomcat/bin/shutdown.sh
 
 # Update apt-get and instal some tools
-RUN apt-get update && apt install -y iputils-ping vim
+RUN apt-get update && apt install -y iputils-ping vim tzdata
 
+# Set Timezone
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 # start for arcgis webadaptor
 COPY wa_run /tmp/
