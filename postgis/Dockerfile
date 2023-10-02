@@ -1,6 +1,5 @@
 # FROM kartoza/postgis:12.4
 FROM postgis/postgis:12-3.4
-# ENV TZ Asia/Jakarta
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
 LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
@@ -8,6 +7,13 @@ LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
           description="This is for Klik.On"
 
 COPY ./lib/* /usr/lib/postgresql/12/lib
+
+# Update apt-get and instal some tools
+RUN apt-get update && apt install -yq tzdata
+# Set Timezone
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Cleanup resources
 RUN apt-get -y --purge autoremove  \
