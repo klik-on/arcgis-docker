@@ -2,10 +2,66 @@ $ docker images
 $ docker save -o datastore.tar arcgis/datastore
 $ docker save -o ags_portal.tar arcgis/portal
 $ docker save -o ags_server.tar arcgis/server
+$ docker save -o webadaptor.tar arcgis/webadaptor
 
 $ ls -lh
 $ docker load < datastore.tar
 $ docker load < ags_portal.tar
 $ docker load < ags_server.tar
+$ docker load < webadaptor.tar
 
 $ docker compose up -d
+Running 4/4
+    Network bck_webgis   Created                                                                                     
+    Container PORTAL     Started                                                                                    
+    Container SERVER     Healthy                                                                                    
+    Container DATASTORE  Started 
+$ docker ps
+$ docker exec -it SERVER bash
+ArcGIS Server$ 
+ArcGIS Server$ ./ags.sh
+My hostname is SERVER.WEBGIS.LOKAL ...
+Starting the ArcGIS Software Authorization Wizard
+Run this script with -h for additional information.
+Product          Ver   ECP#           Expires
+
+The ArcGIS Server is configured successfully.
+You will be able to access ArcGIS Server Manager by navigating to
+https://server.webgis.lokal:6443/arcgis/manager
+The createsite utility completed successfully.
+Stopping the createsite utility.
+ArcGIS Server$ exit
+
+$ docker exec -it PORTAL bash
+My hostname is PORTAL.WEBGIS.LOKAL
+Moved .ESRI.properties.*.10.9.1 to .ESRI.properties.PORTAL.WEBGIS.LOKAL.10.9.1
+ArcGISPortal$
+ArcGISPortal$ ./ap.sh
+Clearing out previous data
+Configuring the portal
+The portal is created successfully.
+Waiting for the portal to restart.
+Populating the portal license.
+You may access the portal by navigating to:
+https://PORTAL.WEBGIS.LOKAL:7443/arcgis/home
+The createportal utility completed successfully.
+Stopping the createportal utility.
+ArcGISPortal$ exit
+
+### WEBADAPTOR
+...bck/web-adaptor$ docker compose up -d
+Running 1/1
+Container WEBADAPTOR  Started
+
+$ docker exec -it WEBADAPTOR bash
+root@agsipsdh:/usr/local/tomcat# 
+# cd /tmp
+# ./as_wa.sh
+Successfully Registered.
+# ./ap_wa.sh
+Successfully Registered.
+
+https://domain_name
+Sign In  
+User	: portaladmin
+Pass 	: *****
