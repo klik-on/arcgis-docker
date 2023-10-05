@@ -87,4 +87,7 @@ ArcGIS Server$ ./a.sh
   Verifying Patch installation ...
   Starting ArcGIS Server ...
 
+$ docker cp patch PORTAL:/tmp
+Successfully copied 2.4GB to PORTAL:/tmp
+$ docker cp patch DATASTORE:/tmp
 
