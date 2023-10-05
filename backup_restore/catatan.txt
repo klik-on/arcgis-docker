@@ -89,5 +89,8 @@ ArcGIS Server$ ./a.sh
 
 $ docker cp patch PORTAL:/tmp
 Successfully copied 2.4GB to PORTAL:/tmp
+$ docker exec -it PORTAL bash
+$ cd /tmp/patch/
+$ ./a.sh
 $ docker cp patch DATASTORE:/tmp
 
