@@ -53,6 +53,10 @@ ArcGISPortal$ exit
 Running 1/1
 Container WEBADAPTOR  Started
 
+### federate server
+Service URL https://agsipsdh.ddns.net/server
+Administration URL https://SERVER.WEBGIS.LOKAL:6443/arcgis
+
 $ docker exec -it WEBADAPTOR bash
 root@agsipsdh:/usr/local/tomcat# 
 # cd /tmp
