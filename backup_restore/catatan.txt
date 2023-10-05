@@ -70,6 +70,11 @@ Sign In
 User	: portaladmin
 Pass 	: *****
 
+$ docker exec -it DATASTORE bash
+My hostname is DATASTORE.WEBGIS.LOKAL
+Moved .ESRI.properties.*.10.9.1 to .ESRI.properties.DATASTORE.WEBGIS.LOKAL.10.9.1
+Data Store$ ./ds.sh
+
 ### UPDATE PATCH
 $ docker cp patch SERVER:/tmp
 Successfully copied 707MB to SERVER:/tmp
