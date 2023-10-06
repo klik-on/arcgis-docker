@@ -73,4 +73,5 @@ CMD /usr/local/tomcat/bin/startup.sh && tail -f /usr/local/tomcat/logs/catalina.
 # Cleanup resources
 RUN apt-get -y --purge autoremove  \
     && apt-get clean \
+    && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/*
