@@ -41,3 +41,9 @@ bd7458f424bf     arcgis/datastore:10.9.1         "/bin/sh -c './datas…"   24 h
 
 $ docker stop DATASTORE
 $ docker rm DATASTORE
+
+### opsional
+$ docker container commit -a "WEBADAPTOR" -m "Changed default WEBADAPTOR" WEBADAPTOR webadaptor_updt
+$ docker images
+REPOSITORY                  TAG       IMAGE ID       CREATED             SIZE
+webadaptor_updt             latest    a0c6c4e45e15   3 minutes ago       867MB
