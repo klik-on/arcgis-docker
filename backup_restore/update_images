@@ -18,27 +18,26 @@ $ docker cp index.html nginx_base:/usr/share/nginx/html/index.html
 
 ## Create an Image From a Container
 docker ps -a
-CONTAINER ID   IMAGE                           COMMAND                  CREATED        STATUS                  PORTS                                                      NAMES
-bd7458f424bf   arcgis/datastore:10.9.1         "/bin/sh -c './datas…"   24 hours ago   Up 21 hours (healthy)   0.0.0.0:2443->2443/tcp, 0.0.0.0:9876->9876/tcp             DATASTORE
+CONTAINER ID   IMAGE                           COMMAND                  CREATED        STATUS                  PORTS                                                 NAMES
+bd7458f424bf   arcgis/datastore:10.9.1         "/bin/sh -c './datas…"   24 hours ago   Up 21 hours (healthy)   0.0.0.0:2443->2443/tcp, 0.0.0.0:9876->9876/tcp        DATASTORE
 $ docker commit DATASTORE
 sha256:6dd07620ef9f7e07b8dcd52a7d1c4848832064fcee2ba07329ba7e18bc757fd2
-
 $ docker images -a
 REPOSITORY                	TAG       		IMAGE ID       	CREATED          	SIZE
-<none>                      		<none>    		6dd07620ef9f   	56 seconds ago   	7.61GB
+<none>                      <none>    		6dd07620ef9f   	56 seconds ago   	7.61GB
 
 ## Tag the Image
 $ docker tag 6dd07620ef9f datastore_patch
 $ docker images -a
-REPOSITORY                TAG       IMAGE ID        	 CREATED          	SIZE
-datastore_patch             latest    6dd07620ef9f   	21 minutes ago   	7.61GB
+REPOSITORY                TAG       IMAGE ID        CREATED          	SIZE
+datastore_patch           latest    6dd07620ef9f   	21 minutes ago   	7.61GB
 
 $ docker commit DATASTORE datastore_patch
 
 ## Delete the Original Container
 $ docker ps
-CONTAINER ID   IMAGE                                     COMMAND                  CREATED        STATUS                      PORTS                                                     			 NAMES
-bd7458f424bf     arcgis/datastore:10.9.1         "/bin/sh -c './datas…"   24 hours ago   Up 22 hours (healthy)   0.0.0.0:2443->2443/tcp, 0.0.0.0:9876->9876/tcp             	DATASTORE
+CONTAINER ID     IMAGE                           COMMAND                  CREATED        STATUS                  PORTS                                              NAMES
+bd7458f424bf     arcgis/datastore:10.9.1         "/bin/sh -c './datas…"   24 hours ago   Up 22 hours (healthy)   0.0.0.0:2443->2443/tcp, 0.0.0.0:9876->9876/tcp     DATASTORE
 
 $ docker stop DATASTORE
 $ docker rm DATASTORE
