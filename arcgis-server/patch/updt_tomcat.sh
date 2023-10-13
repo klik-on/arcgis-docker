@@ -1,3 +1,4 @@
+docker exec -it SERVER /bin/bash
  /home/arcgis/server/framework/runtime/tomcat/bin/version.sh
 
 tver='9.0.82'
