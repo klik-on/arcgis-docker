@@ -56,6 +56,7 @@ ADD ArcGIS_Web_Adaptor_Java_Linux_109*.tar.gz /tmp/
 COPY wildcard.pfx /home/
 COPY ./conf/*.xml /tmp/
 COPY ./proxy/ /usr/local/tomcat/webapps/proxy/
+COPY updt_tomcat.sh /usr/local/tomcat/temp/
 
 EXPOSE 80 443
 
