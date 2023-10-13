@@ -1,4 +1,4 @@
-docker exec -it SERVER /bin/bash
+# docker exec -it SERVER /bin/bash
 /home/arcgis/server/framework/runtime/tomcat/bin/version.sh
 
 tver='9.0.82'
@@ -18,4 +18,3 @@ cp -fv /tmp/apache-tomcat-$tver/lib/*.jar /home/arcgis/server/framework/runtime/
 /home/arcgis/server/startserver.sh
 
 rm -rf /tmp/apache-tomcat-$tver*
-exit
