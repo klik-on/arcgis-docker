@@ -11,6 +11,7 @@ cp -r lib lib_bak
 cp -fv ./temp/apache-tomcat-9.0.82/bin/*.jar ./bin
 cp -fv ./temp/apache-tomcat-9.0.82/lib/*.jar ./lib
 ./bin/version.sh
+rm -rf ./temp/apache-tomcat-$tver*
 
 # exit
 # docker restart WEBADAPTOR
