@@ -18,3 +18,4 @@ cp -fv /tmp/apache-tomcat-$tver/lib/*.jar /home/arcgis/server/framework/runtime/
 /home/arcgis/server/startserver.sh
 
 rm -rf /tmp/apache-tomcat-$tver*
+exit
