@@ -1,5 +1,6 @@
 # docker exec -it SERVER /bin/bash
 # wget https://raw.githubusercontent.com/klik-on/arcgis-docker/main/arcgis-server/patch/updt_tomcat.sh
+# docker restart {SERVER,PORTAL,DATASTORE}
 
 /home/arcgis/server/framework/runtime/tomcat/bin/version.sh
 
