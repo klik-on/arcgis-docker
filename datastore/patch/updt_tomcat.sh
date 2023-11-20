@@ -1,6 +1,6 @@
  /home/arcgis/datastore/framework/runtime/tomcat/bin/version.sh
 
-tver='9.0.82'
+tver='9.0.83'
 cd /tmp
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v$tver/bin/apache-tomcat-$tver.tar.gz
 tar -xvf apache-tomcat-$tver.tar.gz
