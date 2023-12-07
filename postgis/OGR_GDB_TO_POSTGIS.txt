@@ -1,0 +1,58 @@
+https://www.northrivergeographic.com/loading-data-into-postgis-using-ogr/
+#First get the featurenames from the gdb:
+ogrinfo geodbname.gdb
+
+#then import a feature into a table:
+ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres"
+geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
+
+ogr2ogr –f “PostgreSQL” “PG:host=localhost port=5432 dbname=CCHGIS user=postgres” “C:\Temp\CCH_HoLIS_PostGIS.gdb” –overwrite –skipfailures -progress –-ogr2ogrconfig PG_USE_COPY YES
+
+### QGIS=>OSGeo4W Shell
+
+ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
+
+ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
+
+ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_PPKH" user=docker password=docker" "F:\Data_2023\KWSHUTAN_AR_250K.gdb"  -overwrite  -progress -skipfailures
+
+
+https://gdal.org/index.html
+https://download.gisinternals.com/  ==> Binaries GDAL download
+
+POSTGIS TO GDB
+https://sigap.menlhk.go.id/sigap-v3-adminer/
+System		: PoatgreSQL
+Server		: database
+Username	: postgres
+Password	: sigap&forge@2023
+Database	: sigap_trial
+
+### Tunnel ==: Local port forwarding
+Local Client  5432		Remote Server
+			172.16.3.160
+			9043
+
+			SSH Server
+			nfms.menlhk.go.id
+			owrt
+			ipsdh2022
+
+
+ogr2ogr -f "FileGDB" output.gdb PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgis password=sigap&forge@2023 schemas=geo tables=tabel1,table2"
+
+ogr2ogr -f "OpenFileGDB" kws_hutan.gdb PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgres password=sigap&forge@2023 schemas=geo tables=kwshutan_ar_250k" -lco ENCODING=UTF-8 -overwrite -progress
+
+ogr2ogr -f "ESRI Shapefile" test.shp PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgres password=sigap&forge@2023 schemas=geo tables=kwshutan_ar_250k" -lco ENCODING=UTF-8 -overwrite -progress
+
+ogrinfo -so test.gdb deforestasi_2022_ar_250k
+
+#############
+ogr2ogr -f GeoJSON -t_srs EPSG:5070 [outFile.geojson] [inFile.shp] 
+ogr2ogr -f GeoJSON [outFile.geojson] [inFile.geojson] -dialect sqlite -sql "SELECT ST_Union(geometry) as geometry FROM OGRGeoJSON"
+############
+Terapkan buffer tetap ke shapefile ESRI
+ogr2ogr -f "ESRI Shapefile" [outFile.shp] [inFile.shp] -dialect sqlite -sql "select ST_buffer(geometry, [buffer distance]) as geometry FROM [inFile]"
+
+Contoh:
+ogr2ogr -f "ESRI Shapefile" [bufferedFile.shp] [origFile.shp] -dialect sqlite -sql "select ST_buffer(geometry, [1000]) as geometry FROM [origFile]"
