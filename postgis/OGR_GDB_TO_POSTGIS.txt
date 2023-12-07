@@ -6,16 +6,14 @@ ogrinfo geodbname.gdb
 ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres"
 geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
 
-ogr2ogr –f “PostgreSQL” “PG:host=localhost port=5432 dbname=CCHGIS user=postgres” “C:\Temp\CCH_HoLIS_PostGIS.gdb” –overwrite –skipfailures -progress –-ogr2ogrconfig PG_USE_COPY YES
+ogr2ogr â€“f â€œPostgreSQLâ€ â€œPG:host=localhost port=5432 dbname=CCHGIS user=postgresâ€ â€œC:\Temp\CCH_HoLIS_PostGIS.gdbâ€ â€“overwrite â€“skipfailures -progress â€“-ogr2ogrconfig PG_USE_COPY YES
 
 ### QGIS=>OSGeo4W Shell
-
 ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
 
 ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
 
 ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_PPKH" user=docker password=docker" "F:\Data_2023\KWSHUTAN_AR_250K.gdb"  -overwrite  -progress -skipfailures
-
 
 https://gdal.org/index.html
 https://download.gisinternals.com/  ==> Binaries GDAL download
@@ -41,7 +39,7 @@ Local Client  5432		Remote Server
 
 ogr2ogr -f "FileGDB" output.gdb PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgis password=sigap&forge@2023 schemas=geo tables=tabel1,table2"
 
-ogr2ogr -f "OpenFileGDB" kws_hutan.gdb PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgres password=sigap&forge@2023 schemas=geo tables=kwshutan_ar_250k" -lco ENCODING=UTF-8 -overwrite -progress
+ogr2ogr -f "OpenFileGDB" kws_hutan.gdb PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgres password=sigap&forge@2023 schemas=geo tables=kwshutan_ar_250k" -overwrite -progress
 
 ogr2ogr -f "ESRI Shapefile" test.shp PG:"host=127.0.0.1 port=5432 dbname=sigap_trial user=postgres password=sigap&forge@2023 schemas=geo tables=kwshutan_ar_250k" -lco ENCODING=UTF-8 -overwrite -progress
 
