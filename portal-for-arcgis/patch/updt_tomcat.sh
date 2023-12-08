@@ -1,3 +1,4 @@
+# docker exec -it PORTAL /bin/bash
  /home/arcgis/portal/framework/runtime/tomcat/bin/version.sh
 
 tver='9.0.83'
