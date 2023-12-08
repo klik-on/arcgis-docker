@@ -17,9 +17,9 @@ ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schem
 
 ogr2ogr -progress -overwrite -skipfailures -nlt MULTIPOLYGON -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas='LAINNYA' user=docker password=docker" administrasi_ar_desakel.gdb
 
-ogr2ogr -progress -overwrite -t_srs "EPSG:4326" -nlt MULTILINE -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas='LAINNYA' user=docker password=docker" administrasi_ln_kabkota.gdb
+ogr2ogr -progress -overwrite -t_srs "EPSG:4326" -nlt MULTILINESTRING -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas='LAINNYA' user=docker password=docker" administrasi_ln_kabkota.gdb
 
-ogr2ogr -progress -overwrite -t_srs "EPSG:4326" -nlt MULTILINE -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb user=docker password=docker" -nln ADM_KABKOTA_LN -lco SCHEMA=LAINNYA -lco GEOMETRY_NAME=geom administrasi_ln_kabkota.gdb
+ogr2ogr -progress -overwrite -t_srs "EPSG:4326" -nlt MULTILINESTRING -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb user=docker password=docker" -nln ADM_KABKOTA_LN -lco SCHEMA=LAINNYA -lco GEOMETRY_NAME=geom administrasi_ln_kabkota.gdb
 
 ogr2ogr -progress -overwrite -skipfailures -nlt MULTIPOLYGON -lco UPLOAD_GEOM_FORMAT=wkt -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas='LAINNYA' user=docker password=docker" administrasi_ar_desakel.gdb/a0000000a.gdbtable --config OGR_ORGANIZE_POLYGOMS SKIP
 
