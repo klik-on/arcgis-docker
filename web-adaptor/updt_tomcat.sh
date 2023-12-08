@@ -1,4 +1,5 @@
 # docker exec -it WEBADAPTOR /bin/bash
+# wget https://raw.githubusercontent.com/klik-on/arcgis-docker/main/web-adaptor/updt_tomcat.sh
 
 cd /tmp
 tver='9.0.83'
