@@ -1,4 +1,5 @@
 # docker exec -it DATASTORE /bin/bash
+# docker restart {SERVER,PORTAL,DATASTORE}
  /home/arcgis/datastore/framework/runtime/tomcat/bin/version.sh
 
 tver='9.0.83'
