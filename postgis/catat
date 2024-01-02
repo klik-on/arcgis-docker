@@ -16,6 +16,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schem
 ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_IPSDH" user=docker password=docker" "F:\Data_2023\23_10_2023.gdb" "DEFORESTASI_2022_AR_250K" -nln DEF_2022_AR_250K -overwrite  -progress -skipfailure
 
 SHP to  PostGIS
+ogr2ogr -f "ESRI Shapefile" output_2d.shp input_zm.shp -dim 2  ==>3D to 2D
 ogr2ogr -f PostgreSQL PG:"host='localhost' port=5432 dbname=pgisdb user='geoid' password='asdf' osm_nat.shp
 ogr2ogr -f PostgreSQL PG:"host='localhost' port=5432 dbname=pgisdb user='geoid' password='asdf'" -lco FID=id -lco GEOMETRY_NAME=geom -sql "select * from osm_nat where name like 'Bukit%'" osm_nat.shp
 
