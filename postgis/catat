@@ -12,7 +12,7 @@ Run PowerShell
    OpenFileGDB -raster,vector- (rw+v): ESRI FileGDB
 
 GDB to PostGIS
-ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_PPKH" user=docker password=docker" "F:\Data_2023\KWSHUTAN_AR_250K.gdb"  -overwrite  -progress -skipfailures
+ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_PPKH" user=docker password=docker" "F:\Data_2023\KWSHUTAN_AR_250K.gdb"  -overwrite  -progress --config PG_USE_COPY YES
 ogr2ogr -f "PostgreSQL" PG:"host=agsipsdh.ddns.net port=5432 dbname=pgisdb schemas="PKTL_IPSDH" user=docker password=docker" "F:\Data_2023\23_10_2023.gdb" "DEFORESTASI_2022_AR_250K" -nln DEF_2022_AR_250K -overwrite  -progress -skipfailure
 
 SHP to  PostGIS
