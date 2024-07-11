@@ -14,12 +14,6 @@ The postgresql-client-12 package has been added to support ArcGIS 10.9.
 $ apt list -a docker-ce 
 $ VERSION_STRING=5:24.0.7-1 suport limits.conf arcgis soft nofile 65535 arcgis hard nofile 65535 arcgis soft nproc 25059 arcgis hard nproc 25059
 
-$ sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
-$ sudo systemctl status docker
-$ sudo usermod -aG docker ${USER}
-$ su - ${USER}
-$ groups
-
 ## Build
 
 ```bash
@@ -46,5 +40,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> requests.__version__
 '2.25.1'
 >>>
+
+$ sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
+$ sudo systemctl status docker
+$ sudo usermod -aG docker ${USER}
+$ su - ${USER}
+$ groups
 
 ```
