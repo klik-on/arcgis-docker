@@ -11,9 +11,6 @@ to make it easy to use the ArcGIS REST API.
 It creates a user/group called "arcgis/arcgis" with UID/GID of 1000/1000.
 The postgresql-client-12 package has been added to support ArcGIS 10.9.
 
-$ apt list -a docker-ce 
-$ VERSION_STRING=5:24.0.7-1 suport limits.conf arcgis soft nofile 65535 arcgis hard nofile 65535 arcgis soft nproc 25059 arcgis hard nproc 25059
-
 ## Build
 
 ```bash
@@ -41,6 +38,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 '2.25.1'
 >>>
 
+$ apt list -a docker-ce 
+$ VERSION_STRING=5:24.0.7-1~ubuntu.20.04~focal >>> support limit.conf
 $ sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
 $ sudo systemctl status docker
 $ sudo usermod -aG docker ${USER}
