@@ -38,6 +38,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 '2.25.1'
 >>>
 
+$ sudo apt update
 $ apt list -a docker-ce 
 $ VERSION_STRING=5:24.0.7-1~ubuntu.20.04~focal >>> support limit.conf
 $ sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
