@@ -12,3 +12,22 @@ postgres=# \c tutorial_postgis
 tutorial_postgis=# CREATE EXTENSION postgis;
 tutorial_postgis=# \q
 $ exit
+
+
+Kalau restore dari backup 
+$ docker exec -ti PGIS-12 /bin/bash
+root@be5e6b958e5f:/# su postgres
+postgres@be5e6b958e5f:/$ psql -h  127.0.0.1 -U docker -d pgisdb
+psql (12.19 (Debian 12.19-1.pgdg110+1))
+Type "help" for help.
+pgisdb=> ALTER ROLE docker WITH SUPERUSER LOGIN;
+ERROR:  must be superuser to alter superusers
+
+$ psql -h  127.0.0.1 -U sde -d geodb
+psql (12.19 (Debian 12.19-1.pgdg110+1))
+Type "help" for help.
+
+geodb=# ALTER ROLE docker WITH SUPERUSER LOGIN;
+ALTER ROLE
+geodb=# \q
+postgres@be5e6b958e5f:/$ exit
