@@ -2,6 +2,7 @@
 # wget https://raw.githubusercontent.com/klik-on/arcgis-docker/main/web-adaptor/updt_tomcat.sh
 # cari file ukuran besar
 # du -csh log/
+# du -ahx / | sort -rh | head -10
 # find / -xdev -type f -size +10M -exec du -sh {} ';' | sort -rh | head -n10
 
 
