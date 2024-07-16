@@ -1,5 +1,5 @@
 unregister webadaptor dan unfederate
-add ...system32/drivers/etc/hosts
+add ...system32/drivers/etc/hosts  > Local port forwarding  >> 7443,6443
 127.0.0.1  PORTAL.WEBGIS.LOKAL
 127.0.0.1  SERVER.WEBGIS.LOKAL
 127.0.0.1  DATASTORE.WEBGIS.LOKAL
