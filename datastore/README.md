@@ -78,7 +78,7 @@ You have to do those steps manually now.
 
 ## vi .env untuk docker compose
 AGE_USER=siteadmin
-AGE_PASSWORD=ipsdh2022
+AGE_PASSWORD=TEST2022
 
 AGE_SERVER=server.arcgis.lan
 AGE_PORTAL=portal.arcgis.lan
