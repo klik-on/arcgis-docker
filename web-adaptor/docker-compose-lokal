@@ -6,12 +6,11 @@ services:
     build: .
     image: arcgis/webadaptor:10.9.1
     restart: always
-    hostname: geoportal.menlhk.go.id
+    hostname: wbgis.ddns.net
     network_mode: host
     container_name: WEBADAPTOR
     extra_hosts:
-      - "SERVER.WEBGIS.LOKAL:1.1.3.26"
-      - "PORTAL.WEBGIS.LOKAL:1.1.3.26"
-      - "DATASTORE.WEBGIS.LOKAL:1.1.3.26"
-      - "dbspasial2.menlhk.go.id:172.16.2.142"
-      - "dbspasial1.menlhk.go.id:172.16.2.140"
+      - "SERVER.WEBGIS.LOKAL:10.10.3.2"
+      - "PORTAL.WEBGIS.LOKAL:10.10.3.2"
+      - "DATASTORE.WEBGIS.LOKAL:10.10.3.2"
+
