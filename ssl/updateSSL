@@ -39,20 +39,20 @@ $ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cer
      </security-constraint>
 
 SSL Update Portal for ArcGIS
-https://sigap.menlhk.go.id:7443/arcgis/portaladmin/
+https://wbgis.ddns.net:7443/arcgis/portaladmin/
 	user  :  adminportal
-	pass : GISportalsigap2021
-Home > Machines > SIGAP...> SSLCertificates > Import Existing Server Certificate
+	pass : TEST2021
+Home > Machines > GAP...> SSLCertificates > Import Existing Server Certificate
 	Certificate password : P4ssw0rd@1
-	Alias : menlhk2023
-	File : star_menlhk_go_id_.pfx
-Home > Machines > SIGAP...> SSLCertificates > Update
+	Alias : WBGIS
+	File : wbgis.ddns.net_.pfx
+Home > Machines > GAP...> SSLCertificates > Update
 	Web server SSL Certifiate:* : menlhk2023
 	SSL Protocols : TLSv1.2, TLSv1.3
 	SSL Cipher Suites : TLS_...TLS_
   Klik #Update#
 
 SSL Update ArcGIS Server
-https://sigap.menlhk.go.id:6443/arcgis/admin/
+https://wbgis.ddns.net/arcgis/admin/
 	user  :  adminsite
-	pass : GISsigap2021
+	pass : TEST2021
