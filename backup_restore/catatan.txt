@@ -10,6 +10,13 @@ $ docker load < ags_portal.tar
 $ docker load < ags_server.tar
 $ docker load < webadaptor.tar
 
+# atau
+S vi ags# vi ags_restore.sh
+for patchfile in ags_*.tar; do
+    docker load < $patchfile
+done
+S ./ags_restore.sh
+
 $ docker compose up -d
 Running 4/4
     Network bck_webgis   Created                                                                                     
