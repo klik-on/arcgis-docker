@@ -26,7 +26,7 @@ Verifying - Enter Export Password: P4ssw0rd@1
 ### atau ****
 # Export PFX into /tmp/wildcard.pfx
 $ openssl pkcs12 -export -out /tmp/wildcard.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
-$ sudo openssl pkcs12 -export -out wildcard.pfx -inkey star.menlhk.go.id.key -in serverCert.crt -certfile star.menlhk.nginx.pem
+$ sudo openssl pkcs12 -export -out wildcard.pfx -inkey wbgis.ddns.net.key -in serverCert.crt -certfile wbgis.ddns.net.pem
 $ docker cp /tmp/wildcard.pfx WEBADAPTOR:/home
 
 $ docker cp wildcard.pfx WEBADAPTOR:/home
