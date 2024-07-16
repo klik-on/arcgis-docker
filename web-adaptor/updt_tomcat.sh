@@ -1,5 +1,8 @@
 # docker exec -it WEBADAPTOR /bin/bash
 # wget https://raw.githubusercontent.com/klik-on/arcgis-docker/main/web-adaptor/updt_tomcat.sh
+# cari file ukuran besar
+# find / -xdev -type f -size +10M -exec du -sh {} ';' | sort -rh | head -n10
+
 
 cd /tmp
 tver='9.0.91'
