@@ -6,10 +6,10 @@ services:
     build: .
     image: arcgis/webadaptor:10.9.1
     restart: always
-    hostname: agsipsdh.ddns.net
+    hostname: wbgis.ddns.net
     container_name: WEBADAPTOR
     environment:
-      -  HOST_IP_ADDRESS=103.52.213.191
+      -  HOST_IP_ADDRESS=10.10.10.3
     ports:
       -  "80:80"
       -  "443:443"
