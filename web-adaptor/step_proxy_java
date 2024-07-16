@@ -1,4 +1,4 @@
-$ ssh arcgis@172.16.2.139
+$ ssh arcgis@10.10.10.3
 $ wget https://github.com/Esri/resource-proxy/archive/refs/tags/v1.1.2.zip
 $ unzip v1.1.2.zip
 $ cd resource-proxy-1.1.2
@@ -7,8 +7,8 @@ $ vi ./Java/proxy.jsp ==> sesuaikan
    //set the default values
    //String PROXY_REFERER = "http://localhost/proxy.jsp";
    //String DEFAULT_OAUTH = "https://www.arcgis.com/sharing/oauth2/";
-    String PROXY_REFERER = "https://geoportal.menlhk.go.id/Java/proxy.jsp";
-    String DEFAULT_OAUTH = "https://geoportal.menlhk.go.id/portal/sharing/rest/oauth2/";
+    String PROXY_REFERER = "https://wbgis.ddns.net/Java/proxy.jsp";
+    String DEFAULT_OAUTH = "https://wbgis.ddns.net/portal/sharing/rest/oauth2/";
     int CLEAN_RATEMAP_AFTER = 10000;
 
 $ docker cp Java WEBADAPTOR:/usr/local/tomcat/webapps
@@ -25,8 +25,8 @@ $ vi ./Interaktif/config.json
     "alwaysUseProxy": false,
     "rules":[
         {
-            "urlPrefix": "https://geoportal.menlhk.go.id/",
-            "proxyUrl": "https://geoportal.menlhk.go.id/Java/proxy.jsp"
+            "urlPrefix": "https://wbgis.ddns.net/",
+            "proxyUrl": "https://wbgis.ddns.net/Java/proxy.jsp"
             }
 ]
 },
@@ -35,8 +35,8 @@ $ docker cp Interaktif WEBADAPTOR:/usr/local/tomcat/webapps
 Successfully copied 108MB to WEBADAPTOR:/usr/local/tomcat/webapps
 
 Cek masih ERROR kalau pakai ## "rules": [
-https://geoportal.menlhk.go.id/Interaktif/
-Unable to load //geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/portal/sharing/rest/portals/self?f=json status: 403
+https://wbgis.ddns.net/Interaktif/
+Unable to load //wbgis.ddns.net/Java/proxy.jsp?https://wbgis.ddns.net/portal/sharing/rest/portals/self?f=json status: 403
 
 $ docker exec -it WEBADAPTOR /bin/bash
 root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/classes
@@ -47,10 +47,10 @@ root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/clas
                 logLevel="INFO"
                 mustMatch="true">
   <serverUrls>
-    <serverUrl url="https://geoportal.menlhk.go.id"
+    <serverUrl url="https://wbgis.ddns.net"
                             matchAll="true"
                             username="publik"
-                            password="KLHK12345678"/>                           
+                            password="TEST12345678"/>                           
   </serverUrls>
 </ProxyConfig>
 <!-- See https://github.com/Esri/resource-proxy for more information -->
@@ -58,7 +58,7 @@ root@geoportal:/usr/local/tomcat# cd /usr/local/tomcat/webapps/Java/WEB-INF/clas
 $ docker restart WEBADAPTOR
 
 CEK ==>
-https://geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/server/rest/services/?f=pjson
-https://geoportal.menlhk.go.id/Java/proxy.jsp?https://geoportal.menlhk.go.id/server/rest/services/SIGAP_Interaktif/?f=pjson
+https://wbgis.ddns.net/Java/proxy.jsp?https://wbgis.ddns.net/server/rest/services/?f=pjson
+https://wbgis.ddns.net/Java/proxy.jsp?https://wbgis.ddns.net/server/rest/services/Interaktif/?f=pjson
 
 
