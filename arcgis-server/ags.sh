@@ -20,5 +20,5 @@ cd ${HOME}/server/tools
 
 ## Createsite
 cd ${HOME}/server/tools/createsite
-./createsite.sh -u siteadmin -p ipsdh2022 -d ${HOME}/server/usr/directories -c ${HOME}/server/usr/config-store
+./createsite.sh -u siteadmin -p TEST2022 -d ${HOME}/server/usr/directories -c ${HOME}/server/usr/config-store
 
