@@ -24,13 +24,13 @@ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configureweb
 docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal \
  -w https://webadaptor.arcgis.lan/portal/webadaptor \
  -g https://portal.arcgis.lan:7443 \
- -u portaladmin -p ipsdh2022
+ -u portaladmin -p TEST2022
 
 ######
 I also added a property setting to Portal, 
 going to the portaladmin page, system->properties and pasting this in:
 
 https://server.arcgis.lan:6443/arcgis/admin
-  {"WebContextURL":"https://agsipsdh.menlhk.go.id/server"}
+  {"WebContextURL":"https://wbgis.ddns.net/server"}
 https://portal.arcgis.lan:7443/arcgis/portaladmin
-  {"WebContextURL":"https://agsipsdh.menlhk.go.id/portal"}
+  {"WebContextURL":"https://wbgis.ddns.netd/portal"}
