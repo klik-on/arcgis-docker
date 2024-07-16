@@ -19,7 +19,7 @@ arcgis/webadaptor:9.0.68
 docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server \
  -w https://webadaptor.arcgis.lan/server/webadaptor \
  -g https://server.arcgis.lan:6443 \
- -u siteadmin -p ipsdh2022 -a true
+ -u siteadmin -p TEST2022 -a true
 
 docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal \
  -w https://webadaptor.arcgis.lan/portal/webadaptor \
