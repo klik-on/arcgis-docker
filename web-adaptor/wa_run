@@ -10,12 +10,12 @@ arcgis/webadaptor:10.9.1
 docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server \
  -w https://webadaptor.arcgis.lan/server/webadaptor \
  -g https://server.arcgis.lan:6443 \
- -u siteadmin -p ipsdh2022 -a true
+ -u siteadmin -p TEST2022 -a true
 
 docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal \
  -w https://webadaptor.arcgis.lan/portal/webadaptor \
  -g https://portal.arcgis.lan:7443 \
- -u portaladmin -p ipsdh2022
+ -u portaladmin -p TEST2022
 
 docker exec -it webadaptor bash -c "mkdir /usr/local/tomcat/webapps/ROOT"
 docker cp index.jsp webadaptor:/usr/local/tomcat/webapps/ROOT/
