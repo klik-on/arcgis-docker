@@ -15,13 +15,13 @@ docker compose up -d
 
 portainer ==> WEBADAPTOR ==> network samakan
 Container console ==> $ docker exec -it WEBADAPTOR /bin/bash
-root@agsipsdh:/usr/local/tomcat#
+usr/local/tomcat#
 # cd /tmp
 tmp# ./as_wa.sh
 tmp# ./ap_wa.sh
 
 federate server
-Service URL https://agsipsdh.ddns.net/server
+Service URL https://wbgis.ddns.net/server
 Administration URL https://SERVER.WEBGIS.LOKAL:6443/arcgis
 
 Reff:
