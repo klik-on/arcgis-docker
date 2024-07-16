@@ -1,4 +1,9 @@
 unregister webadaptor dan unfederate
+add ...system32/drivers/etc/hosts
+127.0.0.1  PORTAL.WEBGIS.LOKAL
+127.0.0.1  SERVER.WEBGIS.LOKAL
+127.0.0.1  DATASTORE.WEBGIS.LOKAL
+
 ### jika tidak bisa
 1. Go to https://SERVER.WEBGIS.LOKAL:6443/arcgis/admin
 2. Navigate through Security > Config
@@ -8,6 +13,7 @@ This should resolve the issue you are seeing and allow you to federate your serv
 ###
 
 https://portal.webgis.lokal:7443/arcgis/portaladmin
+System > Webadaptor
 https://server.webgis.lokal:6443/arcgis/admin
 
 ### remove images docker
