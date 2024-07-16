@@ -29,19 +29,19 @@ docker run -d --name=webadaptor \
 webadaptor:9.0.68
 
 ### only config http
-$ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server -w http://agsipsdh.menlhk.go.id/arcgis/webadaptor -g http://server.arcgis.lan:6080 -u siteadmin -p ipsdh2022 -a true
+$ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server -w http://wbgis.ddns.net/arcgis/webadaptor -g http://server.arcgis.lan:6080 -u siteadmin -p TEST2022 -a true
 ## https   (config https include http)
 $ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m server \
--w https://agsipsdh.menlhk.go.id/server/webadaptor \
+-w https://wbgis.ddns.net/server/webadaptor \
 -g https://server.arcgis.lan:6443 \
--u siteadmin -p ipsdh2022 -a true
-$ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal -w https://agsipsdh.menlhk.go.id/portal/webadaptor -g https://portal.arcgis.lan:7443 -u portaladmin -p ipsdh2022
+-u siteadmin -p TEST2022 -a true
+$ docker exec -it webadaptor bash /arcgis/webadaptor10.9.1/java/tools/configurewebadaptor.sh -m portal -w https://wbgis.ddns.net/portal/webadaptor -g https://portal.arcgis.lan:7443 -u portaladmin -p TEST2022
 
 
 
 $ docker exec -it webadaptor /bin/bash
 #### Forward to HTTPS/SSL
-                keystoreFile="/home/star.menlhk.go.id.pfx"
+                keystoreFile="/home/wbgis.ddns.net.pfx"
                 keystorePass="123456" />
 # vi conf/web.xml  tekan ]]
 Tambahkan diakhir baris sebelum  tag </web-app>
@@ -70,21 +70,21 @@ Tambahkan diakhir baris sebelum  tag </web-app>
 # vi /etc/nginx/sites-available/virtual.host.conf
 server {
     listen 80;
-   server_name agsipsdh.menlhk.go.id;
+   server_name wbgis.ddns.net;
     return 301 https://$host$request_uri;
 }
 
 server {
 
     listen 443 ssl;
-    server_name agsipsdh.menlhk.go.id;
+    server_name wbgis.ddns.net;
     access_log /var/log/nginx/arcgisserver.access.log;
 
     # Necessary for when people push larger SD files
     client_max_body_size 50M;
 
-    ssl_certificate  /home/ags/ssl_klhk/star.menlhk.go.id_nginx_pem.pem;
-    ssl_certificate_key /home/ags/ssl_klhk/star.menlhk.go.id.key;
+    ssl_certificate  /home/wbgis.ddns.net.pem;
+    ssl_certificate_key /home/wbgis.ddns.net.key;
 
     ssl_session_cache builtin:1000 shared:SSL:10m;
 
@@ -109,7 +109,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass https://127.0.0.1:8443;
         proxy_read_timeout 90;
-        proxy_redirect http://127.0.0.1:8443 https://agsipsdh.menlhk.go.id;
+        proxy_redirect http://127.0.0.1:8443 https://wbgis.ddns.netd;
 
     }
 
@@ -121,7 +121,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass https://127.0.0.1:8443;
         proxy_read_timeout 90;
-        proxy_redirect http://127.0.0.1:8443 https://agsipsdh.menlhk.go.id;
+        proxy_redirect http://127.0.0.1:8443 https://wbgis.ddns.net;
 
     }
 }
