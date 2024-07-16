@@ -53,7 +53,7 @@
   <Service name="Catalina">
     <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
        port="443" maxThreads="200" scheme="https" secure="true" SSLEnabled="true"
-       keystoreFile="/home/star.menlhk.go.id.pfx" keystorePass="P4ssw0rd@1"
+       keystoreFile="/home/wbgis.ddns.net.pfx" keystorePass="P4ssw0rd@1"
        clientAuth="false" sslProtocol="TLS" />
 
     <!--The connectors can use a shared executor, you can define one or more named thread pools-->
