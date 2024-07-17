@@ -10,3 +10,6 @@ docker export app-container | gzip > test-app.tar.gz
 docker import test-app.tar
 ## Image that contains the exported container snapshot.
 cat test-app.tar | docker import - app-snapshot:new
+
+$ docker export DATASTORE | gzip > ags_datastore_170724.gz
+$ zcat ags_datastore_170724.gz | docker import - DATASTORE
