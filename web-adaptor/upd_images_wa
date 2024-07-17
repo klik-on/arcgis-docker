@@ -28,3 +28,7 @@ arcgis/webadaptor   		10.9.1    	dc0e6c7df667   	12 months ago        	851MB
 
 $ docker save -o webadaptor_170724.tar webadaptor_170724
 $ scp webadaptor_170724.tar user@IP:/opt/bck
+
+$ ls -l
+-rw-------. 1 user user 4257404416 Jul 17 07:54 webadaptor_170724.tar
+
