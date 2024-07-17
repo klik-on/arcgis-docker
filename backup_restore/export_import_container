@@ -1,0 +1,12 @@
+https://phoenixnap.com/kb/docker-export
+docker ps -a
+docker export -o app-container test-app.tar
+## Alternatively, use the container ID
+docker export b0ef23dfe352 > test-app.tar
+## Save Docker Container to Compressed Archive with gzip
+docker export app-container | gzip > test-app.tar.gz
+
+## Import Container Snapshot with docker import
+docker import test-app.tar
+## Image that contains the exported container snapshot.
+cat test-app.tar | docker import - app-snapshot:new
