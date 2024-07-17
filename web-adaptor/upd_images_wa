@@ -1,0 +1,30 @@
+$ docker images -a
+REPOSITORY          TAG       IMAGE ID       CREATED         SIZE
+arcgis/webadaptor   10.9.1    dc0e6c7df667   12 months ago   851MB
+
+$ docker ps -a
+CONTAINER ID   IMAGE                      COMMAND                  CREATED         STATUS      PORTS     NAMES
+c7e7df860fc2   arcgis/webadaptor:10.9.1   "/bin/sh -c '/usr/lo…"   12 months ago   Up 8 days             WEBADAPTOR
+
+$ docker commit WEBADAPTOR
+
+$ docker images -a
+REPOSITORY          	TAG       	IMAGE ID       	CREATED              		SIZE
+<none>             	 <none>    f37edde6afce  	 About a minute ago   	4.22GB
+arcgis/webadaptor   10.9.1    	dc0e6c7df667   	12 months ago        		851MB
+
+$ docker tag f37edde6afce webadaptor_170724
+$ docker images -a
+REPOSITORY          		TAG       	IMAGE ID       	CREATED         	SIZE
+webadaptor_170724   	latest    	f37edde6afce   	5 minutes ago   	4.22GB
+arcgis/webadaptor   		10.9.1    	dc0e6c7df667   	12 months ago   	851MB
+
+$ docker commit WEBADAPTOR webadaptor_170724
+$ docker images -a
+REPOSITORY          		TAG       	IMAGE ID       	CREATED              	SIZE
+webadaptor_170724  	 latest    	861a4823fc90   	About a minute ago   4.22GB
+<none>              		<none>    	f37edde6afce   	8 minutes ago        	4.22GB
+arcgis/webadaptor   		10.9.1    	dc0e6c7df667   	12 months ago        	851MB
+
+$ docker save -o webadaptor_170724.tar webadaptor_170724
+$ scp webadaptor_170724.tar user@IP:/opt/bck
