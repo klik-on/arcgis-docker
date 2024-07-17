@@ -32,3 +32,8 @@ $ scp webadaptor_170724.tar user@IP:/opt/bck
 $ ls -l
 -rw-------. 1 user user 4257404416 Jul 17 07:54 webadaptor_170724.tar
 
+$ scp webadaptor_170724.tar user@103.82.183.11:/opt/bck/webadaptor_170724.tar
+Are you sure you want to continue connecting (yes/no)? yes
+user@103.82.183.11's password:
+webadaptor_170724.tar                                                                     9%  404MB  54.0MB/s   01:07 ETA
+
