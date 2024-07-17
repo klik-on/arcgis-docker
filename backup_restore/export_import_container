@@ -11,5 +11,5 @@ docker import test-app.tar
 ## Image that contains the exported container snapshot.
 cat test-app.tar | docker import - app-snapshot:new
 
-$ docker export DATASTORE | gzip > ags_datastore_170724.gz
-$ zcat ags_datastore_170724.gz | docker import - datastore_170724
+$ docker export DATASTORE | gzip > ags_datastore_170724.tar.gz
+$ zcat ags_datastore_170724.tar.gz | docker import - datastore_170724
