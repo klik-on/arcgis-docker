@@ -1,6 +1,7 @@
 # Cek port yang digunakan
 # sudo lsof -i -P -n | grep LISTEN
 # sudo netstat -tuln | grep LISTEN
+# sudo ss -tulwn
 # Cek Lokasi lib PostgreSQL
 # pg_config --pkglibdir
 # /usr/lib/postgresql/12/lib
