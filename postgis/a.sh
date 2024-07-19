@@ -1,4 +1,4 @@
-# Cek port
+# Cek port yang digunakan
 # sudo lsof -i -P -n | grep LISTEN
 # Cek Lokasi lib PostgreSQL
 # pg_config --pkglibdir
