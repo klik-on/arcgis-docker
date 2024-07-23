@@ -1,4 +1,3 @@
 #!/bin/bash
-
-docker exec -it portal bash
-
+# docker exec -it PORTAL /bin/bash
+docker exec -it `docker ps | grep PORTAL | cut -b -12` /bin/bash
