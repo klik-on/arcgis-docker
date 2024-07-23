@@ -1,4 +1,3 @@
 #!/bin/bash
-
-docker exec -it datastore bash
-
+# docker exec -it DATASTORE /bin/bash
+docker exec -it `docker ps | grep DATASTORE | cut -b -12` /bin/bash
