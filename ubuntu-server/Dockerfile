@@ -22,6 +22,7 @@ RUN ln -s /etc/alternatives/python /usr/bin/python &&\
     ln -s /usr/bin/python3 /etc/alternatives/python
 
 RUN pip install --upgrade pip && pip install requests
+RUN pip install python-dateutil
 
 # -- This is for ArcGIS 10.9
 # Add the repository for Postgres 12 (this additional repo is not needed with Focal)
