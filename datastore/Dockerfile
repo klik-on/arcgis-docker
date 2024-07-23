@@ -31,6 +31,12 @@ WORKDIR ${HOME}
 RUN cd ArcGISDataStore_Linux && ./Setup -m silent --verbose -l yes -d /home
 
 RUN rm -rf ${HOME}/ArcGISDataStore_Linux
+
+# Put this on its own mountpoint
+# ENV DS_DATADIR /srv/arcgisdatastore
+# RUN mkdir /srv/arcgisdatastore && chown -R arcgis.arcgis /srv/arcgisdatastore
+# VOLUME [ "/srv/arcgisdatastore" ]
+
 ENV DS_DATADIR ${HOME}/datastore/usr/arcgisdatastore
 ENV PGDATA ${HOME}/data/pgdata
 
