@@ -1,0 +1,3 @@
+#!/bin/bash
+# docker exec -it SERVER /bin/bash
+docker exec -it `docker ps | grep SERVER | cut -b -12` /bin/bash
