@@ -1,7 +1,7 @@
 FROM ubuntu:jammy
 ENV RELEASE=jammy
 # "jammy" is currently the latest LTS (Long Term Support) release.
-RUN apt-get update && apt-get -yq install apt-utils locales tzdata
+RUN apt-get update && apt-get -yq install apt-utils locales tzdata openssh-client
 
 # Set up the locale. 
 RUN locale-gen en_US.UTF-8
