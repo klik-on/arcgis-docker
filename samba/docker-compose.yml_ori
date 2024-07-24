@@ -1,0 +1,18 @@
+services:
+  samba:
+    container_name: samba
+    image: samba:latest
+    ports:
+      - 445:445
+      - 139:139
+    volumes:
+      - /opt/samba/smb.conf:/etc/samba/smb.conf
+      - /mnt/admin_share:/mnt/admin_share
+      - /mnt/test_share:/mnt/test_share
+    environment:
+      - user_count=2
+      - user1=admin
+      - password1=1234
+      - user2=test
+      - password2=4321
+    restart: always
