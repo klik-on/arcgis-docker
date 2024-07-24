@@ -9,6 +9,12 @@ Anonymous login successful
 Try "help" to get a list of possible commands.
 smb: \>
 
+$ smbclient \\\\172.16.2.122\\test_share
+Password for [WORKGROUP\arcgis]:
+Anonymous login successful
+Try "help" to get a list of possible commands.
+smb: \>
+
 ***
 docker build -t samba .
 mkdir -p /mnt/adnin_share
