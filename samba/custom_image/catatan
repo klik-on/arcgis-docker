@@ -1,1 +1,5 @@
 docker build -t samba .
+mkdir -p /mnt/adnin_share
+mkfir -p /mnt/test_share
+chmod -R 777 /mnt/adnin_share
+chmod -R 777 /mnt/test_share
