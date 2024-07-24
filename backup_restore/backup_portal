@@ -1,0 +1,3 @@
+docker exec -it 'docker ps | grep PORTAL | cut -b -12' /bin/bash
+cd portal/tools/webgisdr
+./webgisdr.sh --export --file bck_webgisdr.properties
