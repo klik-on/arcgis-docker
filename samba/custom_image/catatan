@@ -1,3 +1,4 @@
+## Reff : https://linuxsimply.com/ubuntu-samba-client/
 docker build -t samba .
 mkdir -p /mnt/adnin_share
 mkfir -p /mnt/test_share
