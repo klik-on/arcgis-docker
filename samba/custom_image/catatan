@@ -1,6 +1,7 @@
 ## Reff : https://linuxsimply.com/ubuntu-samba-client/
 # Using Samba Client
 $ sudo apt install smbclient
+$ smbclient --list=172.16.2.122
 $ smbclient -L //172.16.2.122
 $ smbclient //172.16.2.122/test_share
 Password for [WORKGROUP\arcgis]:
