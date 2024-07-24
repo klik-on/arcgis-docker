@@ -3,6 +3,8 @@ services:
   portal:
     build: portal-for-arcgis
     image: arcgis/portal:10.9.1
+    volumes:
+      - /mnt/test_share:/tmp/backup
     restart: always
     hostname: PORTAL.WEBGIS.LOKAL
     container_name: PORTAL
@@ -20,6 +22,8 @@ services:
   server:
     build: arcgis-server
     image: arcgis/server:10.9.1
+    volumes:
+      - /mnt/test_share:/tmp/backup
     restart: always
     hostname: SERVER.WEBGIS.LOKAL
     container_name: SERVER
@@ -37,6 +41,8 @@ services:
   datastore:
     build: datastore
     image: arcgis/datastore:10.9.1
+    volumes:
+      - /mnt/test_share:/tmp/backup
     restart: always
     hostname: DATASTORE.WEBGIS.LOKAL
     container_name: DATASTORE
