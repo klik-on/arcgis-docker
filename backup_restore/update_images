@@ -51,6 +51,17 @@ webadaptor_1091             latest    acbdf8c942eb   8 minutes ago   1.4GB
 
 $ docker save -o webadaptor_1091.tar webadaptor_1091
 
+### FIX
+docker ps -a
+docker commit PORTAL
+docker images -a   == > NONE
+docker tag 380891447509 portal_updt_07_27_2024
+docker commit PORTAL portal_updt_07_27_2024 
+docker save -o portal_updt_07_27_2024.tar portal_updt_07_27_2024
+
+$ docker container commit -a "SERVER" -m "Update SERVER" SERVER server_updt_07_27_2024
+$ docker save -o server_updt_07_27_2024.tar server_updt_07_27_2024
+
 ### opsional
 $ docker container commit -a "WEBADAPTOR" -m "Changed default WEBADAPTOR" WEBADAPTOR webadaptor_updt
 $ docker images
