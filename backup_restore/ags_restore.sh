@@ -1,3 +1,3 @@
-for patchfile in ags_*.tar; do
+for patchfile in *_1091.tar; do
     docker load < $patchfile
 done
