@@ -6,7 +6,7 @@ LABEL version="POSTGRESQL for ArcGIS-POSTGIS" \
           author="Klik.On" \
           description="This is for Klik.On"
 
-COPY ./lib/* /usr/lib/postgresql/15/lib
+# COPY ./lib/* /usr/lib/postgresql/15/lib
 
 # Update apt-get and instal some tools
 RUN apt update && apt upgrade -yq
