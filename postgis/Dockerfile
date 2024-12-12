@@ -1,4 +1,4 @@
-# FROM kartoza/postgis:12.4
+# FROM kartoza/postgis:15.8
 FROM postgis/postgis:15-3.4
 
 MAINTAINER Klik.On <abiyasa@gmail.com>
