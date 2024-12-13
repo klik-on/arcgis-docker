@@ -9,6 +9,6 @@
 
 # lib ArcGIS Desktop 10.8.2
 for pg_ags in ./lib/*.so; do
-  docker cp $pg_ags PGSQL-12:/usr/lib/postgresql/15/lib 
+  docker cp $pg_ags PGSQL-15:/usr/lib/postgresql/15/lib 
 done
 
