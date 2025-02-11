@@ -7,6 +7,7 @@
 # /usr/lib/postgresql/15/lib
 # chmod 644 /usr/lib/postgresql/15/lib/{st_geometry.so PGSQLEngine.so}
 # chown root. /usr/lib/postgresql/15/lib/st_geometry.so
+# ls -l /usr/lib/postgresql/15/lib/st_geometry.so
 
 # lib ArcGIS Desktop 10.8.2
 for pg_ags in ./lib/*.so; do
