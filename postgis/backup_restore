@@ -3,6 +3,12 @@ docker run --rm --volumes-from PGIS-12 -v $(pwd):/backup ubuntu tar cvf /backup/
 #### RESTORE
 docker run --rm --volumes-from PGIS-12 -v $(pwd):/backup ubuntu bash -c "cd /var/lib/postgresql/data && tar xvf /backup/backup.tar"
 
+# stop/start CONTAINER
+$ docker-compose stop
+Stopping PGIS-15 ... done
+$ docker-compose start
+Starting pgis ... done
+
 Backup database dari  server
 $ docker exec -it PGIS-12  /bin/bash
 
