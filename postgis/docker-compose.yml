@@ -28,6 +28,7 @@ services:
 
     networks:
       app_net:
+       ipv4_address: 192.168.80.2
 
 networks:
    app_net:
