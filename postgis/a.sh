@@ -3,6 +3,7 @@
 # sudo netstat -tuln | grep LISTEN
 # sudo ss -tulwn
 # Cek Lokasi lib PostgreSQL
+# docker exec -it `docker ps | grep PGIS | cut -b -12` /bin/bash
 # pg_config --pkglibdir
 # /usr/lib/postgresql/15/lib
 # chmod 644 /usr/lib/postgresql/15/lib/{st_geometry.so PGSQLEngine.so}
