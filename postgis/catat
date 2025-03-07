@@ -1,3 +1,14 @@
+SELECT geom ,
+ ST_Area(geom::geography) ,
+          /* 
+          st_area(st_transform(geom,32643)) 
+          Link  https://epsg.io/54034
+          having sum(ST_Area(ST_Transform(iden.geom,54034)))/10000 > 0.009
+           */
+               ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
+            from "KEMITRAAN_KONSERVASI_KK_AR_50K"
+
+
 https://www.youtube.com/watch?v=Ck29fP-jn3s
 setting enviroment variabel
 ==> Path
