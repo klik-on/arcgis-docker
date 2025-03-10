@@ -8,6 +8,10 @@ SELECT geom ,
            */
                ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
             from "KEMITRAAN_KONSERVASI_KK_AR_50K"
+
+*** Untuk Total
+SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "KEMITRAAN_KONSERVASI_KK_AR_50K"
 ###
 
 https://www.youtube.com/watch?v=Ck29fP-jn3s
