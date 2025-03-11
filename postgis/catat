@@ -1,4 +1,9 @@
 ## Luasan CEA
+SELECT * FROM "public"."spatial_ref_sys" LIMIT 1000 OFFSET 0
+SELECT * FROM "public"."spatial_ref_sys" ORDER BY "auth_name" LIMIT 1000 OFFSET 0
+SELECT * FROM "public"."spatial_ref_sys" WHERE auth_name='ESRI'
+SELECT * FROM "public"."spatial_ref_sys" WHERE auth_srid=54034
+
 SELECT geom ,
  ST_Area(geom::geography) ,
           /* 
