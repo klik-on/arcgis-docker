@@ -1,0 +1,27 @@
+Bing Satellite
+http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=1
+
+Google Satellite
+http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}
+
+Google Map
+https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}
+
+Esri Satellite
+https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
+
+Esri World Topo
+https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}
+
+CartoDB
+https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png
+
+Open Street Map
+http://tile.openstreetmap.org/{z}/{x}/{y}.png
+https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
+
+Russian Topos
+http://88.99.52.155/cgi-bin/tapp/tilecache.py/1.0.0/topomapper_v2/%7Bz%7D/%7Bx%7D/%7By%7D.jpg
+
+Wikimedia
+https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
