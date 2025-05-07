@@ -67,4 +67,5 @@ Contoh:
 ogr2ogr -f "ESRI Shapefile" [bufferedFile.shp] [origFile.shp] -dialect sqlite -sql "select ST_buffer(geometry, [1000]) as geometry FROM [origFile]"
 https://www.youtube.com/watch?v=JFH4JBqAxPw&list=PLWEqWgNotE1VNqVbVTgl39KHVk7bcDixc&index=2
 
-
+### Create an on-premises PostGIS only geodatabase in PostgreSQL 
+https://www.esri.com/arcgis-blog/products/arcgis-pro/data-management/create-an-on-premises-postgis-only-geodatabase-in-postgresql
