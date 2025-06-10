@@ -27,7 +27,9 @@ https://support.safe.com/hc/en-us/articles/25407474895629-How-to-Create-an-ArcGI
 Authenticating AGOL For Use In QGIS
 https://opengislab.com/blog/2024/8/18/authenticating-agol-for-use-in-qgis-part1
 https://opengislab.com/blog/2024/8/23/authentication-agol-for-use-in-qgis-part-2
-
+## postman
+https://www.arcgis.com/sharing/generateToken?f=json&referer=https://www.arcgis.com
+https://dbgis.menlhk.go.id/portal/sharing/generateToken?f=json&referer=https://dbgis.menlhk.go.id
 
 UAT SIGAP
 https://docs.google.com/spreadsheets/d/1uu-j2unopdD7JhnAlsIF9eJoRTy_B3oRQmAOej9xTsw/edit?gid=0#gid=0
