@@ -64,7 +64,12 @@ Verifying - Enter Export Password: 123456
 $ openssl pkcs12 -export -out /tmp/wildcard.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
 $ docker cp /tmp/wildcard.pfx WEBADAPTOR:/home
 
-$ docker cp wildcard.pfx WEBADAPTOR:/home
+$ sudo openssl pkcs12 -export -out star_menlhk_go_id.pfx -inkey star_menlhk_go_id.key -in star_menlhk_go_id.crt
+[sudo] password for dbgis:
+Enter Export Password: P4ssw0rd@1
+
+$ sudo docker cp star_menlhk_go_id.pfx WEBADAPTOR:/home/wildcard.pfx
+
 # cd /usr/local/tomcat/conf/
 # vi server.xml
   <Service name="Catalina">
