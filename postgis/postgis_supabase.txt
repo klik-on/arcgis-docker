@@ -125,17 +125,11 @@ drop schema datagis;
 
 ## Hapus Tabel dalam schema
 do $$ declare
-   
          r record;
-
 begin
-    
         for r in (select tablename from pg_tables where schemaname = 'datagis') loop
-
         execute 'drop table if exists ' || quote_ident(r.tablename) || ' cascade';
-
     end loop;
-
 end $$;
 
 ### Akses SCHEMA
