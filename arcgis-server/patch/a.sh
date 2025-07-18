@@ -2,7 +2,7 @@
 # docker cp patch SERVER:/tmp
 
 # cara update os
-# docker exec -it -u root SERVER /bin/bash
+# docker exec -it SERVER /bin/bash
 # $ server/tools/patchnotification/patchnotification
 # atau pakai portainer => Container console isi user : root
 # apt update && apt upgrade
