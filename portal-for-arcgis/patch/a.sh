@@ -3,6 +3,7 @@
 
 # cara update os 
 # docker exec -it -u root PORTAL /bin/bash
+# $ portal/tools/patchnotification/patchnotification
 # atau pakai portainer => Container console isi user : root
 # apt update && apt upgrade
 
