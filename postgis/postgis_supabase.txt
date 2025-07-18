@@ -1,18 +1,18 @@
 docker images supabase
-image: supabase/studio:2025.07.07-sha-1d3b0ba
+docker pull supabase/studio:2025.07.14-sha-80b9b6f
 image: kong:2.8.1
-image: supabase/gotrue:v2.176.1
-image: postgrest/postgrest:v12.0.3
-image: supabase/realtime:v2.34.47
-image: supabase/storage-api:v1.11.13
-image: darthsim/imgproxy:v3.8.0
-image: supabase/postgres-meta:v0.84.2
-image: supabase/edge-runtime:v1.59.0
-image: supabase/logflare:1.14.2
-image: supabase/postgres:15.8.1.108
-image: timberio/vector:0.28.1-alpine
-image: supabase/supavisor:2.5.7
-
+docker pull supabase/gotrue:v2.177.0
+image: postgrest/postgrest:v12.0.3 ****
+docker pull supabase/realtime:v2.41.2
+docker pull supabase/storage-api:v1.25.9
+docker pull darthsim/imgproxy:v3.29.1
+docker pull supabase/postgres-meta:v0.91.1
+docker pull supabase/edge-runtime:v1.68.0
+image: supabase/logflare:1.14.2  == 1.15.0****
+docker pull supabase/postgres:15.8.1.116
+docker pull timberio/vector:0.40.1-alpine
+docker pull supabase/supavisor:2.1.7
+docker pull supabase/supavisor:2.5.7
 
 # Stop docker and remove volumes:
 docker compose down -v
