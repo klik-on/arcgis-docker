@@ -12,6 +12,9 @@ image: supabase/logflare:1.14.2  == 1.15.0 ***
 docker pull supabase/postgres:15.8.1.116
 docker pull timberio/vector:0.28.1-alpine ***
 docker pull supabase/supavisor:2.1.8
+###  container_name: supabase-pooler
+###  image: supabase/supavisor:2.5.7
+
 
 
 # Stop docker and remove volumes:
