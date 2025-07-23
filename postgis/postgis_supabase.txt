@@ -3,7 +3,7 @@ docker pull supabase/studio:2025.07.14-sha-80b9b6f
 image: kong:2.8.1
 docker pull supabase/gotrue:v2.177.0
 image: postgrest/postgrest:v12.0.3 ***
-docker pull supabase/realtime:v2.41.3
+docker pull supabase/realtime:v2.41.6
 docker pull supabase/storage-api:v1.25.9
 docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.1
