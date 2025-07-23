@@ -415,7 +415,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.8.1.118
+    image: supabase/postgres:15.8.1.119
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
