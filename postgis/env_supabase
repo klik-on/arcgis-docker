@@ -20,6 +20,7 @@ VAULT_ENC_KEY=YpDzfO9z11XE8hlE95SleWGHPgyqKlTP
 POSTGRES_HOST=db
 POSTGRES_DB=postgres
 POSTGRES_PORT=5432
+TZ=Asia/Jakarta
 # default user is postgres
 
 
