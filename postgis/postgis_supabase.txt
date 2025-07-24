@@ -9,7 +9,7 @@ docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.1
 docker pull supabase/edge-runtime:v1.68.2
 image: supabase/logflare:1.14.2  == 1.15.0 ***
-docker pull supabase/postgres:15.8.1.119
+docker pull supabase/postgres:15.8.1.121
 docker pull timberio/vector:0.28.1-alpine ***
 docker pull supabase/supavisor:2.1.8
 ###  container_name: supabase-pooler
