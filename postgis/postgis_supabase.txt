@@ -6,7 +6,7 @@ image: postgrest/postgrest:v12.0.3 ***
 docker pull supabase/realtime:v2.41.7
 docker pull supabase/storage-api:v1.25.11
 docker pull darthsim/imgproxy:v3.29.1
-docker pull supabase/postgres-meta:v0.91.1
+docker pull supabase/postgres-meta:v0.91.2
 docker pull supabase/edge-runtime:v1.68.2
 image: supabase/logflare:1.14.2  == 1.15.0 ***
 docker pull supabase/postgres:15.8.1.121
