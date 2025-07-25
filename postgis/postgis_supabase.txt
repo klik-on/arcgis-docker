@@ -187,6 +187,7 @@ curl '172.16.2.122:8000/rest/v1/RUMPIN2' \
   -H "Accept-Profile: datagis"
 
 ###  POSTGIS  Luasan ## https://epsg.io/54034
+SELECT * FROM extensions.spatial_ref_sys WHERE  auth_name='ESRI'
 SELECT * FROM extensions.spatial_ref_sys WHERE auth_srid=54034
 SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
 from "RUMPIN"
