@@ -186,7 +186,7 @@ curl '172.16.2.122:8000/rest/v1/RUMPIN2' \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
 
-###  POSTGIS  Luasan ## https://epsg.io/54034
+####  POSTGIS  Luasan ## https://epsg.io/54034
 SELECT * FROM extensions.spatial_ref_sys WHERE  auth_name='ESRI'
 SELECT * FROM extensions.spatial_ref_sys WHERE auth_srid=54034
 SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
@@ -205,6 +205,9 @@ SELECT "WADMPR" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
 ## ROUND
 SELECT "WADMPR" ,round(sum(ST_Area(ST_Transform(geom,54034))))/10000 as "LUAS_CEA"
             from "ADM_KAB_KOTA" group by "WADMPR";
+
+SELECT "FUNGSIKWS" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "KWSHUTAN_AR_250K_072024" group by "FUNGSIKWS";
 ####
 
 curl '172.16.2.122:8000/rest/v1/UKL_UPL_AR_50K' \
