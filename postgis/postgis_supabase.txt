@@ -112,11 +112,11 @@ POOLER_TENANT_ID=67888 **** username : postgres.67888
 POOLER_DB_POOL_SIZE=5
 
 Akses PostgreSQL
-host 		: POSTGRES_HOST=db
-database 		: POSTGRES_DB=postgres
-username 	: POOLER_TENANT_ID=67888 **** username : postgres.67888
-password 	:  POSTGRES_PASSWORD=password00
-port 		: POSTGRES_PORT=5432
+host      : POSTGRES_HOST=db
+database  : POSTGRES_DB=postgres
+username  : POOLER_TENANT_ID=67888 **** username : postgres.67888
+password  :  POSTGRES_PASSWORD=password00
+port      : POSTGRES_PORT=5432
 
 
 ############
