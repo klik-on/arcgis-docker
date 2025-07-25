@@ -195,6 +195,9 @@ from "RUMPIN"
 ## Luas TOTAL
 SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
             from "ADM_KAB_KOTA"
+##
+SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA" where "WADMPR"='Jawa Barat';
 
 ####
 
