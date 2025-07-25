@@ -4,7 +4,7 @@ image: kong:2.8.1
 docker pull supabase/gotrue:v2.177.0
 image: postgrest/postgrest:v12.0.3 ***
 docker pull supabase/realtime:v2.41.7
-docker pull supabase/storage-api:v1.25.11
+docker pull supabase/storage-api:v1.25.12
 docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.2
 docker pull supabase/edge-runtime:v1.68.2
