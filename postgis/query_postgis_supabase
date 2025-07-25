@@ -23,6 +23,6 @@ SELECT "FUNGSIKWS" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
 ####
 
 
-Cek Proyeksi luasan SGRI:9468   CEA:54034
-SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,9468))/10000 as "SRGI", ST_Area(ST_Transform(geom,54034))/10000 as "CEA"
+Cek Proyeksi luasan SGRI:9478   CEA:54034
+SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,9478))/10000 as "SRGI", ST_Area(ST_Transform(geom,54034))/10000 as "CEA"
 from "RUMPIN"
