@@ -30,7 +30,8 @@ https://supabase.com/docs/guides/self-hosting/docker#dashboard-authentication
 
 Fix
 error: git-remote-https died of signal 4
-$ sudo GNUTLS_CPUID_OVERRIDE=0x1 apt-get update
+$ sudo GNUTLS_CPUID_OVERRIDE=0x1 
+$ apt-get update
 
 you need to add ~/.bashrc with this
 $ export  GNUTLS_CPUID_OVERRIDE=0x1
