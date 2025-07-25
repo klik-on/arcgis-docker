@@ -1,0 +1,23 @@
+####  POSTGIS  Luasan ## https://epsg.io/54034
+SELECT * FROM extensions.spatial_ref_sys WHERE  auth_name='ESRI'
+SELECT * FROM extensions.spatial_ref_sys WHERE auth_srid=54034
+SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
+from "RUMPIN"
+
+##
+SELECT "WADMPR", ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
+from "ADM_KAB_KOTA" where "WADMPR"='Jawa Barat';
+
+## Luas TOTAL
+SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA";
+
+SELECT "WADMPR" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA" group by "WADMPR";
+## ROUND
+SELECT "WADMPR" ,round(sum(ST_Area(ST_Transform(geom,54034))))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA" group by "WADMPR";
+
+SELECT "FUNGSIKWS" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "KWSHUTAN_AR_250K_072024" group by "FUNGSIKWS";
+####
