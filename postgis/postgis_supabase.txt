@@ -15,6 +15,27 @@ docker pull supabase/supavisor:2.1.8
 ###  container_name: supabase-pooler
 ###  image: supabase/supavisor:2.5.7
 
+####  Add ArcGIS st_geometry
+# vi a.sh
+# Cek port yang digunakan
+# sudo lsof -i -P -n | grep LISTEN
+# sudo netstat -tuln | grep LISTEN
+# sudo ss -tulwn
+# Cek Lokasi lib PostgreSQL
+# docker exec -it `docker ps | grep supabase-db | cut -b -12` /bin/bash
+# pg_config --pkglibdir
+# /nix/store/bz5c0h2y1z597wxz5z5szc7rkqnfsgwd-postgresql-15.8-lib/lib
+# chmod 555 /nix/store/bz5c0h2y1z597wxz5z5szc7rkqnfsgwd-postgresql-15.8-lib/lib/{st_geometry.so PGSQLEngine.so}
+# chown root:root /nix/store/bz5c0h2y1z597wxz5z5szc7rkqnfsgwd-postgresql-15.8-lib/lib/lib/st_geometry.so
+# ls -l /nix/store/bz5c0h2y1z597wxz5z5szc7rkqnfsgwd-postgresql-15.8-lib/libst_geometry.so
+
+# lib ArcGIS Desktop 10.8.2 ==> POSTGRESQL 12
+# lib ArcGIS PRO 3.4 ==> POSTGRESQL 15
+
+for pg_ags in *.so; do
+  docker cp $pg_ags supabase-db:/nix/store/bz5c0h2y1z597wxz5z5szc7rkqnfsgwd-postgresql-15.8-lib/lib
+done
+#####
 
 
 # Stop docker and remove volumes:
