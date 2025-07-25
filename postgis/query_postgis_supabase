@@ -21,3 +21,8 @@ SELECT "WADMPR" ,round(sum(ST_Area(ST_Transform(geom,54034))))/10000 as "LUAS_CE
 SELECT "FUNGSIKWS" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
             from "KWSHUTAN_AR_250K_072024" group by "FUNGSIKWS";
 ####
+
+
+Cek Proyeksi luasan SGRI:9468   CEA:54034
+SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,9468))/10000 as "SRGI", ST_Area(ST_Transform(geom,54034))/10000 as "CEA"
+from "RUMPIN"
