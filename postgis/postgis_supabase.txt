@@ -192,6 +192,10 @@ SELECT * FROM extensions.spatial_ref_sys WHERE auth_srid=54034
 SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
 from "RUMPIN"
 
+## Luas TOTAL
+SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA"
+
 ####
 
 curl '172.16.2.122:8000/rest/v1/UKL_UPL_AR_50K' \
