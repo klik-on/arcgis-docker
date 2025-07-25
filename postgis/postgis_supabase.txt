@@ -202,7 +202,9 @@ SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
 
 SELECT "WADMPR" ,sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA"
             from "ADM_KAB_KOTA" group by "WADMPR";
-
+## ROUND
+SELECT "WADMPR" ,round(sum(ST_Area(ST_Transform(geom,54034))))/10000 as "LUAS_CEA"
+            from "ADM_KAB_KOTA" group by "WADMPR";
 ####
 
 curl '172.16.2.122:8000/rest/v1/UKL_UPL_AR_50K' \
