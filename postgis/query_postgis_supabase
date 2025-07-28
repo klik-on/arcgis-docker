@@ -41,6 +41,12 @@ limit 10
 
 ## Luasan 2 Tema
 # Intersection
+   SELECT ST_Intersection(b.geom, sa.geom) AS clipped_geometry,
+   "WADMPR"
+    FROM "KWSHUTAN_AR_250K_072024" AS b, "ADM_KAB_KOTA" AS sa
+    WHERE ST_Intersects(b.geom, sa.geom)
+    and "WADMPR"='Bali';
+#
 select *,
 ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom)
 from "KWSHUTAN_AR_250K_072024","ADM_KAB_KOTA"
