@@ -40,9 +40,9 @@ and "WADMPR"='Jawa Barat'
 limit 10
 
 ## Luasan 2 Tema
-select ST_Area(ST_Transform(ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),54034))/10000 as "LUAS_CEA",
-"WADMPR" as "Provinsi","FUNGSIKWS" as "Fungsi Kawasan"
+select "WADMPR" as "Provinsi","FUNGSIKWS" as "Fungsi Kawasan",
+ST_Area(ST_Transform(ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),54034))/10000 as "LUAS_CEA"
 from "KWSHUTAN_AR_250K_072024","ADM_KAB_KOTA"
 where not
 st_isempty(st_intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom))
-and "WADMPR"='Jawa Barat'
+and "WADMPR"='Bali'
