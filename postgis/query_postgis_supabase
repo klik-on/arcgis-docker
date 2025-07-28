@@ -33,4 +33,4 @@ from "ADM_KAB_KOTA" where "WADMPR"='Jawa Barat'
 ### OVERLAY ####
 select st_intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),"FUNGSIKWS","WADMPR"
 from "KWSHUTAN_AR_250K_072024","ADM_KAB_KOTA"
-where "WADMPR"='Jawa Barat'
+where "WADMPR"='Jawa Barat' and "FUNGSIKWS" <> 0
