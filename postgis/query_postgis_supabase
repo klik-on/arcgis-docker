@@ -4,6 +4,7 @@ SELECT * FROM extensions.spatial_ref_sys WHERE auth_srid=54034
 SELECT geom, ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
 from "RUMPIN"
 
+### LUASAN ####
 ##
 SELECT "WADMPR", ST_Area(geom::geography), ST_Area(ST_Transform(geom,54034))/10000 as "LUAS_CEA"
 from "ADM_KAB_KOTA" where "WADMPR"='Jawa Barat';
@@ -28,3 +29,6 @@ from "RUMPIN"
 SELECT sum(ST_Area(ST_Transform(geom,54034)))/10000 as "LUAS_CEA", sum(ST_Area(ST_Transform(geom,9478)))/10000 as "LUAS_SRGI",
   sum(ST_Area(geom::geography)) as "Luas GEO"
 from "ADM_KAB_KOTA" where "WADMPR"='Jawa Barat' 
+
+
+### OVERLAY ####
