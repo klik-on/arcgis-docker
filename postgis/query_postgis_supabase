@@ -93,9 +93,9 @@ where not
 st_isempty(st_intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom))
 and "WADMPR"='Bali'
 
-## Analisa Luas Kawasan Hutan Provinsi
+## Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi
 SELECT 
-  a."FUNGSIKWS" AS "KODEKWS",b."WADMPR",
+  a."FUNGSIKWS" AS "KODEKWS",b."WADMPR",c."FUNGSI_KWS",
   SUM(
     ST_Area(
       ST_Transform(
@@ -109,12 +109,15 @@ FROM
 INNER JOIN 
   "ADM_KAB_KOTA" b 
     ON ST_Intersects(a.geom, b.geom)
+LEFT JOIN 
+  "KODE_KWS" c ON a."FUNGSIKWS"=c."KD_KWS"
 WHERE 
   ST_IsValid(a.geom) AND ST_IsValid(b.geom)
   and "WADMPR"='Bali'
 GROUP BY 
   a."FUNGSIKWS",
-  b."WADMPR";
+  b."WADMPR",
+  c."FUNGSI_KWS";
 ####
 
 ### JOIN TABLE
