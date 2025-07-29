@@ -73,6 +73,7 @@ and "WADMPR"='Bali'
 group by "WADMPR","FUNGSIKWS"
 order by "FUNGSIKWS"
 
+*** kalau mau disimpan ke tabel baru == > CREATE TABLE tabel_luas_kwsbali AS
 select "WADMPR","FUNGSIKWS",
 sum(ST_Area(ST_Transform(ST_intersection(a.geom, b.geom),54034)))/10000 as "LUAS_CEA"
 from "KWSHUTAN_AR_250K_072024" a, "ADM_KAB_KOTA" b
