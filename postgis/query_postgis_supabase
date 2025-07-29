@@ -53,6 +53,7 @@ from "KWSHUTAN_AR_250K_072024","ADM_KAB_KOTA"
 where not
 st_isempty(st_intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom))
 and "WADMPR"='Bali'
+
 ####
 select "WADMPR" as "Provinsi","FUNGSIKWS" as "Fungsi Kawasan",
 sum(ST_Area(ST_Transform(ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),54034)))/10000 as "LUAS_CEA"
@@ -71,6 +72,13 @@ where st_intersects("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom)
 and "WADMPR"='Bali'
 group by "WADMPR","FUNGSIKWS"
 order by "FUNGSIKWS"
+
+select "WADMPR","FUNGSIKWS",
+sum(ST_Area(ST_Transform(ST_intersection(a.geom, b.geom),54034)))/10000 as "LUAS_CEA"
+from "KWSHUTAN_AR_250K_072024" a, "ADM_KAB_KOTA" b
+where ST_Intersects (a.geom,b.geom)
+and "WADMPR"='Bali'
+group by "WADMPR","FUNGSIKWS"
 
 ##TOTAL
 select sum(ST_Area(ST_Transform(ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),54034)))/10000 as "LUAS_CEA"
