@@ -80,6 +80,11 @@ from "KWSHUTAN_AR_250K_072024" a, "ADM_KAB_KOTA" b
 where ST_Intersects (a.geom,b.geom)
 and "WADMPR"='Bali'
 group by "WADMPR","FUNGSIKWS"
+*** baru di joinkan denganklasifikasi Fungsi
+SELECT *
+FROM tabel_luas_kwsbali a
+LEFT JOIN "KODE_KWS"
+ON a."FUNGSIKWS"="KODE_KWS"."KD_KWS"
 
 ##TOTAL
 select sum(ST_Area(ST_Transform(ST_Intersection("KWSHUTAN_AR_250K_072024".geom,"ADM_KAB_KOTA".geom),54034)))/10000 as "LUAS_CEA"
