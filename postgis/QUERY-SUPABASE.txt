@@ -1,0 +1,30 @@
+-- QUERY 3 TABEL DENGAN OIN KODE FUNGSI
+SELECT 
+    a.nkws,
+    b."FUNGSIKWS",
+    c."WADMPR",
+    c."WADMKK",
+    k."FUNGSI_KWS",              -- kolom dari kode_kws
+    SUM(
+        ST_Area(
+            ST_Transform(
+                ST_MakeValid(
+                    ST_Intersection(
+                        ST_Intersection(a.geom, c.geom),
+                        b.geom
+                    )
+                ),
+                54034
+            )
+        )
+    ) / 10000 AS luas_ha
+FROM "RUMPIN" a
+JOIN "ADM_KAB_KOTA" c 
+    ON ST_Intersects(a.geom, c.geom)
+JOIN "KWSHUTAN_AR_250K_072024" b 
+    ON ST_Intersects(ST_Intersection(a.geom, c.geom), b.geom)
+JOIN "KODE_KWS" k                      
+    ON b."FUNGSIKWS" = k."KD_KWS"      
+WHERE ST_Intersection(ST_Intersection(a.geom, c.geom), b.geom) IS NOT NULL
+GROUP BY a.nkws, b."FUNGSIKWS", c."WADMPR", c."WADMKK", k."FUNGSI_KWS"
+ORDER BY luas_ha DESC;
