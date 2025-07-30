@@ -3,15 +3,15 @@ docker pull supabase/studio:2025.07.14-sha-80b9b6f
 image: kong:2.8.1
 docker pull supabase/gotrue:v2.177.0
 image: postgrest/postgrest:v12.0.3 ***
-docker pull supabase/realtime:v2.41.7
+docker pull supabase/realtime:v2.41.10
 docker pull supabase/storage-api:v1.25.12
 docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.2
-docker pull supabase/edge-runtime:v1.68.2
+docker pull supabase/edge-runtime:v1.68.3
 image: supabase/logflare:1.14.2  == 1.15.0 ***
-docker pull supabase/postgres:15.8.1.122
+docker pull supabase/postgres:15.8.1.125
 docker pull timberio/vector:0.28.1-alpine ***
-docker pull supabase/supavisor:2.1.8
+docker pull supabase/supavisor:2.6.0
 ###  container_name: supabase-pooler
 ###  image: supabase/supavisor:2.5.7
 
