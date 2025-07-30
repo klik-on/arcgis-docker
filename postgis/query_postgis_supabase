@@ -95,7 +95,10 @@ and "WADMPR"='Bali'
 
 ## Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi
 SELECT 
-  a."FUNGSIKWS" AS "KODEKWS",b."WADMPR",c."FUNGSI_KWS",c."NOURUT_KWS",
+  a."FUNGSIKWS" AS "KODEKWS",
+  b."WADMPR",
+  c."FUNGSI_KWS",
+  c."NOURUT_KWS",
   SUM(
     ST_Area(
       ST_Transform(
@@ -103,22 +106,27 @@ SELECT
         54034
       )
     )
-  )/10000 AS "LUAS_CEA_HA"
+  ) / 10000 AS "LUAS_CEA_HA"
 FROM 
   "KWSHUTAN_AR_250K_072024" a
 INNER JOIN 
   "ADM_KAB_KOTA" b 
     ON ST_Intersects(a.geom, b.geom)
 LEFT JOIN 
-  "KODE_KWS" c ON a."FUNGSIKWS"=c."KD_KWS"
+  "KODE_KWS" c 
+    ON a."FUNGSIKWS" = c."KD_KWS"
 WHERE 
-  ST_IsValid(a.geom) AND ST_IsValid(b.geom)
-  and "WADMPR"='Bali'
+  ST_IsValid(a.geom) 
+  AND ST_IsValid(b.geom)
+  AND b."WADMPR" = 'Bali'
 GROUP BY 
   a."FUNGSIKWS",
   b."WADMPR",
   c."FUNGSI_KWS",
+  c."NOURUT_KWS"
+ORDER BY 
   c."NOURUT_KWS";
+
 ####
 
 ### JOIN TABLE
