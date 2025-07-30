@@ -95,7 +95,7 @@ and "WADMPR"='Bali'
 
 ## Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi
 SELECT 
-  a."FUNGSIKWS" AS "KODEKWS",b."WADMPR",c."FUNGSI_KWS",
+  a."FUNGSIKWS" AS "KODEKWS",b."WADMPR",c."FUNGSI_KWS",c."NOURUT_KWS",
   SUM(
     ST_Area(
       ST_Transform(
@@ -117,7 +117,8 @@ WHERE
 GROUP BY 
   a."FUNGSIKWS",
   b."WADMPR",
-  c."FUNGSI_KWS";
+  c."FUNGSI_KWS",
+  c."NOURUT_KWS";
 ####
 
 ### JOIN TABLE
