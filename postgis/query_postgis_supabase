@@ -146,3 +146,27 @@ FROM "KWSHUTAN_AR_250K_072024" a
 LEFT JOIN "KODE_KWS"
 ON a."FUNGSIKWS"="KODE_KWS"."KD_KWS"
 group by "FUNGSIKWS","FUNGSI_KWS"
+
+## PIVOT TABEL
+Cara 1:
+select
+  user_id,
+  sum(case when category = 'Food' then amount else 0 end) as food_amount,
+  sum(case when category = 'Travel' then amount else 0 end) as travel_amount
+from
+  transactions
+group by
+  user_id
+  order by user_id;
+
+Cara 2: Aktifkan Extension tablefunc 
+    -- create extension if not exists tablefunc;
+SELECT *
+FROM crosstab(
+  $$
+    SELECT user_id, category, amount
+    FROM transactions
+    ORDER BY 1, 2
+  $$,
+  $$ SELECT DISTINCT category FROM transactions ORDER BY 1 $$
+) AS ct(user_id int, food_amount int, travel_amount int);
