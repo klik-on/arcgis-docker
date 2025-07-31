@@ -17,6 +17,27 @@ ogr2ogr -f "PostgreSQL" \
   -dim 2 \
   --config OGR_ENABLE_CURVE_REDUCTION YES
 
+$ ogrinfo LAHAN_KRITIS_AR_50K_291124.gdb
+INFO: Open of `LAHAN_KRITIS_AR_50K_291124.gdb'
+      using driver `OpenFileGDB' successful.
+Layer: LAHAN_KRITIS_AR_50K_291124 (Multi Polygon)
+
+ogr2ogr -f "PostgreSQL" \
+  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00 active_schema=public" \
+  LAHAN_KRITIS_AR_50K_291124.gdb \
+  -nlt MULTIPOLYGON \
+  -nln "\"LAHAN_KRITIS_AR_50K_291124\"" \
+  -overwrite \
+  -progress \
+  -dim 2 \
+  --config OGR_ENABLE_CURVE_REDUCTION YES
+
+Alternatif untuk perbaikan geometri di PostGIS:
+UPDATE "LAHAN_KRITIS_AR_50K_291124"
+SET geom = ST_MakeValid(geom)
+WHERE ST_IsValid(geom) = FALSE;
+
+
 #then import a feature into a table:
 ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres"
 geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
