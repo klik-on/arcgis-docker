@@ -141,7 +141,8 @@ LEFT JOIN
 WHERE 
   ST_IsValid(a.shape) 
   AND ST_IsValid(b.geom)
-  AND b."WADMPR" = 'Bali'
+  --AND b."WADMPR" = 'Bali'
+  AND b."WADMPR" ILIKE '%DKI%'
 GROUP BY 
   a."pl2024_id",
   b."WADMPR",
