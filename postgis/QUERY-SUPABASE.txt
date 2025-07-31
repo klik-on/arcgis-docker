@@ -88,3 +88,23 @@ WHERE ST_Intersection(ST_Intersection(a.geom, c.geom), b.geom) IS NOT NULL
 GROUP BY a.nkws, b."FUNGSIKWS", c."WADMPR", c."WADMKK", k."FUNGSI_KWS"
 ORDER BY luas_ha DESC;
 
+
+upload GDB to postgis menggunakan ogr2ogr
+geom == shape
+
+SELECT 
+  c."NOURUT_PL",                   -- Urutan untuk pengurutan Tabel KODE_KWS
+  a."pl2024_id" AS "KODEPL",       -- Kode fungsi kawasan IGT KWS
+  c."DESKRIPSI_PL",                -- Nama fungsi kawasan Tabel KODE_KWS
+  SUM(ST_Area(ST_Transform(a.shape, 54034))) / 10000 AS "LUAS_CEA_HA"  -- Total luas dalam hektar
+FROM 
+  "PL2024_AR_250K" a               -- Tabel Data IGT KWS
+LEFT JOIN 
+  "KODE_PL" c                      -- Tabel Kodefikasi KODE_KWS
+    ON a."pl2024_id" = c."KD_PL"
+WHERE 
+  a.shape IS NOT NULL               -- hanya geometri yang valid (tidak kosong) yang dihitung
+GROUP BY 
+  a."pl2024_id", c."KD_PL", c."NOURUT_PL", c."DESKRIPSI_PL"  -- Menambahkan kolom yang relevan di GROUP BY
+ORDER BY 
+  c."NOURUT_PL";                   -- Urutkan berdasarkan NOURUT_PL
