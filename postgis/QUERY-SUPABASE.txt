@@ -8,6 +8,9 @@ SELECT
       ST_Transform(
         ST_Intersection(a.geom, b.geom), 
         54034                       -- Proyeksi  ESRI CEA dengan satuan meter
+      )
+    )
+  ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
 FROM 
   "KWSHUTAN_AR_250K_072024" a  -- Tabel Data IGT KWS
 LEFT JOIN 
