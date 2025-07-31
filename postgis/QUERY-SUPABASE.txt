@@ -1,7 +1,6 @@
 -- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
 SELECT 
   a."FUNGSIKWS" AS "KODEKWS",       -- Kode fungsi kawasan IGT KWS
-  b."WADMPR",                       -- Nama provinsi IGT ADMIN
   c."FUNGSI_KWS",                   -- Nama fungsi kawasan Tabel KODE_KWS
   c."NOURUT_KWS",                   -- Urutan untuk pengurutan  Tabel KODE_KWS
   SUM(
