@@ -1,4 +1,4 @@
--- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin atau IGT ####
+-- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
 SELECT 
   c."KD_KWS",
   c."FUNGSI_KWS",
