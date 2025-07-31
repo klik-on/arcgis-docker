@@ -1,9 +1,9 @@
 -- Luas Fungsi Kawasan Hutan
 SELECT 
-  a."FUNGSIKWS", 
   c."KD_KWS",
   c."FUNGSI_KWS",
   c."NOURUT_KWS",
+  a."FUNGSIKWS",   
   SUM(ST_Area(ST_Transform(a.geom, 54034)))/10000 AS "LUAS_CEA"
 FROM 
   "KWSHUTAN_AR_250K_072024" a
@@ -16,6 +16,7 @@ GROUP BY
   a."FUNGSIKWS", c."KD_KWS", c."FUNGSI_KWS", c."NOURUT_KWS"
 ORDER BY
   c."NOURUT_KWS";
+
 
 -- Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi
 SELECT 
