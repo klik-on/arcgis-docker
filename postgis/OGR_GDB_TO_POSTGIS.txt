@@ -17,6 +17,13 @@ ogr2ogr -f "PostgreSQL" \
   -dim 2 \
   --config OGR_ENABLE_CURVE_REDUCTION YES
 
+tambahkan opsi
+  -nlt PROMOTE_TO_MULTI \
+  -lco GEOMETRY_NAME=geom \
+  -lco FID=id \
+  -lco SPATIAL_INDEX=GIST \
+  -t_srs EPSG:4326 \
+
 $ ogrinfo LAHAN_KRITIS_AR_50K_291124.gdb
 INFO: Open of `LAHAN_KRITIS_AR_50K_291124.gdb'
       using driver `OpenFileGDB' successful.
