@@ -1,5 +1,5 @@
 docker images supabase
-docker pull supabase/studio:2025.07.14-sha-80b9b6f
+docker pull supabase/studio:2025.07.28-sha-578b707
 image: kong:2.8.1
 docker pull supabase/gotrue:v2.177.0
 image: postgrest/postgrest:v12.0.3 ***
