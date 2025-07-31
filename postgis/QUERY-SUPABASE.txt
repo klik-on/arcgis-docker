@@ -36,7 +36,8 @@ FROM
   "KWSHUTAN_AR_250K_072024" a
 INNER JOIN 
   "ADM_KAB_KOTA" b 
-    ON a.geom && b.geom AND ST_Intersects(a.geom, b.geom)   -- bounding box filter dulu
+   --  ON a.geom && b.geom AND ST_Intersects(a.geom, b.geom)   -- bounding box filter dulu
+    ON ST_Intersects(a.geom, b.geom)  -- Sudah cukup tanpa && karena ST_Intersects mencakup itu
 LEFT JOIN 
   "KODE_KWS" c 
     ON a."FUNGSIKWS" = c."KD_KWS"
