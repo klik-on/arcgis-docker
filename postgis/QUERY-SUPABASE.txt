@@ -22,11 +22,11 @@ ORDER BY
 
 
 -- Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi  ####
-SELECT 
+SELECT
+  c."NOURUT_KWS",
   a."FUNGSIKWS" AS "KODEKWS",
   b."WADMPR",
   c."FUNGSI_KWS",
-  c."NOURUT_KWS",
   SUM(
     ST_Area(
       ST_Transform(
