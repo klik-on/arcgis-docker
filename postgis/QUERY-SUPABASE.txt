@@ -1,4 +1,4 @@
--- Luas Fungsi Kawasan Hutan  ####
+-- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin atau IGT ####
 SELECT 
   c."KD_KWS",
   c."FUNGSI_KWS",
@@ -6,9 +6,9 @@ SELECT
   a."FUNGSIKWS",   
   SUM(ST_Area(ST_Transform(a.geom, 54034)))/10000 AS "LUAS_CEA"
 FROM 
-  "KWSHUTAN_AR_250K_072024" a
+  "KWSHUTAN_AR_250K_072024" a  -- Tabel Data IGT Kawasan Hutan
 LEFT JOIN 
-  "KODE_KWS" c 
+  "KODE_KWS" c  -- Tabel Kodefikasi Kawasan
     ON a."FUNGSIKWS" = c."KD_KWS"
 WHERE 
   a.geom IS NOT NULL -- hanya geometri yang valid (tidak kosong) yang dihitung
