@@ -9,13 +9,19 @@ Layer: PL2023_AR_250K_FIX (3D Measured Multi Polygon)
 
 ogr2ogr -f "PostgreSQL" \
   PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00 active_schema=public" \
-  PL2023_AR_250K_FIX.gdb \
+  PL2024_AR_250K.gdb \
   -nlt MULTIPOLYGON \
-  -nln "\"PL2023_AR_250K_FIX\"" \
+  -nln "PL2024_AR_250K" \
+  -dim 2 \
+  -lco GEOMETRY_NAME=geom \
+  -lco FID=id \
+  -lco SPATIAL_INDEX=GIST \
+  -t_srs EPSG:4326 \
   -overwrite \
   -progress \
-  -dim 2 \
-  --config OGR_ENABLE_CURVE_REDUCTION YES
+  --config OGR_ENABLE_CURVE_REDUCTION YES \
+  --config OGR_FORCE_GML_MULTISURFACE_AS_MULTIPOLYGON YES
+
 
 tambahkan opsi
   -nlt PROMOTE_TO_MULTI \
