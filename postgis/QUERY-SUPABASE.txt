@@ -1,4 +1,4 @@
--- Luas Fungsi Kawasan Hutan
+-- Luas Fungsi Kawasan Hutan  ####
 SELECT 
   c."KD_KWS",
   c."FUNGSI_KWS",
@@ -18,7 +18,7 @@ ORDER BY
   c."NOURUT_KWS";
 
 
--- Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi
+-- Analisa Luas Kawasan Hutan Provinsi + Join Kodefiksi  ####
 SELECT 
   a."FUNGSIKWS" AS "KODEKWS",
   b."WADMPR",
@@ -53,7 +53,7 @@ ORDER BY
   c."NOURUT_KWS";
 
 
--- QUERY 3 TABEL DENGAN OIN KODE FUNGSI
+-- QUERY 3 TABEL DENGAN JOIN KODE FUNGSI ####
 SELECT 
     a.nkws,
     b."FUNGSIKWS",
@@ -83,3 +83,4 @@ JOIN "KODE_KWS" k
 WHERE ST_Intersection(ST_Intersection(a.geom, c.geom), b.geom) IS NOT NULL
 GROUP BY a.nkws, b."FUNGSIKWS", c."WADMPR", c."WADMKK", k."FUNGSI_KWS"
 ORDER BY luas_ha DESC;
+
