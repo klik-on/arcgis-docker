@@ -91,6 +91,11 @@ ORDER BY luas_ha DESC;
 
 upload GDB to postgis menggunakan ogr2ogr
 geom == shape
+cek type
+SELECT column_name, udt_name
+FROM information_schema.columns
+WHERE table_name = 'PL2024_AR_250K';
+
 
 SELECT 
   c."NOURUT_PL",                   -- Urutan untuk pengurutan Tabel KODE_KWS
