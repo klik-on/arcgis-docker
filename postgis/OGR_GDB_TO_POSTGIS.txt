@@ -2,6 +2,21 @@ https://www.northrivergeographic.com/loading-data-into-postgis-using-ogr/
 #First get the featurenames from the gdb:
 ogrinfo geodbname.gdb
 
+$ ogrinfo PL2023_AR_250K_FIX.gdb
+INFO: Open of `PL2023_AR_250K_FIX.gdb'
+      using driver `OpenFileGDB' successful.
+Layer: PL2023_AR_250K_FIX (3D Measured Multi Polygon)
+
+ogr2ogr -f "PostgreSQL" \
+  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00 active_schema=public" \
+  PL2023_AR_250K_FIX.gdb \
+  -nlt MULTIPOLYGON \
+  -nln "\"PL2023_AR_250K_FIX\"" \
+  -overwrite \
+  -progress \
+  -dim 2 \
+  --config OGR_ENABLE_CURVE_REDUCTION YES
+
 #then import a feature into a table:
 ogr2ogr -f "PostgreSQL" PG:"host=hostname port=5432 dbname=dbname user=postgres"
 geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overwrite
