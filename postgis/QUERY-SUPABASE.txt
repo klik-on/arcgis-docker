@@ -146,7 +146,7 @@ GROUP BY
   a."pl2024_id",
   b."WADMPR",
   c."DESKRIPSI_PL",
-  c."NOURUT_KWS"
+  c."NOURUT_PL"
 ORDER BY 
   c."NOURUT_PL";
 
