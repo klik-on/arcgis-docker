@@ -130,7 +130,7 @@ SELECT
     )
   ) / 10000 AS "LUAS_CEA_HA"       -- Total luas dalam hektar
 FROM 
-  "PL2024_AR_250K4" a
+  "PL2024_AR_250K" a
 INNER JOIN 
   "ADM_KAB_KOTA" b 
    --  ON a.shape && b.geom AND ST_Intersects(a.shape, b.geom)   -- bounding box filter dulu
