@@ -1,3 +1,21 @@
+-- Luas RUMPIN 
+SELECT 
+   a."nkws" AS "Nama Kawasan",        -- field nama
+    SUM(
+    ST_Area(
+      ST_Transform(a.geom, 54034)   -- Proyeksi  ESRI CEA dengan satuan meter
+    )
+  ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
+FROM 
+  "RUMPIN" a        -- Tabel Data IGT RUMPIN
+WHERE 
+  a.geom IS NOT NULL                   -- hanya geometri yang valid (tidak kosong) yang dihitung
+GROUP BY 
+  a."nkws"
+ORDER BY
+  a."nkws"
+
+
 --- Analisa Luasan PL di RUMPIN dengan KodePL
 SELECT
   c."NOURUT_PL",     -- Nomor urut dari master KODE_PL
@@ -5,7 +23,6 @@ SELECT
   COALESCE(c."DESKRIPSI_PL", 'TIDAK DIKETAHUI') AS "DESKRIPSI_PL", 
   pl."pl2024_id",    -- Kode PL dari data PL2024
   r."nkws",          -- Nama wilayah dari RUMPIN
-
   SUM(
     ST_Area(
       ST_Transform(
@@ -33,6 +50,7 @@ GROUP BY
 ORDER BY 
   c."NOURUT_PL";
 
+
 --- Analisa Luasan KWS di RUMPIN dengan KodeKWS
 SELECT
   c."NOURUT_KWS",     -- Nomor urut dari master KODE_PL
@@ -40,7 +58,6 @@ SELECT
   COALESCE(c."FUNGSI_KWS", 'TIDAK DIKETAHUI') AS "FUNGSI_KWS",                            
   kws."FUNGSIKWS",    -- Kode KWS dari data KWS
   r."nkws",          -- Nama wilayah dari RUMPIN
-
   SUM(
     ST_Area(
       ST_Transform(
@@ -73,7 +90,6 @@ ORDER BY
 SELECT                         
   lk."kritis",       -- Kode kritis dari data IGT LAHAN_KRITIS_AR_50K_291124
   r."nkws",          -- Nama wilayah dari RUMPIN
-
   SUM(
     ST_Area(
       ST_Transform(
