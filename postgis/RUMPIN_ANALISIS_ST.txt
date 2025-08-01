@@ -93,3 +93,4 @@ JOIN
 GROUP BY 
   lk."kritis",
   r."nkws"
+ORDER BY r."nkws", lk."kritis"
