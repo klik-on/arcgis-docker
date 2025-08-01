@@ -1,3 +1,5 @@
+-- Index ini mempercepat operasi spasial seperti ST_Transform dan kalkulasi area.
+CREATE INDEX IF NOT EXISTS idx_kwshutan_geom ON "KWSHUTAN_AR_250K" USING GIST(geom);
 -- Sebelum update, pastikan backup data karena perbaikan geometri bisa merubah bentuk asli.
 -- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
 UPDATE "KWSHUTAN_AR_250K"
