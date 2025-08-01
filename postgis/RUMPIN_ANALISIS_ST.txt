@@ -1,0 +1,69 @@
+--- Analisa Luasan PL di RUMPIN dengan KodePL
+SELECT
+  c."NOURUT_PL",     -- Nomor urut dari master KODE_PL
+  c."DESKRIPSI_PL",
+  COALESCE(c."DESKRIPSI_PL", 'TIDAK DIKETAHUI') AS "DESKRIPSI_PL", 
+  pl."pl2024_id",    -- Kode PL dari data PL2024
+  r."nkws",          -- Nama wilayah dari RUMPIN
+
+  SUM(
+    ST_Area(
+      ST_Transform(
+        ST_Intersection(pl.geom, r.geom),
+        54034                                   -- Cylindrical Equal Area projection
+      )
+    )
+  ) / 10000 AS "LUAS_CEA_HA"                    -- Luas dalam hektar
+FROM 
+  "PL2024_AR_250K" pl
+JOIN 
+  "RUMPIN" r
+    ON ST_Intersects(pl.geom, r.geom)
+LEFT JOIN 
+  "KODE_PL" c
+    ON pl."pl2024_id" = c."KD_PL"
+--WHERE 
+ -- ST_IsValid(pl.geom) AND ST_IsValid(r.geom) -- Hanya geom yg valid saja, akan beda jika digunakan 
+ -- r."nkws" = 'RUMPIN'                        -- Filter wilayah, pastikan nama sesuai data
+GROUP BY 
+  pl."pl2024_id",
+  r."nkws",
+  c."NOURUT_PL",
+  c."DESKRIPSI_PL"
+ORDER BY 
+  c."NOURUT_PL";
+
+--- Analisa Luasan KWS di RUMPIN dengan KodeKWS
+SELECT
+  c."NOURUT_KWS",     -- Nomor urut dari master KODE_PL
+  c."FUNGSI_KWS",
+  COALESCE(c."FUNGSI_KWS", 'TIDAK DIKETAHUI') AS "FUNGSI_KWS",                            
+  kws."FUNGSIKWS",    -- Kode KWS dari data KWS
+  r."nkws",          -- Nama wilayah dari RUMPIN
+
+  SUM(
+    ST_Area(
+      ST_Transform(
+        ST_Intersection(kws.geom, r.geom),
+        54034                                   -- Cylindrical Equal Area projection
+      )
+    )
+  ) / 10000 AS "LUAS_CEA_HA"                    -- Luas dalam hektar
+FROM 
+  "KWSHUTAN_AR_250K_072024" kws
+JOIN 
+  "RUMPIN" r
+    ON ST_Intersects(kws.geom, r.geom)
+LEFT JOIN 
+  "KODE_KWS" c
+    ON kws."FUNGSIKWS" = c."KD_KWS"
+--WHERE 
+ -- ST_IsValid(kws.geom) AND ST_IsValid(r.geom) -- Hanya geom yg valid saja, akan beda jika digunakan 
+ -- r."nkws" = 'RUMPIN'                        -- Filter wilayah, pastikan nama sesuai data
+GROUP BY 
+  kws."FUNGSIKWS",
+  r."nkws",
+  c."NOURUT_KWS",
+  c."FUNGSI_KWS"
+ORDER BY 
+  c."NOURUT_KWS";
