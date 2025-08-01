@@ -1,3 +1,16 @@
+-- Sebelum update, pastikan backup data karena perbaikan geometri bisa merubah bentuk asli.
+-- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
+UPDATE "KWSHUTAN_AR_250K"
+SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))  -- 3 = Polygon
+WHERE NOT ST_IsValid(geom);
+
+-- Setelah update, pastikan semua geometri valid:
+SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
+
+-- Dan pastikan semua bertipe MultiPolygon:
+SELECT DISTINCT GeometryType(geom) FROM "KWSHUTAN_AR_250K";
+
+
 -- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
 SELECT 
   c."NOURUT_KWS",                   -- Urutan untuk pengurutan  Tabel KODE_KWS
