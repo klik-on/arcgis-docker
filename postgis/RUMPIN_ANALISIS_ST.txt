@@ -15,6 +15,22 @@ GROUP BY
 ORDER BY
   a."nkws"
 
+-- Tampilkan di QGIS
+SELECT 
+  a."nkws" AS "nama_kawasan",        
+  ST_Union(a.geom) AS geom,  -- Gabungkan geometri per nkws
+  SUM(
+    ST_Area(
+      ST_Transform(a.geom, 54034)
+    )
+  ) / 10000.0 AS "luas_cea_ha"
+FROM 
+  "RUMPIN" a        
+WHERE 
+  a.geom IS NOT NULL 
+  AND ST_IsValid(a.geom)
+GROUP BY 
+  a."nkws"
 
 --- Analisa Luasan PL di RUMPIN dengan KodePL
 SELECT
