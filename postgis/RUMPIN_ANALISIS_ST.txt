@@ -19,7 +19,6 @@ ORDER BY
 --- Analisa Luasan PL di RUMPIN dengan KodePL
 SELECT
   c."NOURUT_PL",     -- Nomor urut dari master KODE_PL
-  c."DESKRIPSI_PL",
   COALESCE(c."DESKRIPSI_PL", 'TIDAK DIKETAHUI') AS "DESKRIPSI_PL", 
   pl."pl2024_id",    -- Kode PL dari data PL2024
   r."nkws",          -- Nama wilayah dari RUMPIN
