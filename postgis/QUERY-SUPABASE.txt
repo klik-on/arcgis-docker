@@ -10,6 +10,20 @@ SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
 -- Dan pastikan semua bertipe MultiPolygon:
 SELECT DISTINCT GeometryType(geom) FROM "KWSHUTAN_AR_250K";
 
+-- Test Luas total
+SELECT 
+  fungsikws,
+  SUM(ST_Area(ST_Transform(geom, 54034))) / 10000 AS luas_cea_ha
+FROM 
+  "KWSHUTAN_AR_250K"
+WHERE 
+  ST_IsValid(geom)
+GROUP BY 
+  fungsikws
+ORDER BY 
+  fungsikws;
+
+
 
 -- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
 SELECT 
