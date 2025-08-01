@@ -67,3 +67,29 @@ GROUP BY
   c."FUNGSI_KWS"
 ORDER BY 
   c."NOURUT_KWS";
+
+
+--- Analisa Luasan IGT LAHAN KRITIS di RUMPIN 
+SELECT                         
+  lk."kritis",       -- Kode kritis dari data IGT LAHAN_KRITIS_AR_50K_291124
+  r."nkws",          -- Nama wilayah dari RUMPIN
+
+  SUM(
+    ST_Area(
+      ST_Transform(
+        ST_Intersection(lk.geom, r.geom),
+        54034                                   -- Cylindrical Equal Area projection
+      )
+    )
+  ) / 10000 AS "LUAS_CEA_HA"                    -- Luas dalam hektar
+FROM 
+  "LAHAN_KRITIS_AR_50K_291124" lk
+JOIN 
+  "RUMPIN" r
+    ON ST_Intersects(lk.geom, r.geom)
+--WHERE 
+ -- ST_IsValid(lk.geom) AND ST_IsValid(r.geom) -- Hanya geom yg valid saja, akan beda jika digunakan 
+ -- r."nkws" = 'RUMPIN'                        -- Filter wilayah, pastikan nama sesuai data
+GROUP BY 
+  lk."kritis",
+  r."nkws"
