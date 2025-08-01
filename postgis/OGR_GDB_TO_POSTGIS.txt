@@ -61,6 +61,8 @@ geodbname.gdb -nlt PROMOTE_TO_MULTI -nln schemaname.tablename featurename -overw
 ogr2ogr –f “PostgreSQL” “PG:host=localhost port=5432 dbname=CCHGIS user=postgres” “C:\Temp\CCH_HoLIS_PostGIS.gdb” –overwrite –skipfailures -progress –-ogr2ogrconfig PG_USE_COPY YES
 
 ### QGIS=>OSGeo4W Shell
+ogr2ogr -f "OpenFileGDB" ADM_KAB_KOTA.gdb PG:"host=172,16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00 schemas=public tables=ADM_KAB_KOTA" -overwrite -progress
+
 ogr2ogr -f "PostgreSQL" PG:"host=wbgis.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
 
 ogr2ogr -f "PostgreSQL" PG:"host=wbgis.ddns.net port=5432 dbname=pgisdb schemas="PSKL_PKTHA" user=docker password=docker" "C:\copyto\GDB\REFORESTASI\REFORESTASI2022_AR_250K.gdb" REFORESTASI2022_AR_250K -overwrite  -progress
