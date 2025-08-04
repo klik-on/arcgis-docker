@@ -32,6 +32,39 @@ GROUP BY
 ORDER BY 
   fungsikws;
 
+-- Versi Lengkap
+WITH data AS (
+  -- Total per fungsi kawasan
+  SELECT 
+    fungsikws::text,
+    ROUND(SUM(ST_Area(ST_Transform(geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
+  FROM 
+    "KWSHUTAN_AR_250K"
+  WHERE 
+    ST_IsValid(geom)
+  GROUP BY 
+    fungsikws
+
+  UNION ALL
+
+  -- Grand total
+  SELECT 
+    'TOTAL' AS fungsikws,
+    ROUND(SUM(ST_Area(ST_Transform(geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
+  FROM 
+    "KWSHUTAN_AR_250K"
+  WHERE 
+    ST_IsValid(geom)
+)
+
+SELECT * 
+FROM data
+ORDER BY 
+  CASE 
+    WHEN fungsikws = 'TOTAL' THEN 'ZZZ'
+    ELSE fungsikws 
+  END;
+
 
 
 -- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
