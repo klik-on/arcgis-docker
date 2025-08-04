@@ -6,6 +6,10 @@ WHERE tablename = 'LAHAN_KRITIS_AR_50K_291124';
 -- indexxname
 -- lahan_kritis_ar_50k_291124_pkey
 -- lahan_kritis_ar_50k_291124_geom_geom_idx
+Kalau beluma ada buat
+-- Index ini mempercepat operasi spasial seperti ST_Transform dan kalkulasi area.
+CREATE INDEX IF NOT EXISTS idx_kwshutan_geom ON "LAHAN_KRITIS_AR_50K_291124" USING GIST(geom);
+
 
 -- Cek Valid geometri, pastikan semua geometri valid: Data count 0
 SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
