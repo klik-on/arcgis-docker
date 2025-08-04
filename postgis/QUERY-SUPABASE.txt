@@ -36,14 +36,16 @@ ORDER BY
 WITH data AS (
   -- Total per fungsi kawasan
   SELECT 
-    fungsikws::text,
-    ROUND(SUM(ST_Area(ST_Transform(geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
+    c."FUNGSI_KWS"::text AS fungsikws,
+    ROUND(SUM(ST_Area(ST_Transform(a.geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
   FROM 
-    "KWSHUTAN_AR_250K"
+    "KWSHUTAN_AR_250K" a
+    LEFT JOIN "KODE_KWS" c
+      ON a.fungsikws = c."KD_KWS"
   WHERE 
-    ST_IsValid(geom)
+    ST_IsValid(a.geom)
   GROUP BY 
-    fungsikws
+    c."FUNGSI_KWS"
 
   UNION ALL
 
@@ -64,7 +66,6 @@ ORDER BY
     WHEN fungsikws = 'TOTAL' THEN 'ZZZ'
     ELSE fungsikws 
   END;
-
 
 
 -- Luas Fungsi Kawasan Hutan  Tanpa Batas Admin ####
