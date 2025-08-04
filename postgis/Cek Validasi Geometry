@@ -1,0 +1,24 @@
+-- cek Index sudah ada atau belum digunakan Untuk Mempercepat Proeses
+SELECT indexname
+FROM pg_indexes
+WHERE tablename = 'LAHAN_KRITIS_AR_50K_291124';
+-- output : kalau sudah ada
+-- indexxname
+-- lahan_kritis_ar_50k_291124_pkey
+-- lahan_kritis_ar_50k_291124_geom_geom_idx
+
+-- Cek Valid geometri, pastikan semua geometri valid: Data count 0
+SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
+
+-- Jiks Data count  belum 0
+-- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
+UPDATE "LAHAN_KRITIS_AR_50K_291124"
+SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))  -- 3 = Polygon
+WHERE NOT ST_IsValid(geom);
+
+-- Setelah update, pastikan semua geometri valid:
+SELECT COUNT(*) FROM "LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
+
+-- Dan pastikan semua bertipe MultiPolygon:
+SELECT DISTINCT GeometryType(geom) FROM "LAHAN_KRITIS_AR_50K_291124";
+
