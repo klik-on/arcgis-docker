@@ -1,3 +1,7 @@
+import requests
+import json
+import os
+from qgis.core import QgsVectorLayer, QgsProject
 # === Konfigurasi ===
 url = "http://172.16.2.122:8000/rest/v1/RUMPIN?select=*"
 
