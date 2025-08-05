@@ -121,3 +121,63 @@ if not layer.isValid():
 
 QgsProject.instance().addMapLayer(layer)
 print("✅ Layer MultiPolygon berhasil ditambahkan ke QGIS!")
+
+
+--- Proxy
+import requests
+import json
+import os
+from qgis.core import QgsVectorLayer, QgsProject
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+# === Konfigurasi ===
+url = "https://dbgis.menlhk.go.id/supabase-proxy/api/AMDAL_AR_50K?select=*"
+headers = {}  # Tidak perlu API key karena sudah ditangani reverse proxy
+
+# === Ambil data dari Supabase ===
+response = requests.get(url, headers=headers, verify=False)
+if response.status_code != 200:
+    raise Exception(f"Gagal ambil data dari API: {response.status_code} - {response.text}")
+
+data = response.json()
+
+# === Konversi ke GeoJSON FeatureCollection ===
+geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+for row in data:
+    geom = row.get("geometry")  # pastikan kolom geometry bernama 'geom'
+    if isinstance(geom, str):
+        try:
+            geom = json.loads(geometry)  # parse string ke dict
+        except Exception as e:
+            print("❌ Gagal parsing geometry:", e)
+            continue
+
+    if not isinstance(geom, dict) or "type" not in geom or "coordinates" not in geom:
+        print("❌ Geometry tidak valid:", geom)
+        continue
+
+    feature = {
+        "type": "Feature",
+        "geometry": geom,
+        "properties": {k: v for k, v in row.items() if k != "geom"}  # gunakan 'geom' sesuai nama field
+    }
+    geojson["features"].append(feature)
+
+# === Simpan ke file sementara ===
+geojson_path = os.path.join(os.path.expanduser("~"), "data_supabase.geojson")
+with open(geojson_path, "w") as f:
+    json.dump(geojson, f)
+
+# === Tambahkan ke QGIS ===
+layer = QgsVectorLayer(geojson_path, "AMDAL Supabase", "ogr")
+if not layer.isValid():
+    raise Exception("❌ Layer tidak valid. Cek struktur GeoJSON dan geometri.")
+
+QgsProject.instance().addMapLayer(layer)
+print("✅ Layer MultiPolygon berhasil ditambahkan ke QGIS!")
