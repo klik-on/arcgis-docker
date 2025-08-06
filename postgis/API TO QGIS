@@ -132,7 +132,14 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # === Konfigurasi ===
-url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR=eq.Bali"  ### Contoh Query
+# url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR=eq.Bali"  ### Contoh Query
+
+from urllib.parse import quote
+
+pilih = "Bali"
+filter_query = f"ilike.{pilih}%"
+encoded_query = quote(filter_query, safe='')
+url = f"https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR={encoded_query}"
 
 headers = {}
 
@@ -191,4 +198,5 @@ if not layer.isValid():
 
 QgsProject.instance().addMapLayer(layer)
 print("✅ Layer berhasil ditambahkan ke QGIS!")
+
 
