@@ -3,15 +3,15 @@ docker pull supabase/studio:2025.07.28-sha-578b707
 image: kong:2.8.1
 docker pull supabase/gotrue:v2.177.0
 image: postgrest/postgrest:v12.0.3 ***
-# docker pull supabase/realtime:v2.41.15
+docker pull supabase/realtime:v2.41.15
 docker pull supabase/storage-api:v1.26.1
 docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.4
 docker pull supabase/edge-runtime:v1.68.3
 image: supabase/logflare:1.14.2  == 1.15.0 ***
-# docker pull supabase/postgres:15.8.1.127
+docker pull supabase/postgres:15.8.1.127
 docker pull timberio/vector:0.28.1-alpine ***
-# docker pull supabase/supavisor:2.6.1
+docker pull supabase/supavisor:2.6.1
 ###  container_name: supabase-pooler
 ###  image: supabase/supavisor:2.5.7
 
@@ -219,6 +219,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
