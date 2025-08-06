@@ -182,3 +182,65 @@ if not layer.isValid():
 
 QgsProject.instance().addMapLayer(layer)
 print("✅ Layer berhasil ditambahkan ke QGIS!")
+
+
+--- Pilih Attribut
+import requests
+import json
+import os
+from qgis.core import QgsVectorLayer, QgsProject
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# === Konfigurasi ===
+url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR=eq.Bali"  ### Contoh Query
+
+headers = {}
+
+# === Ambil data dari Supabase ===
+response = requests.get(url, headers=headers, verify=False)
+if response.status_code != 200:
+    raise Exception(f"Gagal ambil data dari API: {response.status_code} - {response.text}")
+
+data = response.json()
+
+# === Konversi ke GeoJSON FeatureCollection ===
+geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+for row in data:
+    # Pastikan nama field sesuai dengan data asli dari API
+    geom = row.get("geometry") or row.get("geom")  # bisa salah satu tergantung API
+
+    if isinstance(geom, str):
+        try:
+            geom = json.loads(geom)  # Parse string JSON ke Python dict
+        except Exception as e:
+            print("❌ Gagal parsing geometry:", e)
+            continue
+
+    if not isinstance(geom, dict) or "type" not in geom or "coordinates" not in geom:
+        print("❌ Geometry tidak valid:", geom)
+        continue
+
+    feature = {
+        "type": "Feature",
+        "geometry": geom,
+        "properties": {k: v for k, v in row.items() if k not in ["geom", "geometry"]}
+    }
+    geojson["features"].append(feature)
+
+# === Simpan ke file GeoJSON sementara ===
+geojson_path = os.path.join(os.path.expanduser("~"), "data_supabase.geojson")
+with open(geojson_path, "w") as f:
+    json.dump(geojson, f)
+
+# === Tambahkan ke QGIS ===
+layer = QgsVectorLayer(geojson_path, "ADM_KAB_KOTA", "ogr")
+if not layer.isValid():
+    raise Exception("❌ Layer tidak valid. Cek struktur GeoJSON dan geometri.")
+
+QgsProject.instance().addMapLayer(layer)
+print("✅ Layer berhasil ditambahkan ke QGIS!")
