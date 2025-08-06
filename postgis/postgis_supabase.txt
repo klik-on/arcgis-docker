@@ -11,7 +11,7 @@ docker pull supabase/edge-runtime:v1.68.3
 image: supabase/logflare:1.14.2  == 1.15.0 ***
 # docker pull supabase/postgres:15.8.1.127
 docker pull timberio/vector:0.28.1-alpine ***
-docker pull supabase/supavisor:2.6.0
+# docker pull supabase/supavisor:2.6.1
 ###  container_name: supabase-pooler
 ###  image: supabase/supavisor:2.5.7
 
@@ -219,5 +219,6 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
