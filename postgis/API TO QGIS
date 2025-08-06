@@ -193,7 +193,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # === Konfigurasi ===
-url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR=eq.Bali"  ### Contoh Query
+url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?wadmkk=eq.Badung"  ### Contoh Query
 
 headers = {}
 
@@ -238,9 +238,18 @@ with open(geojson_path, "w") as f:
     json.dump(geojson, f)
 
 # === Tambahkan ke QGIS ===
-layer = QgsVectorLayer(geojson_path, "ADM_KAB_KOTA", "ogr")
+#layer = QgsVectorLayer(geojson_path, "ADM_KAB_KOTA", "ogr")
+layer_name = "ADM_KAB_KOTA"
+if geojson["features"]:
+    nama_kabkota = geojson["features"][0]["properties"].get("wadmkk")
+    if nama_kabkota:
+        layer_name += f" - {nama_kabkota}"
+
+layer = QgsVectorLayer(geojson_path, layer_name, "ogr")
+
 if not layer.isValid():
     raise Exception("❌ Layer tidak valid. Cek struktur GeoJSON dan geometri.")
 
 QgsProject.instance().addMapLayer(layer)
 print("✅ Layer berhasil ditambahkan ke QGIS!")
+
