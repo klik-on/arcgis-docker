@@ -132,7 +132,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # === Konfigurasi ===
-url = "https://dbgis.menlhk.go.id/supabase-proxy/api/AMDAL_AR_50K?select=*"
+url = "https://dbgis.menlhk.go.id/supabase-proxy/api/RUMPIN?select=*"
 headers = {}
 
 # === Ambil data dari Supabase ===
@@ -176,10 +176,9 @@ with open(geojson_path, "w") as f:
     json.dump(geojson, f)
 
 # === Tambahkan ke QGIS ===
-layer = QgsVectorLayer(geojson_path, "AMDAL Supabase", "ogr")
+layer = QgsVectorLayer(geojson_path, "RUMPIN", "ogr")
 if not layer.isValid():
     raise Exception("❌ Layer tidak valid. Cek struktur GeoJSON dan geometri.")
 
 QgsProject.instance().addMapLayer(layer)
 print("✅ Layer berhasil ditambahkan ke QGIS!")
-
