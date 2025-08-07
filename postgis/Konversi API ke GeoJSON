@@ -1,0 +1,72 @@
+#### 1. Simpan API 
+import os
+import requests
+
+# Buat folder jika belum ada
+# os.makedirs("data", exist_ok=True)
+
+# URL API
+url = "https://gokups.menlhk.go.id/api/v1/kups"
+response = requests.get(url)
+
+# Simpan ke file di dalam folder "data"
+output_path = "c:/app/data/kups.json"
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(response.text)
+
+print(f"Data berhasil disimpan sebagai '{output_path}'")
+
+
+
+### 2. Konversi json ke GeoJSON
+import json
+
+# === KONFIGURASI ===
+# Ganti path ini sesuai lokasi file Anda
+input_path = "C:/app/data/kups.json"
+output_path = "C:/app/data/kups.geojson"
+
+# === BACA FILE JSON ===
+with open(input_path, "r", encoding="utf-8") as f:
+    raw_data = json.load(f)
+
+# === AMBIL DATA YANG DIBUTUHKAN ===
+# API mengembalikan dict dengan key "data" berisi list objek
+kups_list = raw_data.get("data", [])
+
+# === KONVERSI KE GEOJSON ===
+features = []
+
+for item in kups_list:
+    try:
+        # Ambil koordinat
+        lon = float(item["nujur"])
+        lat = float(item["lintang"])
+
+        # Buat fitur GeoJSON
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lon, lat]
+            },
+            "properties": {
+                k: v for k, v in item.items() if k not in ["lintang", "nujur"]
+            }
+        }
+
+        features.append(feature)
+    except (KeyError, ValueError, TypeError) as e:
+        print(f"❌ Lewati data karena error: {e}")
+
+# === BENTUK AKHIR GEOJSON ===
+geojson_data = {
+    "type": "FeatureCollection",
+    "features": features
+}
+
+# === SIMPAN SEBAGAI FILE .geojson ===
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump(geojson_data, f, ensure_ascii=False, indent=2)
+
+print(f"✅ Konversi selesai. File disimpan di: {output_path}")
