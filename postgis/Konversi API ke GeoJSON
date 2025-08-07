@@ -1,20 +1,34 @@
 #### 1. Simpan API 
 import os
 import requests
+import urllib3
 
-# Buat folder jika belum ada
-# os.makedirs("data", exist_ok=True)
+# Nonaktifkan peringatan SSL
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # URL API
 url = "https://gokups.menlhk.go.id/api/v1/kups"
-response = requests.get(url)
 
-# Simpan ke file di dalam folder "data"
-output_path = "c:/app/data/kups.json"
-with open(output_path, "w", encoding="utf-8") as f:
-    f.write(response.text)
+# Buat folder jika belum ada
+folder_path = "c:/app/data"
+os.makedirs(folder_path, exist_ok=True)
 
-print(f"Data berhasil disimpan sebagai '{output_path}'")
+try:
+    # Ambil data dari API, bypass SSL verify
+    response = requests.get(url, verify=False, timeout=10)
+    response.raise_for_status()  # Raise exception jika status bukan 2xx
+
+    # Simpan ke file
+    output_path = os.path.join(folder_path, "kups.json")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(response.text)
+
+    print(f"Data berhasil disimpan sebagai '{output_path}'")
+
+except requests.RequestException as e:
+    print(f"Terjadi kesalahan saat mengambil data dari API: {e}")
+except IOError as e:
+    print(f"Gagal menyimpan file: {e}")
 
 
 
