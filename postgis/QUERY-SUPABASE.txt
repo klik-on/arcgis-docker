@@ -349,30 +349,28 @@ ORDER BY
 ### versi GEOM
 -- ANALISA LUAS PERUNTUKAN LAHAN PER PROVINSI (JOIN KODEFIKSI + ADM_KAB_KOTA)
 SELECT
-  c."NOURUT_PL",                      -- Nomor urut dari master KODE_PL
-  a."pl2024_id" AS "KODEPL",         -- Kode PL dari data PL2024
-  b."WADMPR",                         -- Nama Provinsi dari batas administrasi
-  c."DESKRIPSI_PL",                  -- Deskripsi PL dari referensi KODE_PL
+  c."NOURUT_PL",                         -- Nomor urut dari master KODE_PL
+  a."pl2024_id" AS "KODEPL",             -- Kode PL dari data PL2024
+  b."WADMPR",                             -- Nama Provinsi
+  c."DESKRIPSI_PL",                       -- Deskripsi PL dari referensi KODE_PL
   SUM(
     ST_Area(
-      ST_Transform(
-        ST_Intersection(a.geom, b.geom),
-        54034                         -- ESRI Cylindrical Equal Area (meter)
+      ST_Intersection(
+        ST_Transform(ST_MakeValid(a.geom), 54034),
+        ST_Transform(ST_MakeValid(b.geom), 54034)
       )
     )
-  ) / 10000 AS "LUAS_CEA_HA"         -- Total luas hasil potongan (intersect) dalam hektar
+  ) / 10000 AS "LUAS_CEA_HA"              -- Luas dalam hektar
 FROM 
-  "PL2024_AR_250K" a                 -- Layer peruntukan lahan
+  "PL2024_AR_250K" a                      -- Layer peruntukan lahan
 INNER JOIN 
-  "ADM_KAB_KOTA" b                   -- Layer batas provinsi/kabupaten
-    ON ST_Intersects(a.geom, b.geom) -- Intersect untuk pemotongan spasial
+  "ADM_KAB_KOTA" b                        -- Layer batas provinsi/kabupaten
+    ON ST_Intersects(a.geom, b.geom)       -- Spatial filter pakai SRID asli
 LEFT JOIN 
-  "KODE_PL" c                        -- Tabel referensi kode PL
+  "KODE_PL" c                              -- Tabel referensi kode PL
     ON a."pl2024_id" = c."KD_PL"
 WHERE 
-  ST_IsValid(a.geom)                -- Filter geometri valid
-  AND ST_IsValid(b.geom)
-  AND b."WADMPR" ILIKE '%DKI%'      -- Filter hanya untuk wilayah provinsi DKI
+  b."WADMPR" ILIKE '%DKI%'                 -- Filter hanya DKI
 GROUP BY 
   a."pl2024_id",
   b."WADMPR",
@@ -380,6 +378,7 @@ GROUP BY
   c."NOURUT_PL"
 ORDER BY 
   c."NOURUT_PL";
+
 
 --- Perbahan PL 2022-2024
 SELECT
