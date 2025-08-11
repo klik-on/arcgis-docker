@@ -3,7 +3,7 @@ docker images supabase
 image: kong:2.8.1
 docker pull supabase/gotrue:v2.178.0
 image: postgrest/postgrest:v12.0.3 ***
-docker pull supabase/realtime:v2.41.15
+# docker pull supabase/realtime:v2.41.23
 # docker pull supabase/storage-api:v1.26.3
 docker pull darthsim/imgproxy:v3.29.1
 # docker pull supabase/postgres-meta:v0.91.5
@@ -219,6 +219,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
