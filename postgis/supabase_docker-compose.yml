@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.08.04-sha-6e99ca6
+    image: supabase/studio:2025.08.11-sha-c538c4d
     restart: unless-stopped
     healthcheck:
       test:
@@ -247,7 +247,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.26.3
+    image: supabase/storage-api:v1.26.4
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
