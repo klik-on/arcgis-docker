@@ -40,3 +40,48 @@ SELECT
 FROM luas_per_provinsi
 ORDER BY 
   "NOURUT_PL" NULLS LAST;
+
+
+### Schema dipindahkan dari public ke datagis
+WITH luas_per_provinsi AS (
+  SELECT
+    c."NOURUT_PL",
+    a."pl2024_id" AS "KODEPL",
+    b."WADMPR",
+    c."DESKRIPSI_PL",
+    SUM(
+      ST_Area(
+        ST_Intersection(
+          ST_Transform(ST_MakeValid(a.geom), 54034),
+          ST_Transform(ST_MakeValid(b.geom), 54034)
+        )
+      )
+    ) / 10000 AS "LUAS_CEA_HA"
+  FROM 
+    datagis."PL2024_AR_250K" a
+  INNER JOIN 
+    datagis."ADM_KAB_KOTA" b
+      ON ST_Intersects(a.geom, b.geom)
+  LEFT JOIN 
+    datagis."KODE_PL" c
+      ON a."pl2024_id" = c."KD_PL"
+  WHERE 
+    b."WADMPR" ILIKE '%DKI%'
+  GROUP BY 
+    a."pl2024_id",
+    b."WADMPR",
+    c."DESKRIPSI_PL",
+    c."NOURUT_PL"
+)
+SELECT * FROM luas_per_provinsi
+UNION ALL
+SELECT
+  NULL AS "NOURUT_PL",
+  NULL AS "KODEPL",
+  'GRAND TOTAL' AS "WADMPR",
+  NULL AS "DESKRIPSI_PL",
+  SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
+FROM luas_per_provinsi
+ORDER BY 
+  "NOURUT_PL" NULLS LAST;
+
