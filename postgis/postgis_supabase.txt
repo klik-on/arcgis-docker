@@ -180,6 +180,23 @@ GRANT SELECT ON TABLES TO postgres;
 GET https://xyzcompany.supabase.co/rest/v1/bangunan
 GET https://domain/supabase-proxy/api/bangunan
 
+### Pindahkan semua tabel di schema public ke schema datagis
+DO
+$$
+DECLARE
+    tbl RECORD;
+BEGIN
+    FOR tbl IN
+        SELECT tablename
+        FROM pg_tables
+        WHERE schemaname = 'public'
+    LOOP
+        EXECUTE format('ALTER TABLE public.%I SET SCHEMA datagis;', tbl.tablename);
+    END LOOP;
+END
+$$;
+
+
 
 ## Hapus SCHEMA
 drop schema datagis cascade;
@@ -255,6 +272,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
