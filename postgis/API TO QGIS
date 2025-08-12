@@ -198,31 +198,30 @@ print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.fea
 
 
 -- Query Menggunakan PILIHAN
-import requests
+import urllib3
 import json
 import os
-from qgis.core import QgsVectorLayer, QgsProject
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from qgis.core import (
+    QgsVectorLayer,
+    QgsProject,
+    QgsCoordinateReferenceSystem
+)
 
 # === Konfigurasi ===
-# url = "https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR=eq.Bali"  ### Contoh Query
+IGT = "ADM_KAB_KOTA"
+url = f"https://dbgis.menlhk.go.id/supabase-proxy/api/{IGT}?WADMPR=eq.Bali"
+geojson_path = "C:/app/data/data_supabase.geojson"  # Ganti sesuai kebutuhan
+os.makedirs(os.path.dirname(geojson_path), exist_ok=True)
 
-from urllib.parse import quote
+# === Inisialisasi urllib3 PoolManager (tanpa verifikasi sertifikat SSL) ===
+http = urllib3.PoolManager(cert_reqs='CERT_NONE')
+response = http.request("GET", url)
 
-pilih = "Bali"
-filter_query = f"ilike.{pilih}%"
-encoded_query = quote(filter_query, safe='')
-url = f"https://dbgis.menlhk.go.id/supabase-proxy/api/ADM_KAB_KOTA?WADMPR={encoded_query}"
-
-headers = {}
-
-# === Ambil data dari Supabase ===
-response = requests.get(url, headers=headers, verify=False)
-if response.status_code != 200:
-    raise Exception(f"Gagal ambil data dari API: {response.status_code} - {response.text}")
-
-data = response.json()
+# === Parse response ===
+try:
+    data = json.loads(response.data.decode("utf-8"))
+except Exception as e:
+    raise Exception(f"❌ Gagal parsing response: {e}")
 
 # === Konversi ke GeoJSON FeatureCollection ===
 geojson = {
@@ -231,18 +230,16 @@ geojson = {
 }
 
 for row in data:
-    # Pastikan nama field sesuai dengan data asli dari API
-    geom = row.get("geometry") or row.get("geom")  # bisa salah satu tergantung API
-
+    geom = row.get("geometry") or row.get("geom")
     if isinstance(geom, str):
         try:
-            geom = json.loads(geom)  # Parse string JSON ke Python dict
+            geom = json.loads(geom)
         except Exception as e:
             print("❌ Gagal parsing geometry:", e)
             continue
 
     if not isinstance(geom, dict) or "type" not in geom or "coordinates" not in geom:
-        print("❌ Geometry tidak valid:", geom)
+        print("❌ Geometry tidak valid, dilewati:", geom)
         continue
 
     feature = {
@@ -252,25 +249,25 @@ for row in data:
     }
     geojson["features"].append(feature)
 
-# === Simpan ke file GeoJSON sementara ===
-geojson_path = os.path.join(os.path.expanduser("~"), "data_supabase.geojson")
-with open(geojson_path, "w") as f:
-    json.dump(geojson, f)
+# === Cek jika kosong ===
+if not geojson["features"]:
+    print("⚠️ Tidak ada fitur ditemukan. Proses dihentikan.")
+    exit()
+
+# === Simpan GeoJSON ke file ===
+with open(geojson_path, "w", encoding="utf-8") as f:
+    json.dump(geojson, f, ensure_ascii=False, indent=2)
+
+print(f"✅ GeoJSON disimpan di: {geojson_path}")
 
 # === Tambahkan ke QGIS ===
-#layer = QgsVectorLayer(geojson_path, "ADM_KAB_KOTA", "ogr")
-layer_name = "ADM_KAB_KOTA"
-if geojson["features"]:
-    nama_pilih = geojson["features"][0]["properties"].get("WADMPR")
-    if nama_kabkota:
-        layer_name += f" - {nama_pilih}"
-
-layer = QgsVectorLayer(geojson_path, layer_name, "ogr")
+layer = QgsVectorLayer(geojson_path, IGT, "ogr")
+layer.setCrs(QgsCoordinateReferenceSystem("EPSG:4326"))
 
 if not layer.isValid():
-    raise Exception("❌ Layer tidak valid. Cek struktur GeoJSON dan geometri.")
+    raise Exception("❌ Layer '{IGT}' tidak valid. Cek struktur GeoJSON dan geometri.")
 
 QgsProject.instance().addMapLayer(layer)
-print("✅ Layer berhasil ditambahkan ke QGIS!")
+print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.featureCount()}")
 
 
