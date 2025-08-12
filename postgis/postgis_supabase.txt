@@ -169,9 +169,13 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO anon;
 ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
 GRANT USAGE, SELECT ON SEQUENCES TO anon;
-
 -- Supabase-specific: publish schema to GraphQL engine & REST
-grant usage on schema datagis to postgres;
+- Publish schema datagis ke GraphQL API
+GRANT USAGE ON SCHEMA datagis TO postgres;
+GRANT SELECT ON ALL TABLES IN SCHEMA datagis TO postgres;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT SELECT ON TABLES TO postgres;
+
 
 ## Hapus SCHEMA
 drop schema datagis cascade;
@@ -247,6 +251,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
