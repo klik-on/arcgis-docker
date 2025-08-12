@@ -160,18 +160,21 @@ set timezone to 'Asia/Jakarta';
 
 https://supabase.com/docs/guides/api/using-custom-schemas
 
-CREATE SCHEMA datagis; ==>buat di QGIS
-GRANT USAGE ON SCHEMA datagis TO anon, authenticated, service_role;
-GRANT ALL ON ALL TABLES IN SCHEMA datagis TO anon, authenticated, service_role;
-GRANT ALL ON ALL ROUTINES IN SCHEMA datagis TO anon, authenticated, service_role;
-GRANT ALL ON ALL SEQUENCES IN SCHEMA datagis TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA datagis GRANT ALL ON TABLES TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA datagis GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA datagis GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+CREATE SCHEMA datagis;
+ALTER ROLE anon SET search_path = datagis, public, storage, graphql_public;
+GRANT USAGE ON SCHEMA datagis TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO anon;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT USAGE, SELECT ON SEQUENCES TO anon;
 
+-- Supabase-specific: publish schema to GraphQL engine & REST
+grant usage on schema datagis to postgres;
 
 ## Hapus SCHEMA
-drop schema datagis;
+drop schema datagis cascade;
 
 ## Hapus Tabel dalam schema
 do $$ declare
@@ -244,6 +247,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
