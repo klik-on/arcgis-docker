@@ -161,7 +161,7 @@ set timezone to 'Asia/Jakarta';
 https://supabase.com/docs/guides/api/using-custom-schemas
 
 CREATE SCHEMA datagis;
-ALTER ROLE anon SET search_path = datagis, public, storage, graphql_public;
+ALTER ROLE anon SET search_path = public, storage, graphql_public, datagis ;
 GRANT USAGE ON SCHEMA datagis TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
@@ -255,6 +255,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
