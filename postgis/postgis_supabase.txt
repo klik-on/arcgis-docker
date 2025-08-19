@@ -14,7 +14,7 @@ docker pull supabase/gotrue:v2.178.0
 docker pull supabase/realtime:v2.42.3
     container_name: realtime-dev.supabase-realtime
     image: supabase/realtime:v2.42.3
-docker pull supabase/storage-api:v1.26.3
+docker pull supabase/storage-api:v1.26.4
     container_name: supabase-storage
     image: supabase/storage-api:v1.26.4
 docker pull darthsim/imgproxy:v3.29.1
@@ -277,6 +277,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
