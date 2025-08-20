@@ -28,7 +28,7 @@ SELECT
 FROM 
   "public".kwshutan_ar_250k a        -- Tabel Data IGT KWS
 LEFT JOIN 
-  "KODE_KWS" c                        -- Tabel Kodefikasi KODE_KWS
+  "datagis"."KODE_KWS" c                        -- Tabel Kodefikasi KODE_KWS
     ON a."fungsikws" = c."KD_KWS"
 WHERE 
   a.geom IS NOT NULL                   -- hanya geometri yang valid (tidak kosong) yang dihitung
@@ -47,7 +47,7 @@ SELECT
 FROM 
   "public".kwshutan_ar_250k a
 LEFT JOIN 
-  "KODE_KWS" c 
+  "datagis"."KODE_KWS" c 
     ON a."fungsikws" = c."KD_KWS"
 WHERE 
   a.geom IS NOT NULL
