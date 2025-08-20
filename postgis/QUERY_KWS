@@ -1,4 +1,4 @@
--- Luas Fungsi Kawasan Hutan Tanpa Batas Admin
+-- TOTAL Luas Fungsi Kawasan Hutan Tanpa Batas Admin
 SELECT 
   c."NOURUT_KWS", 
   a."fungsikws" AS "KODEKWS", 
@@ -36,3 +36,39 @@ WHERE
   a.geom IS NOT NULL
 ORDER BY 
   "NOURUT_KWS" NULLS FIRST;         -- Menempatkan Grand Total di bagian bawah
+
+-- ### Atau
+-- Versi Lengkap TOTAL KWS TANPA ADMIN
+WITH data AS (
+  -- Total per fungsi kawasan
+  SELECT 
+    c."FUNGSI_KWS"::text AS fungsikws,
+    ROUND(SUM(ST_Area(ST_Transform(a.geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
+  FROM 
+    "public".kwshutan_ar_250k a
+    LEFT JOIN "KODE_KWS" c
+      ON a.fungsikws = c."KD_KWS"
+  WHERE 
+    ST_IsValid(a.geom)
+  GROUP BY 
+    c."FUNGSI_KWS"
+
+  UNION ALL
+
+  -- Grand total
+  SELECT 
+    'TOTAL' AS fungsikws,
+    ROUND(SUM(ST_Area(ST_Transform(geom, 54034)))::numeric, 2) / 10000 AS luas_cea_ha
+  FROM 
+   "public".kwshutan_ar_250k
+  WHERE 
+    ST_IsValid(geom)
+)
+
+SELECT * 
+FROM data
+ORDER BY 
+  CASE 
+    WHEN fungsikws = 'TOTAL' THEN 'ZZZ'
+    ELSE fungsikws 
+  END;
