@@ -109,10 +109,10 @@ WITH LuasKawasan AS (
   FROM 
     "public".kwshutan_ar_250k a
   INNER JOIN 
-    "ADM_KAB_KOTA" b 
+    "datagis"."ADM_KAB_KOTA" b 
     ON ST_Intersects(a.geom, b.geom)  -- Sudah cukup tanpa && karena ST_Intersects mencakup itu
   LEFT JOIN 
-    "KODE_KWS" c 
+    "datagis"."KODE_KWS" c 
     ON a."fungsikws" = c."KD_KWS"
   WHERE 
     ST_IsValid(a.geom) 
@@ -146,4 +146,3 @@ SELECT
   SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
 FROM 
   LuasKawasan;
-
