@@ -1,0 +1,38 @@
+-- Luas Fungsi Kawasan Hutan Tanpa Batas Admin
+SELECT 
+  c."NOURUT_KWS", 
+  a."fungsikws" AS "KODEKWS", 
+  c."FUNGSI_KWS", 
+  SUM(
+    ST_Area(
+      ST_Transform(a.geom, 54034)   -- Proyeksi  ESRI CEA dengan satuan meter
+    )
+  ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
+FROM 
+  "public".kwshutan_ar_250k a        -- Tabel Data IGT KWS
+LEFT JOIN 
+  "KODE_KWS" c                        -- Tabel Kodefikasi KODE_KWS
+    ON a."fungsikws" = c."KD_KWS"
+WHERE 
+  a.geom IS NOT NULL                   -- hanya geometri yang valid (tidak kosong) yang dihitung
+GROUP BY 
+  a."fungsikws", c."KD_KWS", c."FUNGSI_KWS", c."NOURUT_KWS"
+UNION ALL
+SELECT 
+  NULL AS "NOURUT_KWS", 
+  NULL AS "KODEKWS", 
+  'Grand Total' AS "FUNGSI_KWS",   -- Mengganti kolom ini dengan Grand Total sebagai string
+  SUM(
+    ST_Area(
+      ST_Transform(a.geom, 54034)   -- Proyeksi  ESRI CEA dengan satuan meter
+    )
+  ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
+FROM 
+  "public".kwshutan_ar_250k a
+LEFT JOIN 
+  "KODE_KWS" c 
+    ON a."fungsikws" = c."KD_KWS"
+WHERE 
+  a.geom IS NOT NULL
+ORDER BY 
+  "NOURUT_KWS" NULLS FIRST;         -- Menempatkan Grand Total di bagian bawah
