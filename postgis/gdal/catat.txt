@@ -8,15 +8,16 @@ docker compose down -v
 
 
 ogr2ogr -f "PostgreSQL" \
-  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00" \
+  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres password=password00" \
   KWSHUTAN_AR_250K.gdb \
   -nlt MULTIPOLYGON \
-  -nln KWSHUTAN_AR_250K \
+  -nln "KWSHUTAN_AR_250K" \
   -dim 2 \
   -lco SCHEMA=datagis \
   -lco GEOMETRY_NAME=geom \
   -lco FID=id \
   -lco SPATIAL_INDEX=GIST \
+  -lco LAUNDER=NO \
   -t_srs EPSG:4326 \
   -overwrite \
   -progress \
