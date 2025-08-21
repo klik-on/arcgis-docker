@@ -16,9 +16,10 @@ GRANT SELECT ON TABLES TO postgres;
 
 
 -- TOTAL Luas Fungsi Kawasan Hutan Tanpa Batas Admin
+-- TOTAL Luas Fungsi Kawasan Hutan Tanpa Batas Admin
 SELECT 
   c."NOURUT_KWS", 
-  a."fungsikws" AS "KODEKWS", 
+  a."FUNGSIKWS" AS "KODEKWS", 
   c."FUNGSI_KWS", 
   SUM(
     ST_Area(
@@ -26,14 +27,14 @@ SELECT
     )
   ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
 FROM 
-  "public".kwshutan_ar_250k a        -- Tabel Data IGT KWS
+  datagis."KWSHUTAN_AR_250K" a        -- Tabel Data IGT KWS
 LEFT JOIN 
   "datagis"."KODE_KWS" c                        -- Tabel Kodefikasi KODE_KWS
-    ON a."fungsikws" = c."KD_KWS"
+    ON a."FUNGSIKWS" = c."KD_KWS"
 WHERE 
   a.geom IS NOT NULL                   -- hanya geometri yang valid (tidak kosong) yang dihitung
 GROUP BY 
-  a."fungsikws", c."KD_KWS", c."FUNGSI_KWS", c."NOURUT_KWS"
+  a."FUNGSIKWS", c."KD_KWS", c."FUNGSI_KWS", c."NOURUT_KWS"
 UNION ALL
 SELECT 
   NULL AS "NOURUT_KWS", 
@@ -45,10 +46,10 @@ SELECT
     )
   ) / 10000 AS "LUAS_CEA_HA"        -- Total luas dalam hektar
 FROM 
-  "public".kwshutan_ar_250k a
+ datagis."KWSHUTAN_AR_250K" a
 LEFT JOIN 
   "datagis"."KODE_KWS" c 
-    ON a."fungsikws" = c."KD_KWS"
+    ON a."FUNGSIKWS" = c."KD_KWS"
 WHERE 
   a.geom IS NOT NULL
 ORDER BY 
