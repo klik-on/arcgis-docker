@@ -6,6 +6,12 @@ docker compose build
 docker compose up -d
 docker compose down -v
 
+$ docker exec -it gdal-3113-postgis /bin/bash
+root@c63e64158655:/data#
+# gdalinfo --version
+GDAL 3.11.3 "Eganville", released 2025/07/12 (debug build)
+
+
 ### GDB TO POSTGIS
 ogr2ogr -f "PostgreSQL" \
   PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00" \
@@ -31,6 +37,7 @@ ogr2ogr -f "OpenFileGDB" test.gdb \
   datagis.RUMPIN \
   -nln RUMPIN \
  --config OGR_OPENFILEGDB_METHOD SKIP 
+
 
 
 
