@@ -23,9 +23,8 @@ docker pull darthsim/imgproxy:v3.29.1
 docker pull supabase/postgres-meta:v0.91.5
     container_name: supabase-meta
     image: supabase/postgres-meta:v0.91.5
-docker pull supabase/edge-runtime:v1.68.3
-    container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.68.3
+docker pull supabase/edge-runtime:v1.69.1    container_name: supabase-edge-functions
+    image: supabase/edge-runtime:v1.69.1
 # image: supabase/logflare:1.14.2  == 1.15.0 ***
     container_name: supabase-analytics
     image: supabase/logflare:1.15.0
@@ -277,6 +276,7 @@ curl '172.16.2.122:8000/rest/v1/INDIKATIF_PPTPKH_REVISI_II' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U" \
   -H "Accept-Profile: datagis"
+
 
 
 
