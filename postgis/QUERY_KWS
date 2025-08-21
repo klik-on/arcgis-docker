@@ -210,3 +210,18 @@ FROM luas_per_provinsi
 ORDER BY 
   "NOURUT_PL" NULLS LAST,
   "NOURUT_KWS" NULLS LAST;
+
+
+## CLIP UNTUK QGIS
+SELECT 
+  a.*,
+  ST_Intersection(a.geom, b.geom) AS geom_clip
+FROM 
+  datagis."KWSHUTAN_AR_250K" a
+JOIN 
+  datagis."ADM_KAB_KOTA" b
+    ON b."WADMPR" = 'Bali'          -- Filter untuk provinsi Bali
+WHERE 
+  a.geom IS NOT NULL 
+  AND b.geom IS NOT NULL
+  AND ST_Intersects(a.geom, b.geom)
