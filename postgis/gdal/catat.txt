@@ -29,6 +29,8 @@ ogr2ogr -f "PostgreSQL" \
 ogr2ogr -f "OpenFileGDB" test.gdb \
   PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00" \
   datagis.RUMPIN \
-  -nln RUMPIN
+  -nln RUMPIN \
+ --config OGR_OPENFILEGDB_METHOD SKIP 
+
 
 
