@@ -1,0 +1,12 @@
+
+services:
+  gdal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gdal-3113-postgis
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/data
+    working_dir: /data
