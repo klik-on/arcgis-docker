@@ -8,8 +8,17 @@ docker compose down -v
 
 $ docker exec -it gdal-3113-postgis /bin/bash
 root@c63e64158655:/data#
-# gdalinfo --version
+For Raster supported filed:
+# gdalinfo --formats
+
+For vector supported formats:
+# ogrinfo --version
 GDAL 3.11.3 "Eganville", released 2025/07/12 (debug build)
+
+# ogrinfo --formats | grep -i gdb
+  OpenFileGDB -raster,vector- (rw+uv): ESRI FileGeodatabase (using OpenFileGDB) (*.gdb)
+  GPSBabel -vector- (rw+): GPSBabel (*.mps, *.gdb, *.osm, *.tcx, *.igc)
+
 
 
 ### GDB TO POSTGIS
@@ -37,6 +46,7 @@ ogr2ogr -f "OpenFileGDB" test.gdb \
   datagis.RUMPIN \
   -nln RUMPIN \
  --config OGR_OPENFILEGDB_METHOD SKIP 
+
 
 
 
