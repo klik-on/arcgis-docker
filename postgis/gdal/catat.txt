@@ -8,7 +8,7 @@ docker compose down -v
 
 
 ogr2ogr -f "PostgreSQL" \
-  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres password=password00" \
+  PG:"host=172.16.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00" \
   KWSHUTAN_AR_250K.gdb \
   -nlt MULTIPOLYGON \
   -nln "KWSHUTAN_AR_250K" \
@@ -24,3 +24,4 @@ ogr2ogr -f "PostgreSQL" \
   --config OGR_OPENFILEGDB_METHOD SKIP \
   --config OGR_ENABLE_CURVE_REDUCTION YES \
   --config OGR_FORCE_GML_MULTISURFACE_AS_MULTIPOLYGON YES
+
