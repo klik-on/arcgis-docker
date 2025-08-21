@@ -291,10 +291,11 @@ QgsProject.instance().addMapLayer(layer)
 print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.featureCount()}")
 
 
--- Query Menggunakan PILIHAN
+-- Contoh Query QGIS Menggunakan PILIHAN
 import urllib3
 import json
 import os
+import sys
 from qgis.core import (
     QgsVectorLayer,
     QgsProject,
@@ -302,29 +303,50 @@ from qgis.core import (
 )
 
 # === Konfigurasi ===
-IGT = "ADM_KAB_KOTA"
-url = f"https://dbgis.menlhk.go.id/supabase-proxy/api/{IGT}?WADMPR=eq.Bali"
-geojson_path = "C:/app/data/data_supabase.geojson"  # Ganti sesuai kebutuhan
+IGT = "ADM_KAB_KOTA"  # Nama tabel layer
+DEFAULT_KONDISI = "WADMPR=eq.Bali"  # Default filter
+
+# Gunakan argumen dari CLI jika ada
+KONDISI = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_KONDISI
+print(f"ℹ️ Menggunakan filter: {KONDISI}")
+
+# URL endpoint API Supabase
+BASE_URL = "https://dbgis.menlhk.go.id"
+ENDPOINT = f"{BASE_URL}/supabase/api/{IGT}?{KONDISI}"
+
+# Lokasi penyimpanan GeoJSON
+geojson_path = "C:/app/data/data_supabase.geojson"
 os.makedirs(os.path.dirname(geojson_path), exist_ok=True)
 
-# === Inisialisasi urllib3 PoolManager (tanpa verifikasi sertifikat SSL) ===
-http = urllib3.PoolManager(cert_reqs='CERT_NONE')
-response = http.request("GET", url)
+# Cek jika file sudah ada
+if os.path.exists(geojson_path):
+    print(f"⚠️ File sudah ada dan akan ditimpa: {geojson_path}")
 
-# === Parse response ===
+# === HTTP Request ===
+http = urllib3.PoolManager(cert_reqs='CERT_NONE')
+response = http.request("GET", ENDPOINT)
+
+if response.status != 200:
+    # Coba fallback ke supabase-proxy
+    print(f"⚠️ Gagal ambil dari {ENDPOINT}, mencoba fallback ke supabase-proxy...")
+    ENDPOINT = f"{BASE_URL}/supabase-proxy/api/{IGT}?{KONDISI}"
+    response = http.request("GET", ENDPOINT)
+
+    if response.status != 200:
+        raise Exception(f"❌ Gagal mengambil data dari API. Status: {response.status}")
+
+print(f"✅ Data berhasil diambil dari: {ENDPOINT}")
+
+# === Parsing JSON Response ===
 try:
     data = json.loads(response.data.decode("utf-8"))
 except Exception as e:
-    raise Exception(f"❌ Gagal parsing response: {e}")
+    raise Exception(f"❌ Gagal parsing JSON: {e}")
 
 # === Konversi ke GeoJSON FeatureCollection ===
-geojson = {
-    "type": "FeatureCollection",
-    "features": []
-}
-
+features = []
 for row in data:
-    geom = row.get("geometry") or row.get("geom")
+    geom = row.get("geom") or row.get("geometry")
     if isinstance(geom, str):
         try:
             geom = json.loads(geom)
@@ -333,7 +355,7 @@ for row in data:
             continue
 
     if not isinstance(geom, dict) or "type" not in geom or "coordinates" not in geom:
-        print("❌ Geometry tidak valid, dilewati:", geom)
+        print("⚠️ Geometry tidak valid, dilewati:", geom)
         continue
 
     feature = {
@@ -341,27 +363,30 @@ for row in data:
         "geometry": geom,
         "properties": {k: v for k, v in row.items() if k not in ["geom", "geometry"]}
     }
-    geojson["features"].append(feature)
+    features.append(feature)
 
-# === Cek jika kosong ===
-if not geojson["features"]:
+if not features:
     print("⚠️ Tidak ada fitur ditemukan. Proses dihentikan.")
     exit()
+
+geojson = {
+    "type": "FeatureCollection",
+    "features": features
+}
 
 # === Simpan GeoJSON ke file ===
 with open(geojson_path, "w", encoding="utf-8") as f:
     json.dump(geojson, f, ensure_ascii=False, indent=2)
 
-print(f"✅ GeoJSON disimpan di: {geojson_path}")
+print(f"✅ GeoJSON berhasil disimpan di: {geojson_path}")
+print(f"ℹ️ Jumlah fitur: {len(features)}")
 
 # === Tambahkan ke QGIS ===
 layer = QgsVectorLayer(geojson_path, IGT, "ogr")
 layer.setCrs(QgsCoordinateReferenceSystem("EPSG:4326"))
 
 if not layer.isValid():
-    raise Exception("❌ Layer '{IGT}' tidak valid. Cek struktur GeoJSON dan geometri.")
+    raise Exception(f"❌ Layer '{IGT}' tidak valid. Cek struktur GeoJSON dan geometri.")
 
 QgsProject.instance().addMapLayer(layer)
 print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.featureCount()}")
-
-
