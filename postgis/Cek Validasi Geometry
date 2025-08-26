@@ -16,13 +16,16 @@ SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
 
 -- Jiks Data count  belum 0
 -- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
-UPDATE "LAHAN_KRITIS_AR_50K_291124"
+-- CEK dan Perbaiki Valid GEOM
+UPDATE datagis."KWSHUTAN_AR_250K"
 SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))  -- 3 = Polygon
 WHERE NOT ST_IsValid(geom);
 
+-- Cek Valid geometri, pastikan semua geometri valid: Data count 0
+SELECT COUNT(*) FROM pdatagis."KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
+
+-- CEK  pastikan semua bertipe MultiPolygon
+SELECT DISTINCT GeometryType(geom) FROM datagis."KWSHUTAN_AR_250K";
 -- Setelah update, pastikan semua geometri valid:
 SELECT COUNT(*) FROM "LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
-
--- Dan pastikan semua bertipe MultiPolygon:
-SELECT DISTINCT GeometryType(geom) FROM "LAHAN_KRITIS_AR_50K_291124";
 
