@@ -86,7 +86,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-auth
-    image: supabase/gotrue:v2.178.0
+    image: supabase/gotrue:v2.179.0
     restart: unless-stopped
     healthcheck:
       test:
@@ -338,7 +338,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.69.1
+    image: supabase/edge-runtime:v1.69.4
     restart: unless-stopped
     volumes:
       - ./volumes/functions:/home/deno/functions:Z
@@ -415,7 +415,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.8.1.131
+    image: supabase/postgres:15.8.1.132
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
@@ -508,7 +508,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-pooler
-    image: supabase/supavisor:2.6.1
+    image: supabase/supavisor:2.6.2
     restart: unless-stopped
     ports:
       - ${POSTGRES_PORT}:5432
