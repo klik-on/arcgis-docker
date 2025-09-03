@@ -37,3 +37,15 @@ postgres-> \dn
         Name        |       Owner
 --------------------+-------------------
  datagis            | supabase_admin
+
+postgres-> \dt datagis.*
+                         List of relations
+ Schema  |              Name              | Type  |     Owner
+---------+--------------------------------+-------+----------------
+ datagis | ADM_KAB_KOTA                   | table | postgres
+ datagis | BTS_LAUT_TERITORIAL            | table | postgres
+ datagis | KODE_KWS                       | table | supabase_admin
+ datagis | KODE_PL                        | table | supabase_admin
+ datagis | KWSHUTAN_AR_250K               | table | postgres
+ datagis | LAHAN_KRITIS_AR_50K_291124     | table | postgres
+(6 rows)
