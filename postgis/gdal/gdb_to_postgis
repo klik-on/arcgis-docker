@@ -49,3 +49,12 @@ postgres-> \dt datagis.*
  datagis | KWSHUTAN_AR_250K               | table | postgres
  datagis | LAHAN_KRITIS_AR_50K_291124     | table | postgres
 (6 rows)
+
+### Cek Invalid
+postgres=> SELECT COUNT(*) FROM datagis."LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
+NOTICE:  Ring Self-intersection at or near point 104.06338945000005 -5.291651892999937
+ count
+-------
+  1577
+(1 row)
+
