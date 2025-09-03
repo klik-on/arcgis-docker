@@ -31,3 +31,9 @@ psql (15.14)
 Type "help" for help.
 
 postgres=>
+postgres=> c postgres
+postgres-> \dn
+            List of schemas
+        Name        |       Owner
+--------------------+-------------------
+ datagis            | supabase_admin
