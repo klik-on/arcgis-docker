@@ -58,8 +58,16 @@ NOTICE:  Ring Self-intersection at or near point 104.06338945000005 -5.291651892
   1577
 (1 row)
 
+postgres=>
 -- CEK dan Perbaiki Valid GEOM
 UPDATE datagis."LAHAN_KRITIS_AR_50K_291124"
 SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))  -- 3 = Polygon
 WHERE NOT ST_IsValid(geom);
+
+postgres=> SELECT COUNT(*) FROM datagis."LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
+ count
+-------
+     0
+(1 row)
+
 
