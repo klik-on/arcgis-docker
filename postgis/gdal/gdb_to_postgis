@@ -70,4 +70,6 @@ postgres=> SELECT COUNT(*) FROM datagis."LAHAN_KRITIS_AR_50K_291124" WHERE NOT S
      0
 (1 row)
 
-
+postgres=>
+-- CEK  pastikan semua bertipe MultiPolygon
+SELECT DISTINCT GeometryType(geom) FROM datagis."LAHAN_KRITIS_AR_50K_291124";
