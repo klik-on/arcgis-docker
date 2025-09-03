@@ -1,4 +1,9 @@
 $ docker exec -it gdal-3113-postgis /bin/bash
+# ogrinfo KWSHUTAN_AR_250K_062025.gdb
+INFO: Open of `KWSHUTAN_AR_250K_062025.gdb'
+      using driver `OpenFileGDB' successful.
+Layer: KWSHUTAN_AR_250K_062025 (Multi Polygon)
+
 # ogr2ogr -f "PostgreSQL" \
   PG:"host=192.168.2.122 port=5432 dbname=postgres user=postgres.67888 password=password00" \
   KWSHUTAN_AR_250K_062025.gdb \
