@@ -1,0 +1,73 @@
+############
+# API - Configuration for PostgREST.
+############
+# Stop docker and remove volumes:
+docker compose down -v
+# edit .env
+PGRST_DB_SCHEMAS=public,storage,graphql_public,datagis
+docker compose up -d
+
+## setting waktu
+alter database postgres
+
+set timezone to 'Asia/Jakarta';
+
+https://supabase.com/docs/guides/api/using-custom-schemas
+
+CREATE SCHEMA datagis;
+ALTER ROLE anon SET search_path = public, storage, graphql_public, datagis ;
+GRANT USAGE ON SCHEMA datagis TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO anon;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT USAGE, SELECT ON SEQUENCES TO anon;
+-- Supabase-specific: publish schema to GraphQL engine & REST
+- Publish schema datagis ke GraphQL API
+GRANT USAGE ON SCHEMA datagis TO postgres;
+GRANT SELECT ON ALL TABLES IN SCHEMA datagis TO postgres;
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT SELECT ON TABLES TO postgres;
+
+### test API
+GET https://xyzcompany.supabase.co/rest/v1/bangunan
+GET https://domain/supabase-proxy/api/bangunan
+
+### Pindahkan semua tabel di schema public ke schema datagis
+DO
+$$
+DECLARE
+    tbl RECORD;
+BEGIN
+    FOR tbl IN
+        SELECT tablename
+        FROM pg_tables
+        WHERE schemaname = 'public'
+    LOOP
+        EXECUTE format('ALTER TABLE public.%I SET SCHEMA datagis;', tbl.tablename);
+    END LOOP;
+END
+$$;
+
+###  Beri Akses ke Role Supabase (anon)
+GRANT USAGE ON SCHEMA datagis TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
+
+
+
+## Hapus SCHEMA
+drop schema datagis cascade;
+
+## Hapus Tabel dalam schema
+do $$ declare
+         r record;
+begin
+        for r in (select tablename from pg_tables where schemaname = 'datagis') loop
+        execute 'drop table if exists ' || quote_ident(r.tablename) || ' cascade';
+    end loop;
+end $$;
+
+### Akses SCHEMA
+# Append /rest/v1/ to your URL, and then use the table name as the route.
