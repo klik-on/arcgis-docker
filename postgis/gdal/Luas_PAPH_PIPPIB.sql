@@ -1,4 +1,4 @@
--- Luas PAPH - PIPPIB
+-- Luas PAPH - PIPPIB dengan Total Akhir
 WITH Luaspaph AS (
   SELECT
     a."ARAHAN",
@@ -7,19 +7,27 @@ WITH Luaspaph AS (
       ST_Area(
         ST_Transform(
           ST_Intersection(a.geom, b.geom), 
-          54034                       -- Proyeksi ESRI CEA dengan satuan meter
+          54034
         )
       )
-    ) / 10000 AS "LUAS_CEA_HA"       -- Total luas dalam hektar
+    ) / 10000 AS "LUAS_CEA_HA"
   FROM 
     datagis."PAPH_AR_250K" a
   INNER JOIN 
     datagis."PIPPIB_AR_250K_2025_1" b 
     ON ST_Intersects(a.geom, b.geom)
+  WHERE 
+    b."pippib" IN ('PIPPIB GAMBUT', 'PIPPIB PRIMER')
   GROUP BY 
     a."ARAHAN",
     b."pippib"
 )
 
--- Anda bisa menambahkan SELECT berikut jika ingin melihat hasilnya
-SELECT * FROM Luaspaph;
+-- Gabungkan hasil detail + total
+SELECT * FROM Luaspaph
+UNION ALL
+SELECT 
+  'TOTAL' AS "ARAHAN",
+  NULL AS "pippib",
+  SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
+FROM Luaspaph;
