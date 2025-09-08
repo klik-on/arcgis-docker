@@ -247,7 +247,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.26.4
+    image: supabase/storage-api:v1.26.5
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
