@@ -79,7 +79,7 @@ SMTP_ADMIN_EMAIL=admin@example.com
 SMTP_HOST=mail.menlhk.go.id
 SMTP_PORT=465
 SMTP_USER=webgis@menlhk.go.id
-SMTP_PASS=pktl123
+SMTP_PASS=passnya_pktl123
 SMTP_SENDER_NAME=SupabaseAdmin
 ENABLE_ANONYMOUS_USERS=false
 
