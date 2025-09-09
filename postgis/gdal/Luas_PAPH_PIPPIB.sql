@@ -1,3 +1,22 @@
+-- Luas PAPH berdasarkan ARAHAN dalam hektar
+WITH Luaspaph AS (
+  SELECT
+    a."ARAHAN",
+    SUM(
+      ST_Area(
+        ST_Transform(a.geom, 54034)
+      )
+    ) / 10000 AS "LUAS_CEA_HA"
+  FROM 
+    datagis."PAPH_AR_250K" a
+  GROUP BY 
+    a."ARAHAN"
+)
+
+SELECT * FROM Luaspaph;
+
+
+
 -- Luas PAPH - PIPPIB dengan Total Akhir
 WITH Luaspaph AS (
   SELECT
