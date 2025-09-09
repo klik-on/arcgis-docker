@@ -15,9 +15,7 @@ WITH Luaspaph AS (
 
 -- Tambahkan baris TOTAL dengan UNION ALL
 SELECT * FROM Luaspaph
-
 UNION ALL
-
 SELECT
   'TOTAL' AS "ARAHAN",
   SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
