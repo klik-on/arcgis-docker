@@ -71,3 +71,46 @@ end $$;
 
 ### Akses SCHEMA
 # Append /rest/v1/ to your URL, and then use the table name as the route.
+
+
+
+### Pakai Script untuk dipakai berulang
+-- 1. Buat schema 'datagis' jika belum ada
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.schemata WHERE schema_name = 'datagis'
+    ) THEN
+        EXECUTE 'CREATE SCHEMA datagis';
+    END IF;
+END $$;
+
+-- 2. Set search_path untuk role 'anon' hanya jika belum sesuai
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM pg_roles WHERE rolname = 'anon'
+    ) THEN
+        PERFORM 1;
+        -- Tidak ada cara bawaan untuk cek nilai search_path, jadi kita set saja ulang
+        EXECUTE 'ALTER ROLE anon SET search_path = public, storage, graphql_public, datagis';
+    END IF;
+END $$;
+
+-- 3. Grant USAGE on schema ke role 'anon' (akan diabaikan jika sudah ada)
+GRANT USAGE ON SCHEMA datagis TO anon;
+
+-- 4. Grant akses penuh ke semua tabel yang sudah ada
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
+
+-- 5. Grant akses ke sequences yang sudah ada
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
+
+-- 6. Atur default privileges untuk tabel baru yang dibuat ke depan
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO anon;
+
+-- 7. Atur default privileges untuk sequences baru yang dibuat ke depan
+ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
+GRANT USAGE, SELECT ON SEQUENCES TO anon;
+
