@@ -14,6 +14,13 @@
 # lib ArcGIS PRO 3.5 ==> POSTGRESQL 15
 
 for pg_ags in *.so; do
-  docker cp $pg_ags supabase-db:/nix/store/z7wx806c53g1ggmvsff47qnfyk47jkn4-postgresql-15.14-lib/lib
+  # Copy file ke container
+  docker cp "$pg_ags" supabase-db:/nix/store/z7wx806c53g1ggmvsff47qnfyk47jkn4-postgresql-15.14-lib/lib/
 
+  # Ambil nama file saja (tanpa path)
+  file_name=$(basename "$pg_ags")
+
+  # Set permission dan ownership di dalam container
+  docker exec supabase-db chmod 555 "/nix/store/z7wx806c53g1ggmvsff47qnfyk47jkn4-postgresql-15.14-lib/lib/$file_name"
+  docker exec supabase-db chown root:root "/nix/store/z7wx806c53g1ggmvsff47qnfyk47jkn4-postgresql-15.14-lib/lib/$file_name"
 done
