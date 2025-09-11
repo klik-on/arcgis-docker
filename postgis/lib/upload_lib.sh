@@ -12,20 +12,33 @@
 
 # lib ArcGIS Desktop 10.8.2 ==> POSTGRESQL 12
 # lib ArcGIS PRO 3.5 ==> POSTGRESQL 15
+
 #!/bin/bash
 
-# Path library PostgreSQL dalam container (bisa diubah sesuai kebutuhan)
-lok_lib="/nix/store/z7wx806c53g1ggmvsff47qnfyk47jkn4-postgresql-15.14-lib/lib"
+# Ambil path library PostgreSQL dari dalam container
+lok_lib=$(docker exec supabase-db pg_config --pkglibdir)
+
+# Cek jika gagal mengambil path
+if [ -z "$lok_lib" ]; then
+  echo "Gagal mendapatkan path library PostgreSQL dari container."
+  exit 1
+fi
+
+echo "📁 Target path di dalam container: $lok_lib"
 
 # Loop semua file .so di direktori saat ini
 for pg_ags in *.so; do
-  # Salin file ke dalam container
+  echo "📦 Menyalin $pg_ags ke container..."
+
+  # Copy file .so ke dalam container
   docker cp "$pg_ags" "supabase-db:$lok_lib/"
 
   # Ambil nama file saja
   file_name=$(basename "$pg_ags")
 
-  # Atur permission dan ownership di dalam container
+  # Set permission dan ownership
   docker exec supabase-db chmod 555 "$lok_lib/$file_name"
   docker exec supabase-db chown root:root "$lok_lib/$file_name"
+
+  echo "✅ $file_name berhasil disalin dan di-set permission."
 done
