@@ -1,3 +1,5 @@
+# kolom geom berisi WKB HEX (Well-Known Binary dalam format heksadesimal), bukan GeoJSON biasa
+# cek decode WKB HEX ke GeoJSON
 # Script Final (Gunakan shapely untuk parse HEX ke GeoJSON)
 
 import os
