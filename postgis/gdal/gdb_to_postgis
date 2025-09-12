@@ -56,9 +56,17 @@ postgres-> \dt datagis.*
  datagis | BTS_LAUT_TERITORIAL            | table | postgres
  datagis | KODE_KWS                       | table | supabase_admin
  datagis | KODE_PL                        | table | supabase_admin
- datagis | KWSHUTAN_AR_250K               | table | postgres
- datagis | LAHAN_KRITIS_AR_50K_291124     | table | postgres
-(6 rows)
+(4 rows)
+
+postgres=> \dt datagis."PL"*
+              List of relations
+ Schema  |      Name      | Type  |  Owner
+---------+----------------+-------+----------
+ datagis | PL2018_AR_250K | table | postgres
+ datagis | PL2019_AR_250K | table | postgres
+ datagis | PL2020_AR_250K | table | postgres
+(3 rows)
+
 
 ### Cek Invalid
 postgres=> SELECT COUNT(*) FROM datagis."LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
