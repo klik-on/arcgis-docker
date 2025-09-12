@@ -29,8 +29,18 @@ ef3592318956
 # psql -h ef3592318956 -U postgres -d postgres -p 5432
 psql (15.14)
 Type "help" for help.
-
 postgres=>
+
+atau
+$ vi konek_db.sh
+#!/bin/bash
+HOSTNAME=$(docker inspect --format '{{ .Config.Hostname }}' supabase-db)
+# Menambahkan direktori psql ke PATH
+# which psql
+# export PATH=$PATH:/root/.nix-profile/bin
+docker exec -it supabase-db psql -h "$HOSTNAME" -U postgres -d postgres -p 5432
+
+
 postgres=> c postgres
 postgres-> \dn
             List of schemas
