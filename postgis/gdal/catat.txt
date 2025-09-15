@@ -7,7 +7,7 @@ docker compose build
 docker compose up -d
 docker compose down -v
 
-$ docker exec -it gdal-3113-postgis /bin/bash
+$ docker exec -it gdal-3114-postgis /bin/bash
 root@c63e64158655:/data#
 For Raster supported filed:
 # gdalinfo --formats
@@ -66,6 +66,7 @@ ogr2ogr -f "PostgreSQL" \
   --config OGR_OPENFILEGDB_METHOD SKIP \
   --config OGR_ENABLE_CURVE_REDUCTION YES \
   --config OGR_FORCE_GML_MULTISURFACE_AS_MULTIPOLYGON YES
+
 
 
 
