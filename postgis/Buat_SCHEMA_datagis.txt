@@ -15,7 +15,7 @@ set timezone to 'Asia/Jakarta';
 https://supabase.com/docs/guides/api/using-custom-schemas
 
 CREATE SCHEMA datagis;
-ALTER ROLE anon SET search_path = public, storage, graphql_public, datagis ;
+ALTER ROLE anon SET search_path = datagis, public, storage, graphql_public ;
 GRANT USAGE ON SCHEMA datagis TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA datagis TO anon;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA datagis TO anon;
