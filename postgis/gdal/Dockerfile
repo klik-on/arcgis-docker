@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV GDAL_VERSION=3.11.3
+ENV GDAL_VERSION=3.11.4
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
