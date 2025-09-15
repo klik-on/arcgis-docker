@@ -24,7 +24,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO anon;
 ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
 GRANT USAGE, SELECT ON SEQUENCES TO anon;
 -- Supabase-specific: publish schema to GraphQL engine & REST
-- Publish schema datagis ke GraphQL API
+-- Publish schema datagis ke GraphQL API
 GRANT USAGE ON SCHEMA datagis TO postgres;
 GRANT SELECT ON ALL TABLES IN SCHEMA datagis TO postgres;
 ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
