@@ -31,17 +31,43 @@ LuasPL2022 AS (
     c."PL2022_ID"
 ),
 
--- Gabungkan hasil per tahun
+-- Hitung luas per PL ID untuk 2023
+LuasPL2023 AS (
+  SELECT
+    d.pl2023_id::text AS pl_id,
+    SUM(ST_Area(ST_Transform(d.geom, 54034))) / 10000 AS luas_2023
+  FROM 
+    datagis."PL2023_AR_250K" d
+  GROUP BY 
+    d.pl2023_id
+),
+
+-- Hitung luas per PL ID untuk 2024
+LuasPL2024 AS (
+  SELECT
+    e.pl2024_id::text AS pl_id,
+    SUM(ST_Area(ST_Transform(e.geom, 54034))) / 10000 AS luas_2024
+  FROM 
+    datagis."PL2024_AR_250K" e
+  GROUP BY 
+    e.pl2024_id
+),
+
+-- Gabungkan hasil per tahun (pivot)
 GabunganPivot AS (
   SELECT
-    COALESCE(p20.pl_id, p21.pl_id, p22.pl_id) AS pl_id,
+    COALESCE(p20.pl_id, p21.pl_id, p22.pl_id, p23.pl_id, p24.pl_id) AS pl_id,
     p20.luas_2020,
     p21.luas_2021,
-    p22.luas_2022
+    p22.luas_2022,
+    p23.luas_2023,
+    p24.luas_2024
   FROM 
     LuasPL2020 p20
   FULL OUTER JOIN LuasPL2021 p21 ON p20.pl_id = p21.pl_id
   FULL OUTER JOIN LuasPL2022 p22 ON COALESCE(p20.pl_id, p21.pl_id) = p22.pl_id
+  FULL OUTER JOIN LuasPL2023 p23 ON COALESCE(p20.pl_id, p21.pl_id, p22.pl_id) = p23.pl_id
+  FULL OUTER JOIN LuasPL2024 p24 ON COALESCE(p20.pl_id, p21.pl_id, p22.pl_id, p23.pl_id) = p24.pl_id
 ),
 
 -- Tambahkan baris TOTAL
@@ -52,7 +78,9 @@ GabunganFinal AS (
     'TOTAL' AS pl_id,
     SUM(luas_2020),
     SUM(luas_2021),
-    SUM(luas_2022)
+    SUM(luas_2022),
+    SUM(luas_2023),
+    SUM(luas_2024)
   FROM GabunganPivot
 )
 
