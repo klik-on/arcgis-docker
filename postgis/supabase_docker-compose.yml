@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.09.15-sha-6cff20b
+    image: supabase/studio:2025.09.08-sha-67c1421
     restart: unless-stopped
     healthcheck:
       test:
@@ -364,7 +364,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-analytics
-    image: supabase/logflare:1.22.1
+    image: supabase/logflare:1.15.3
     restart: unless-stopped
     ports:
       - 4000:4000
