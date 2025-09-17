@@ -200,7 +200,7 @@ services:
       - supabase-net
     # This container name looks inconsistent but is correct because realtime constructs tenant id by parsing the subdomain
     container_name: realtime-dev.supabase-realtime
-    image: supabase/realtime:v2.49.0
+    image: supabase/realtime:v2.50.0
     restart: unless-stopped
     depends_on:
       db:
@@ -247,7 +247,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.27.0
+    image: supabase/storage-api:v1.27.1
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
@@ -364,7 +364,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-analytics
-    image: supabase/logflare:1.15.3
+    image: supabase/logflare:1.22.1
     restart: unless-stopped
     ports:
       - 4000:4000
@@ -415,7 +415,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.14.1.004
+    image: supabase/postgres:15.14.1.005
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
