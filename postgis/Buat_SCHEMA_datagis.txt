@@ -29,6 +29,7 @@ GRANT USAGE ON SCHEMA datagis TO postgres;
 GRANT SELECT ON ALL TABLES IN SCHEMA datagis TO postgres;
 ALTER DEFAULT PRIVILEGES IN SCHEMA datagis
 GRANT SELECT ON TABLES TO postgres;
+ALTER SCHEMA datagis OWNER TO postgres;
 
 ### test API
 GET https://xyzcompany.supabase.co/rest/v1/bangunan
