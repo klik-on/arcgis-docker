@@ -12,6 +12,7 @@ SCHEMA="dss"
 DATA_DIR="/app/data/dss"
 ZIP_FILE="KUPS.gdb.zip"
 ZIP_PATH="${DATA_DIR}/${ZIP_FILE}"
+TABLE_NAME="KUPS"
 
 # === Impor ke PostgreSQL ===
 echo "?? Mengimpor ${ZIP_PATH} ke PostgreSQL..."
