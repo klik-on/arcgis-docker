@@ -18,7 +18,7 @@ echo "?? Mengimpor ${GDB_FOLDER} ke PostgreSQL..."
 ogr2ogr -f "PostgreSQL" \
   PG:"host=${DB_HOST} port=${DB_PORT} dbname=${DB_NAME} user=${DB_USER} password=${DB_PASS}" \
   "$ZIP_PATH" \
-  -nlt POINT \
+  -nlt MULTIPOINT \
   -nln "${TABLE_NAME}" \
   -dim 2 \
   -lco SCHEMA=${SCHEMA} \
@@ -29,7 +29,6 @@ ogr2ogr -f "PostgreSQL" \
   -lco OVERWRITE=YES \
   -t_srs EPSG:4326 \
   -progress \
-  --config OGR_OPENFILEGDB_METHOD SKIP \
-  --config OGR_ENABLE_CURVE_REDUCTION YES
+  --config OGR_OPENFILEGDB_METHOD SKIP
 
 echo "? Impor selesai."
