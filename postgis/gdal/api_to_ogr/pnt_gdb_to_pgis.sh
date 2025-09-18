@@ -14,7 +14,7 @@ ZIP_FILE="KUPS.gdb.zip"
 ZIP_PATH="${DATA_DIR}/${ZIP_FILE}"
 
 # === Impor ke PostgreSQL ===
-echo "?? Mengimpor ${GDB_FOLDER} ke PostgreSQL..."
+echo "?? Mengimpor ${ZIP_PATH} ke PostgreSQL..."
 ogr2ogr -f "PostgreSQL" \
   PG:"host=${DB_HOST} port=${DB_PORT} dbname=${DB_NAME} user=${DB_USER} password=${DB_PASS}" \
   "$ZIP_PATH" \
