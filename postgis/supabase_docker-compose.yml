@@ -248,7 +248,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.27.1
+    image: supabase/storage-api:v1.27.2
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
@@ -339,7 +339,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.69.10
+    image: supabase/edge-runtime:v1.69.11
     restart: unless-stopped
     volumes:
       - ./volumes/functions:/home/deno/functions:Z
