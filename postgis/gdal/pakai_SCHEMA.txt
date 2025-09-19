@@ -1,3 +1,13 @@
+-- Buat SCHEMA
 CREATE SCHEMA kodefikasi;
 ALTER SCHEMA kodefikasi OWNER TO postgres;
 ALTER TABLE datagis."KODE_PL" SET SCHEMA kodefikasi;
+
+-- Buat DISSOLVE
+CREATE TABLE datagis.ADM_PROVINSI_CLEAN AS
+SELECT
+  "WADMPR" AS nama_provinsi,
+  ST_Union(ST_MakeValid(geom)) AS geom
+FROM datagis."ADM_KAB_KOTA"
+GROUP BY "WADMPR";
+
