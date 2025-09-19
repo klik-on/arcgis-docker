@@ -30,6 +30,10 @@ CREATE TABLE datagis.PL2020_BOGOR AS (
 );
 
 -- Cek OVERLAP
+-- Drop tabel jika sudah ada
+DROP TABLE IF EXISTS datagis.cektopology;
+-- Membuat ulang tabel cektopology dengan hasil overlap
+CREATE TABLE datagis.cektopology AS
 SELECT a.id, b.id
 FROM datagis."PBPH_DEFINITIF" a, datagis."PBPH_DEFINITIF" b
 WHERE ST_Overlaps(a.geom, b.geom)
