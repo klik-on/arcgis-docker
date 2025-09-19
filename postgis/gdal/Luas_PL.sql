@@ -55,7 +55,7 @@ Luaspl_dengan_ket AS (
   FROM
     Luaspl l
   LEFT JOIN
-    datagis."KODE_PL" k ON l.pl2024_id = k."KD_PL"::text
+    kodefikasi."KODE_PL" k ON l.pl2024_id = k."KD_PL"::text
 ),
 Gabungan AS (
   SELECT * FROM Luaspl_dengan_ket
@@ -101,7 +101,7 @@ Luaspl_dengan_ket AS (
   FROM
     Luaspl l
   LEFT JOIN
-    datagis."KODE_PL" k ON l.pl2024_id = k."KD_PL"::text
+    kodefikasi."KODE_PL" k ON l.pl2024_id = k."KD_PL"::text
 ),
 Gabungan AS (
   SELECT * FROM Luaspl_dengan_ket
