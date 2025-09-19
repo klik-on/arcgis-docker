@@ -85,8 +85,21 @@ GabunganFinal AS (
 )
 
 -- Final output
-SELECT *
-FROM GabunganFinal
+-- Gabungkan dengan tabel kodefikasi."KODE_PL"
+SELECT 
+  g.pl_id,
+  g.luas_2020,
+  g.luas_2021,
+  g.luas_2022,
+  g.luas_2023,
+  g.luas_2024,
+  k."KD_PL",  -- Contoh kolom dari tabel KODE_PL, ganti sesuai kebutuhan
+  k."DESKRIPSI_PL"      -- Misal kamu ingin menambahkan kolom deskripsi atau lainnya
+FROM 
+  GabunganFinal g
+LEFT JOIN 
+  kodefikasi."KODE_PL" k 
+  ON g.pl_id = k."KD_PL"::text
 ORDER BY 
-  CASE WHEN pl_id = 'TOTAL' THEN 1 ELSE 0 END,
-  pl_id;
+  CASE WHEN g.pl_id = 'TOTAL' THEN 1 ELSE 0 END,
+  g.pl_id
