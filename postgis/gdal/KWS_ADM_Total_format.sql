@@ -18,7 +18,7 @@ WITH LuasKawasan AS (
     "datagis"."ADM_KAB_KOTA" b 
     ON ST_Intersects(a.geom, b.geom)  -- Sudah cukup tanpa && karena ST_Intersects mencakup itu
   LEFT JOIN 
-    datagis."KODE_KWS" c 
+    kodefikasi."KODE_KWS" c 
     ON a."FUNGSIKWS" = c."KD_KWS"
   WHERE 
     ST_IsValid(a.geom) 
