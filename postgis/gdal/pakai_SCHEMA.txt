@@ -11,3 +11,20 @@ SELECT
 FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR";
 
+-- Buat CLIP
+-- Drop tabel jika sudah ada, kemudian buat ulang tabel
+DROP TABLE IF EXISTS datagis.PL2020_BOGOR;
+
+-- CLIP untuk PL 2020
+CREATE TABLE datagis.PL2020_BOGOR AS (
+  SELECT
+    -- a.pl2020_id::text AS pl_id,
+    a.pl2020_id,
+    adm."WADMKK",
+    ST_Intersection(a.geom, adm.geom) AS geom -- Menambahkan alias untuk hasil irisan geometri
+  FROM 
+    datagis."PL2020_AR_250K" a
+  INNER JOIN datagis."ADM_KAB_KOTA" adm
+    ON ST_Intersects(a.geom, adm.geom)
+  WHERE adm."WADMKK" = 'Bogor'
+);
