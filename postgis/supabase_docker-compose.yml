@@ -87,7 +87,7 @@ services:
       - supabase-net
     container_name: supabase-auth
     # image: supabase/gotrue:v2.179.0
-    image: supabase/gotrue:v2.180.0-rc.10
+    image: supabase/gotrue:v2.180.0-rc.11
     restart: unless-stopped
     healthcheck:
       test:
@@ -201,7 +201,7 @@ services:
       - supabase-net
     # This container name looks inconsistent but is correct because realtime constructs tenant id by parsing the subdomain
     container_name: realtime-dev.supabase-realtime
-    image: supabase/realtime:v2.50.1
+    image: supabase/realtime:v2.50.2
     restart: unless-stopped
     depends_on:
       db:
