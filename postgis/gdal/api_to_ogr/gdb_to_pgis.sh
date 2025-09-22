@@ -33,12 +33,11 @@ echo "?? Mengimpor ${GDB_FOLDER} ke PostgreSQL..."
 ogr2ogr -f "PostgreSQL" \
   PG:"host=${DB_HOST} port=${DB_PORT} dbname=${DB_NAME} user=${DB_USER} password=${DB_PASS}" \
   "$GDB_PATH" \
-  -nlt MULTIPOLYGON \
+  -nlt PROMOTE_TO_MULTI \
   -nln "${TABLE_NAME}" \
   -dim 2 \
   -lco SCHEMA=${SCHEMA} \
   -lco GEOMETRY_NAME=geom \
-  -lco FID=id \
   -lco SPATIAL_INDEX=GIST \
   -lco LAUNDER=NO \
   -lco OVERWRITE=YES \
@@ -49,7 +48,7 @@ ogr2ogr -f "PostgreSQL" \
   --config OGR_FORCE_GML_MULTISURFACE_AS_MULTIPOLYGON YES \
   --config OGR_ORGANIZE_POLYGONS SKIP
 
-echo "? Impor selesai."
+echo "✅ Impor selesai pada $(date)"
 
 # === (Opsional) Bersihkan folder GDB hasil ekstrak ===
 rm -rf "$GDB_PATH"
