@@ -7,10 +7,10 @@ DB_PORT="5432"
 DB_NAME="postgres"
 DB_USER="postgres.67888"
 DB_PASS="password00"
-SCHEMA="dss"
+SCHEMA="datagis"
 
-DATA_DIR="/app/data/dss"
-ZIP_FILE="KUPS.gdb.zip"
+DATA_DIR="/app/data"
+ZIP_FILE="kups.gdb.zip"
 ZIP_PATH="${DATA_DIR}/${ZIP_FILE}"
 TABLE_NAME="KUPS"
 
