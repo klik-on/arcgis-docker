@@ -29,6 +29,17 @@ CREATE TABLE datagis.PL2020_BOGOR AS (
   WHERE adm."WADMKK" = 'Bogor'
 );
 
+-- Buat Deskripdi dari TABEL
+DO $$
+DECLARE
+    tanggal text := to_char(current_date, 'YYYY-MM-DD');
+BEGIN
+    EXECUTE format('COMMENT ON TABLE datagis."BTS_LAUT_TERITORIAL" IS %L', 
+                   'Layer hasil ekspor dari sistem per tanggal ' || tanggal);
+END
+$$;
+
+
 -- Cek OVERLAP ###
 -- Drop tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.cektopology;
