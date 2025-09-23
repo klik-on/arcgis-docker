@@ -6,8 +6,11 @@ docker compose down -v
 rm -rf volumes/db/data/
 
 Install supabase
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-
-ubuntu-22-04
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.39.4/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
+docker compose version
 
 https://www.howtoforge.com/how-to-install-supabase-on-debian-11/
 
