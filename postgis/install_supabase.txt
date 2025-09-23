@@ -1,0 +1,28 @@
+ supabase_install.txt
+# Stop docker and remove volumes:
+docker compose down -v
+
+# Remove Postgres data:
+rm -rf volumes/db/data/
+
+Install supabase
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-
+ubuntu-22-04
+
+https://www.howtoforge.com/how-to-install-supabase-on-debian-11/
+
+https://supabase.com/docs/guides/self-hosting/docker#dashboard-authentication
+
+Fix
+error: git-remote-https died of signal 4
+$ sudo GNUTLS_CPUID_OVERRIDE=0x1 apt-get update
+
+you need to add ~/.bashrc with this
+$ export  GNUTLS_CPUID_OVERRIDE=0x1
+$ git clone --depth 1 https://github.com/supabase/supabase
+
+### Isian .env
+https://zeabur.com/templates/YVSAU4
+
+https://www.howtoforge.com/how-to-install-supabase-firebase-alternative-with-docker-on-ubu
+ntu-24-04/#google_vignette
