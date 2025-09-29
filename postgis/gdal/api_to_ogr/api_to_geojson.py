@@ -23,7 +23,7 @@ if os.path.exists(geojson_path):
     print(f"⚠️ File sudah ada dan akan ditimpa: {geojson_path}")
 
 # === Konfigurasi APIKEY ===
-ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzUxMzAyODAwLCJleHAiOjE5MDkwNjkyMDB9.5B3KqroqKZUnXyjJg99AtjSjGci-wKqJtH7LWCz7x2U"
+ANON_KEY = "ANON_KEY ....7LWCz7x2U"
  # Ganti dengan API key yang valid
 
 # === HTTP Request ===
