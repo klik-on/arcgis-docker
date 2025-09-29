@@ -27,18 +27,29 @@ os.makedirs(os.path.dirname(geojson_path), exist_ok=True)
 if os.path.exists(geojson_path):
     print(f"⚠️ File sudah ada dan akan ditimpa: {geojson_path}")
 
+# === Konfigurasi APIKEY ===
+ANON_KEY = "ANON_KEY"  # Ganti dengan API key yang valid, bukan Bearer token
+
 # === HTTP Request ===
 http = urllib3.PoolManager(cert_reqs='CERT_NONE')
-response = http.request("GET", ENDPOINT)
+
+# Menambahkan API Key ke dalam header sebagai 'apikey'
+headers = {
+    "apikey": ANON_KEY
+}
+
+response = http.request("GET", ENDPOINT, headers=headers)
 
 if response.status != 200:
     # Coba fallback jika endpoint utama gagal
-    print(f"⚠️ Gagal ambil dari {ENDPOINT}, mencoba fallback ke supabase-proxy...")
-    ENDPOINT = f"{BASE_URL}/supabase-proxy/api/{IGT}?{KONDISI}"
-    response = http.request("GET", ENDPOINT)
+    print(f"⚠️ Gagal ambil dari {ENDPOINT}, mencoba fallback ke datagis-proxy...")
+    ENDPOINT = f"{BASE_URL}/datagis/api/{IGT}?{KONDISI}"
+    response = http.request("GET", ENDPOINT, headers=headers)
 
     if response.status != 200:
-        raise Exception(f"❌ Gagal mengambil data dari API. Status: {response.status}")
+        print(f"❌ Gagal mengambil data dari API. Status: {response.status}")
+        print(f"Response error: {response.data.decode('utf-8')}")
+        raise Exception(f"❌ Gagal mengambil data dari API.")
 
 print(f"✅ Data berhasil diambil dari: {ENDPOINT}")
 
@@ -102,5 +113,3 @@ if not layer.isValid():
 
 QgsProject.instance().addMapLayer(layer)
 print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.featureCount()}")
-
-
