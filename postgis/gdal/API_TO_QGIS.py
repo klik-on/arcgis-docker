@@ -18,7 +18,7 @@ print(f"ℹ️ Menggunakan filter: {KONDISI}")
 
 # URL API Supabase
 BASE_URL = "https://dbgis.menlhk.go.id"
-ENDPOINT = f"{BASE_URL}/supabase/api/{IGT}?{KONDISI}"
+ENDPOINT = f"{BASE_URL}/datagis/api/rest/v1/{IGT}?{KONDISI}"
 
 # Lokasi output file GeoJSON
 geojson_path = "C:/app/data/data_supabase.geojson"
@@ -102,3 +102,4 @@ if not layer.isValid():
 
 QgsProject.instance().addMapLayer(layer)
 print(f"✅ Layer '{IGT}' berhasil ditambahkan ke QGIS! Jumlah fitur: {layer.featureCount()}")
+
