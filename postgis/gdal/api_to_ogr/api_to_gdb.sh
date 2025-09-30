@@ -6,10 +6,11 @@ DATA_DIR="/app/data"
 
 echo "🕒 Mulai proses: $(date)"
 
-# === Argumen filter (opsional) ===
-FILTER=${1:-}
+# === Gabungkan semua argumen menjadi 1 filter string ===
+FILTER="${*}"  # Gabung semua argumen jadi 1 string, dipisah spasi
+
 if [ -n "$FILTER" ]; then
-  echo "🚀 Menjalankan api_to_geojson.py dengan filter: $FILTER"
+  echo "🚀 Menjalankan api_to_geojson.py dengan filter: \"$FILTER\""
   python3 api_to_geojson.py "$FILTER"
 else
   echo "🚀 Menjalankan api_to_geojson.py dengan filter default (Kalimantan Barat)"
@@ -17,7 +18,7 @@ else
 fi
 
 # === Ekstrak nama wilayah dari filter ===
-if [[ "$FILTER" =~ WADMPR=eq\.([^[:space:]]+) ]]; then
+if [[ "$FILTER" =~ WADMPR=eq[.\ ]*([^[:space:]]+.*) ]]; then
   RAW_WILAYAH="${BASH_REMATCH[1]}"
 else
   RAW_WILAYAH="Kalimantan_Barat"
@@ -38,7 +39,7 @@ if [ ! -f "${DATA_DIR}/${IGT_BASE}.geojson" ]; then
   exit 1
 fi
 
-# Rename dulu agar sesuai nama wilayah
+# Rename ke nama wilayah
 mv "${DATA_DIR}/${IGT_BASE}.geojson" "$GEOJSON_PATH"
 
 # === Validasi dependencies ===
