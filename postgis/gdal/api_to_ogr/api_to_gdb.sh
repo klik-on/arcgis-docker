@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-IGT="ADM_KAB_KOTA"
+IGT_BASE="ADM_KAB_KOTA"
 DATA_DIR="/app/data"
 
 echo "🕒 Mulai proses: $(date)"
@@ -16,15 +16,30 @@ else
   python3 api_to_geojson.py
 fi
 
-# === Validasi hasil GeoJSON ===
+# === Ekstrak nama wilayah dari filter ===
+if [[ "$FILTER" =~ WADMPR=eq\.([^[:space:]]+) ]]; then
+  RAW_WILAYAH="${BASH_REMATCH[1]}"
+else
+  RAW_WILAYAH="Kalimantan_Barat"
+fi
+
+# Format nama wilayah (hapus spasi, karakter spesial)
+ALIAS=$(echo "$RAW_WILAYAH" | tr ' ' '_' | tr -cd '[:alnum:]_')
+IGT="${IGT_BASE}_${ALIAS}"
+
+# === Lokasi file ===
 GEOJSON_PATH="${DATA_DIR}/${IGT}.geojson"
 GDB_PATH="${DATA_DIR}/${IGT}.gdb"
 ZIP_PATH="${DATA_DIR}/${IGT}.gdb.zip"
 
-if [ ! -f "$GEOJSON_PATH" ]; then
-  echo "❌ File GeoJSON tidak ditemukan: $GEOJSON_PATH"
+# === Cek hasil GeoJSON (asalnya disimpan dengan nama tetap) ===
+if [ ! -f "${DATA_DIR}/${IGT_BASE}.geojson" ]; then
+  echo "❌ File GeoJSON tidak ditemukan: ${DATA_DIR}/${IGT_BASE}.geojson"
   exit 1
 fi
+
+# Rename dulu agar sesuai nama wilayah
+mv "${DATA_DIR}/${IGT_BASE}.geojson" "$GEOJSON_PATH"
 
 # === Validasi dependencies ===
 if ! command -v ogr2ogr &> /dev/null; then
