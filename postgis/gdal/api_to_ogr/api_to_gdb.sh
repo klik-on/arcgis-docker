@@ -4,13 +4,19 @@ set -e
 IGT="ADM_KAB_KOTA"
 DATA_DIR="/app/data"
 
-echo "🚀 Menjalankan script Python untuk ambil data dan buat GeoJSON..."
-echo "Ganti menjadi  python3 api_to_geojson.py "WADMPR=eq.Jawa Tengah" untuk kondisi bukan DEFAULT "
-if ! python3 api_to_geojson.py; then
-  echo "❌ Gagal menjalankan api_to_geojson.py"
-  exit 1
+echo "🕒 Mulai proses: $(date)"
+
+# === Argumen filter (opsional) ===
+FILTER=${1:-}
+if [ -n "$FILTER" ]; then
+  echo "🚀 Menjalankan api_to_geojson.py dengan filter: $FILTER"
+  python3 api_to_geojson.py "$FILTER"
+else
+  echo "🚀 Menjalankan api_to_geojson.py dengan filter default (Kalimantan Barat)"
+  python3 api_to_geojson.py
 fi
 
+# === Validasi hasil GeoJSON ===
 GEOJSON_PATH="${DATA_DIR}/${IGT}.geojson"
 GDB_PATH="${DATA_DIR}/${IGT}.gdb"
 ZIP_PATH="${DATA_DIR}/${IGT}.gdb.zip"
@@ -20,6 +26,7 @@ if [ ! -f "$GEOJSON_PATH" ]; then
   exit 1
 fi
 
+# === Validasi dependencies ===
 if ! command -v ogr2ogr &> /dev/null; then
   echo "❌ Perintah 'ogr2ogr' tidak ditemukan. Pastikan GDAL terinstal dengan benar."
   exit 1
@@ -30,7 +37,8 @@ if ! command -v zip &> /dev/null; then
   exit 1
 fi
 
-echo "🚀 Mengkonversi GeoJSON ke OpenFileGDB menggunakan ogr2ogr..."
+# === Konversi GeoJSON → FileGDB ===
+echo "🚀 Mengkonversi GeoJSON ke FileGDB..."
 if ! ogr2ogr -f "OpenFileGDB" \
   "$GDB_PATH" \
   "$GEOJSON_PATH" \
@@ -47,13 +55,16 @@ if ! ogr2ogr -f "OpenFileGDB" \
   exit 1
 fi
 
+# === Compress hasil ===
 echo "📦 Membuat archive ZIP dari $GDB_PATH ..."
 pushd "$DATA_DIR" > /dev/null
 zip -r "$ZIP_PATH" "$(basename "$GDB_PATH")"
 popd > /dev/null
 
+# === Cleanup sementara ===
 echo "🧹 Menghapus folder $GDB_PATH dan file $GEOJSON_PATH ..."
 rm -rf "$GDB_PATH"
 rm -f "$GEOJSON_PATH"
 
 echo "✅ Proses selesai! File ZIP tersimpan di: $ZIP_PATH"
+echo "🕒 Selesai: $(date)"
