@@ -5,6 +5,7 @@ IGT="ADM_KAB_KOTA"
 DATA_DIR="/app/data"
 
 echo "🚀 Menjalankan script Python untuk ambil data dan buat GeoJSON..."
+echo "Ganti menjadi  python3 api_to_geojson.py "WADMPR=eq.Jawa Tengah" untuk kondisi bukan DEFAULT "
 if ! python3 api_to_geojson.py; then
   echo "❌ Gagal menjalankan api_to_geojson.py"
   exit 1
