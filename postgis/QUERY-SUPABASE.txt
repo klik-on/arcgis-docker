@@ -7,6 +7,11 @@ FROM pg_indexes
 WHERE tablename = 'KWSHUTAN_AR_250K'
   AND indexname = 'idx_kwshutan_geom';
 
+-- Hapus Index
+SELECT 'DROP INDEX IF EXISTS "' || relname || '";'
+FROM pg_class
+WHERE relkind = 'i' AND relname ILIKE '%rumpin%';
+
 -- Sebelum update, pastikan backup data karena perbaikan geometri bisa merubah bentuk asli.
 -- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
 UPDATE "KWSHUTAN_AR_250K"
