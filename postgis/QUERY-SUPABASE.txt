@@ -11,6 +11,18 @@ WHERE tablename = 'KWSHUTAN_AR_250K'
 SELECT 'DROP INDEX IF EXISTS "' || relname || '";'
 FROM pg_class
 WHERE relkind = 'i' AND relname ILIKE '%rumpin%';
+atau
+DO $$
+DECLARE
+    idxname text;
+BEGIN
+    SELECT relname INTO idxname
+    FROM pg_class
+    WHERE relkind = 'i' AND relname ILIKE '%rumpin%';
+
+    EXECUTE format('DROP INDEX IF EXISTS %I;', idxname);
+END $$;
+
 
 -- Sebelum update, pastikan backup data karena perbaikan geometri bisa merubah bentuk asli.
 -- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
