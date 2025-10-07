@@ -60,7 +60,8 @@ COPY updt_tomcat.sh /usr/local/tomcat/temp/
 
 EXPOSE 80 443
 
-RUN /tmp/WebAdaptor/Setup -m silent -l yes -d /
+# RUN /tmp/WebAdaptor/Setup -m silent -l yes -d /
+RUN /tmp/WebAdaptor/Setup -m silent -l yes -d / || (echo "Install gagal" && exit 1)
 RUN rm -rf /tmp/WebAdaptor
 RUN cp /arcgis/webadaptor10.9.1/java/arcgis.war /usr/local/tomcat/webapps/server.war
 RUN cp /arcgis/webadaptor10.9.1/java/arcgis.war /usr/local/tomcat/webapps/portal.war
