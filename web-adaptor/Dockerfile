@@ -35,7 +35,7 @@ RUN sed -i 's|</web-app>|    <security-constraint>\n \
 
 
 # Close the Tomcat
-RUN /usr/local/tomcat/bin/shutdown.sh
+# RUN /usr/local/tomcat/bin/shutdown.sh
 
 # Update apt-get and instal some tools
 RUN apt-get update && apt install -y iputils-ping vim tzdata
