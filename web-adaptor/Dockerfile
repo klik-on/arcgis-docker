@@ -46,8 +46,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Add geoserver 
-ADD https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip/download geoserver.war.zip
-ADD https://sourceforge.net/projects/geowebcache/files/geowebcache/${GEOWEBCACHE_VERSION}/geowebcache-${GEOWEBCACHE_VERSION}-war.zip/download geowebcache.war.zip
+# ADD https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip/download geoserver.war.zip
+# ADD https://sourceforge.net/projects/geowebcache/files/geowebcache/${GEOWEBCACHE_VERSION}/geowebcache-${GEOWEBCACHE_VERSION}-war.zip/download geowebcache.war.zip
 
 # start for arcgis webadaptor
 COPY wa_run /tmp/
