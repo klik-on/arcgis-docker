@@ -6,6 +6,36 @@ SELECT
 FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR";
 
+-- Intersection 2 Tema Kawasan + Administrasi
+CREATE TABLE datagis."Fungsi_Kawasan_DKI_Jakarta_Geom" AS
+SELECT
+  c."NOURUT_KWS" AS "ID_KAWASAN",
+  a."FUNGSIKWS" AS "KODE_KAWASAN",
+  b."WADMPR" AS "PROVINSI",
+  c."FUNGSI_KWS" AS "NAMA_FUNGSI_KAWASAN",
+  ST_Multi(
+    ST_CollectionExtract(
+      ST_Intersection(a.geom, b.geom),
+      3
+    )
+  ) AS geom,
+  ST_Area(ST_Transform(ST_Intersection(a.geom, b.geom), 54034)) / 10000 AS "LUAS_CEA_HEKTAR"
+FROM 
+  datagis."KWSHUTAN_AR_250K" a
+INNER JOIN 
+  datagis."ADM_KAB_KOTA" b 
+  ON ST_Intersects(a.geom, b.geom)
+LEFT JOIN 
+  kodefikasi."KODE_KWS" c 
+  ON a."FUNGSIKWS" = c."KD_KWS"
+WHERE 
+  ST_IsValid(a.geom) 
+  AND ST_IsValid(b.geom)
+  AND b."WADMPR" = 'DKI Jakarta'
+  AND NOT ST_IsEmpty(a.geom)
+  AND NOT ST_IsEmpty(b.geom);
+
+
 -- Intersection 3 Tema
 -- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan kolom LUAS_HA
 DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
