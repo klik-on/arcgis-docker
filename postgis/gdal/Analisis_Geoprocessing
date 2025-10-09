@@ -36,10 +36,10 @@ WITH luas_per_provinsi AS (
     ST_Multi(
       ST_CollectionExtract(
         ST_Intersection(
-          ST_MakeValid(a.geom),
+          a.geom,  -- Tidak lagi menggunakan ST_MakeValid()
           ST_Intersection(
-            ST_MakeValid(b.geom),
-            ST_MakeValid(d.geom)
+            b.geom,  -- Tidak lagi menggunakan ST_MakeValid()
+            d.geom   -- Tidak lagi menggunakan ST_MakeValid()
           )
         ), 3
       )
@@ -55,11 +55,15 @@ WITH luas_per_provinsi AS (
     kodefikasi."KODE_PL" c ON a."pl2024_id" = c."KD_PL"
   LEFT JOIN 
     kodefikasi."KODE_KWS" e ON d."FUNGSIKWS" = e."KD_KWS"
+  
+  -- Gunakan bounding box prefilter untuk mengurangi ruang pencarian
   WHERE 
     b."WADMPR" = 'DKI Jakarta'
+    AND a.geom && b.geom   -- Bounding box filtering untuk PL2024 dan Kabupaten
+    AND a.geom && d.geom   -- Bounding box filtering untuk PL2024 dan Fungsi Kawasan
 )
 
--- 3. Insert hasilnya
+-- 3. Insert hasilnya ke tabel output
 INSERT INTO datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_PL", 
   "KODEPL", 
@@ -83,5 +87,11 @@ FROM
   luas_per_provinsi
 WHERE 
   geom IS NOT NULL;  -- Hindari error dari geometri kosong
+
+-- 4. Membuat index GIST pada kolom geom di tabel output
+CREATE INDEX ON datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" USING GIST (geom);
+
+-- 5. Verifikasi data yang telah disimpan
+SELECT * FROM datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" LIMIT 10;
 
 
