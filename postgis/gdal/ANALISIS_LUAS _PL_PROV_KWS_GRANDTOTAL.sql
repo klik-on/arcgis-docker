@@ -34,7 +34,7 @@ WITH luas_per_provinsi AS (
     kodefikasi."KODE_KWS" e               
       ON d."FUNGSIKWS" = e."KD_KWS"
   WHERE 
-    b."WADMPR" ILIKE '%Bali%'            
+    b."WADMPR" = 'DKI Jakarta'             
   GROUP BY 
     a."pl2024_id",
     b."WADMPR",
@@ -44,18 +44,35 @@ WITH luas_per_provinsi AS (
     d."FUNGSIKWS",
     e."FUNGSI_KWS"
 )
-SELECT * FROM luas_per_provinsi
+SELECT 
+  "NOURUT_PL",           
+  "KODEPL",         
+  "WADMPR",             
+  "DESKRIPSI_PL",  
+  "NOURUT_KWS",  
+  "KODEKWS",  
+  "FUNGSI_KWS", 
+  TO_CHAR("LUAS_CEA_HA", '999,999,999.999') AS "LUAS_CEA_HA",
+  1 AS "sort_order"
+FROM 
+  luas_per_provinsi
+
 UNION ALL
-SELECT
-  NULL AS "NOURUT_PL",
-  NULL AS "KODEPL",
-  'GRAND TOTAL' AS "WADMPR",
+
+SELECT 
+  NULL AS "NOURUT_PL",           
+  NULL AS "KODEPL",         
+  'GRAND TOTAL' AS "WADMPR",  
   NULL AS "DESKRIPSI_PL",
   NULL AS "NOURUT_KWS",
   NULL AS "KODEKWS",
   NULL AS "FUNGSI_KWS",
-  SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
-FROM luas_per_provinsi
+  TO_CHAR(SUM("LUAS_CEA_HA"), '999,999,999.999') AS "LUAS_CEA_HA",
+  2 AS "sort_order"
+FROM 
+  luas_per_provinsi
+
+-- Urutkan berdasarkan sort_order supaya Grand Total di bawah
 ORDER BY 
-  "NOURUT_PL" NULLS LAST,
-  "NOURUT_KWS" NULLS LAST;
+  "sort_order", "NOURUT_PL" NULLS LAST, "NOURUT_KWS" NULLS LAST;
+
