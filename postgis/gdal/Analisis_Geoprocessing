@@ -7,7 +7,8 @@ FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR";
 
 -- Intersection 3 Tema
--- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan menambahkan kolom LUAS_HA
+-- Intersection 3 Tema
+-- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan kolom LUAS_HA
 DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
 
 CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
@@ -18,66 +19,64 @@ CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_KWS" INT,
   "KODEKWS" TEXT,
   "FUNGSI_KWS" TEXT,
-  "geom" GEOMETRY(MULTIPOLYGON, 4326),  -- Tipe geometris MULTIPOLYGON
-  "LUAS_HA" NUMERIC  -- Menambahkan kolom LUAS_HA untuk menyimpan luas dalam hektar
+  "geom" GEOMETRY(MULTIPOLYGON, 4326),
+  "LUAS_HA" NUMERIC
 );
 
--- 2. Simpan hasil intersection geometris dalam MULTIPOLYGON dan hitung LUAS_HA
-WITH luas_per_provinsi AS (
+-- 2. Menggunakan CTE untuk menyimpan hasil intersection dan menghitung luas
+WITH geom_intersection AS (
   SELECT
-    c."NOURUT_PL",                         
-    a."pl2024_id" AS "KODEPL",             
-    b."WADMPR",                             
-    c."DESKRIPSI_PL",                       
+    c."NOURUT_PL",
+    a."pl2024_id" AS "KODEPL",
+    b."WADMPR",
+    c."DESKRIPSI_PL",
     e."NOURUT_KWS",
     d."FUNGSIKWS" AS "KODEKWS",
     e."FUNGSI_KWS",
-
-    -- Pastikan hasil akhir adalah MULTIPOLYGON
+    
+    -- Simpan hasil intersection sebagai MULTIPOLYGON
     ST_Multi(
       ST_CollectionExtract(
         ST_Intersection(
-          a.geom,  -- PL2024
-          ST_Intersection(
-            b.geom,  -- Provinsi/Kabupaten
-            d.geom   -- Fungsi Kawasan
-          )
+          a.geom,
+          ST_Intersection(b.geom, d.geom)
         ), 3
       )
-    ) AS geom,
-
-    -- Menghitung LUAS_HA (dalam hektar)
-    ST_Area(
-      ST_Transform(
-        ST_Intersection(
-          a.geom,  -- PL2024
-          ST_Intersection(
-            b.geom,  -- Provinsi/Kabupaten
-            d.geom   -- Fungsi Kawasan
-          )
-        ), 54034  -- Menggunakan SRID 54034 untuk transformasi
-      )
-    ) / 10000 AS LUAS_HA  -- Mengkonversi satuan luas ke hektar
+    ) AS geom
 
   FROM 
     datagis."PL2024_AR_250K" a
   INNER JOIN 
     datagis."ADM_KAB_KOTA" b ON ST_Intersects(a.geom, b.geom)
   INNER JOIN 
-    datagis."KWSHUTAN_AR_250K" d ON ST_Intersects(a.geom, d.geom) 
+    datagis."KWSHUTAN_AR_250K" d ON ST_Intersects(a.geom, d.geom)
   LEFT JOIN 
     kodefikasi."KODE_PL" c ON a."pl2024_id" = c."KD_PL"
   LEFT JOIN 
     kodefikasi."KODE_KWS" e ON d."FUNGSIKWS" = e."KD_KWS"
-  
-  -- Gunakan bounding box prefilter untuk mengurangi ruang pencarian
   WHERE 
     b."WADMPR" = 'DKI Jakarta'
-    AND a.geom && b.geom   -- Bounding box filtering untuk PL2024 dan Kabupaten
-    AND a.geom && d.geom   -- Bounding box filtering untuk PL2024 dan Fungsi Kawasan
+    AND a.geom && b.geom
+    AND a.geom && d.geom
+),
+luas_per_provinsi AS (
+  SELECT 
+    "NOURUT_PL",
+    "KODEPL",
+    "WADMPR",
+    "DESKRIPSI_PL",
+    "NOURUT_KWS",
+    "KODEKWS",
+    "FUNGSI_KWS",
+    geom,
+    
+    -- Hitung luas dalam hektar (transformasi ke SRID 54034)
+    ST_Area(ST_Transform(geom, 54034)) / 10000 AS LUAS_HA
+  FROM geom_intersection
+  WHERE geom IS NOT NULL AND NOT ST_IsEmpty(geom)
 )
 
--- 3. Insert hasilnya ke tabel output
+-- 3. Insert hasil ke tabel output
 INSERT INTO datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_PL", 
   "KODEPL", 
@@ -87,28 +86,22 @@ INSERT INTO datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "KODEKWS", 
   "FUNGSI_KWS", 
   "geom",
-  "LUAS_HA"  -- Menambahkan kolom LUAS_HA
+  "LUAS_HA"
 )
 SELECT 
-  "NOURUT_PL",           
-  "KODEPL",         
-  "WADMPR",             
-  "DESKRIPSI_PL",  
-  "NOURUT_KWS",  
-  "KODEKWS",  
+  "NOURUT_PL", 
+  "KODEPL", 
+  "WADMPR", 
+  "DESKRIPSI_PL", 
+  "NOURUT_KWS", 
+  "KODEKWS", 
   "FUNGSI_KWS", 
   geom,
-  LUAS_HA  -- Menyimpan hasil LUAS_HA yang dihitung
-FROM 
-  luas_per_provinsi
-WHERE 
-  geom IS NOT NULL;  -- Hindari error dari geometri kosong
+  LUAS_HA
+FROM luas_per_provinsi;
 
--- 4. Membuat index GIST pada kolom geom di tabel output
+-- 4. Buat index GIST untuk kolom geom
 CREATE INDEX ON datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" USING GIST (geom);
 
 -- 5. Verifikasi data yang telah disimpan
 SELECT * FROM datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" LIMIT 10;
-
-
-
