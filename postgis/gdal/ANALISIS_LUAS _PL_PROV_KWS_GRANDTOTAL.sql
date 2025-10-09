@@ -28,10 +28,10 @@ WITH luas_per_provinsi AS (
     datagis."KWSHUTAN_AR_250K" d
       ON ST_Intersects(a.geom, d.geom) 
   LEFT JOIN 
-    datagis."KODE_PL" c
+    kodefikasi."KODE_PL" c
       ON a."pl2024_id" = c."KD_PL"
   LEFT JOIN 
-    datagis."KODE_KWS" e               
+    kodefikasi."KODE_KWS" e               
       ON d."FUNGSIKWS" = e."KD_KWS"
   WHERE 
     b."WADMPR" ILIKE '%Bali%'            
