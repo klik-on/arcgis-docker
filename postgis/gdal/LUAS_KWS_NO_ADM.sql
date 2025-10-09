@@ -5,9 +5,9 @@ SELECT
   c."FUNGSI_KWS", 
   SUM(
     ST_Area(
-      ST_Transform(a.geom, 54034)   -- Proyeksi ESRI CEA (meter)
+      ST_Transform(a.geom, 54034)  -- Proyeksi ESRI CEA (meter)
     )
-  ) / 10000 AS "LUAS_CEA_HA"        -- Konversi ke hektar
+  ) / 10000 AS "LUAS_CEA_HA"  -- Konversi ke hektar
 FROM 
   datagis."KWSHUTAN_AR_250K" a
 LEFT JOIN 
@@ -36,4 +36,4 @@ WHERE
   a.geom IS NOT NULL
 
 ORDER BY 
-  "NOURUT_KWS" NULLS FIRST;
+  "NOURUT_KWS" NULLS LAST;
