@@ -35,6 +35,8 @@ WHERE
   AND NOT ST_IsEmpty(a.geom)
   AND NOT ST_IsEmpty(b.geom);
 
+-- Buat index spasial
+CREATE INDEX ON datagis."Fungsi_Kawasan_DKI_Jakarta_Geom" USING GIST (geom);
 
 -- Intersection 3 Tema
 -- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan kolom LUAS_HA
