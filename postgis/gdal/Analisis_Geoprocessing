@@ -1,3 +1,11 @@
+-- Dissolve
+CREATE TABLE datagis.ADM_PROVINSI_CLEAN AS
+SELECT
+  "WADMPR" AS nama_provinsi,
+  ST_Union(ST_MakeValid(geom)) AS geom
+FROM datagis."ADM_KAB_KOTA"
+GROUP BY "WADMPR";
+
 -- Intersection 3 Tema
 -- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON
 DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
