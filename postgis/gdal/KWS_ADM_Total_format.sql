@@ -9,7 +9,7 @@ WITH LuasKawasan AS (
       ST_Area(
         ST_Transform(
           ST_Intersection(a.geom, b.geom), 
-          54034									-- Proyeksi CEA
+          54034									                 -- Proyeksi Cylindrical Equal Area 
         )
       )
     ) / 10000 AS "LUAS_CEA_HEKTAR"               -- Konversi ke hektar
