@@ -9,7 +9,7 @@ WITH LuasKawasan AS (
       ST_Area(
         ST_Transform(
           ST_Intersection(a.geom, b.geom), 
-          54034                                 -- Proyeksi ESRI CEA (meter)
+          54034
         )
       )
     ) / 10000 AS "LUAS_CEA_HEKTAR"               -- Konversi ke hektar
@@ -32,13 +32,14 @@ WITH LuasKawasan AS (
     c."NOURUT_KWS"
 )
 
--- Output hasil utama + grand total
+-- Gabungkan hasil utama dan total dengan kontrol urutan
 SELECT 
   "ID_KAWASAN",           
   "KODE_KAWASAN",         
   "PROVINSI",             
   "NAMA_FUNGSI_KAWASAN",  
-  TO_CHAR("LUAS_CEA_HEKTAR", '999,999,999.999') AS "LUAS_CEA_HEKTAR"
+  TO_CHAR("LUAS_CEA_HEKTAR", '999,999,999.999') AS "LUAS_CEA_HEKTAR",
+  1 AS sort_order
 FROM 
   LuasKawasan
 
@@ -50,10 +51,11 @@ SELECT
   NULL AS "KODE_KAWASAN",         
   NULL AS "PROVINSI",             
   'TOTAL LUAS' AS "NAMA_FUNGSI_KAWASAN",  
-  TO_CHAR(SUM("LUAS_CEA_HEKTAR"), '999,999,999.999') AS "LUAS_CEA_HEKTAR"
+  TO_CHAR(SUM("LUAS_CEA_HEKTAR"), '999,999,999.999') AS "LUAS_CEA_HEKTAR",
+  2 AS sort_order
 FROM 
   LuasKawasan
 
--- Urutan: data per fungsi dulu, grand total di akhir
+-- Urutkan berdasarkan sort_order supaya Grand Total di bawah
 ORDER BY 
-  "ID_KAWASAN" NULLS LAST;
+  sort_order, "ID_KAWASAN";
