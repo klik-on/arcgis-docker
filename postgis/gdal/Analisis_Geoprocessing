@@ -7,9 +7,18 @@ FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR";
 
 -- Intersection 3 Tema
--- 1. Drop dan buat ulang tabel output
-DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
+-- Dissolve
+CREATE TABLE datagis.ADM_PROVINSI_CLEAN AS
+SELECT
+  "WADMPR" AS nama_provinsi,
+  ST_Union(ST_MakeValid(geom)) AS geom
+FROM datagis."ADM_KAB_KOTA"
+GROUP BY "WADMPR";
 
+-- Intersection 3 Tema
+-- Intersection 3 Tema
+-- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan kolom LUAS_HA
+DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
 CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_PL" INT,
   "KODEPL" TEXT,
@@ -21,8 +30,9 @@ CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "geom" GEOMETRY(MULTIPOLYGON, 4326),
   "LUAS_HA" NUMERIC
 );
+COMMENT ON TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" IS 'Hasil overlay Penutupan Lahan, Administrasi, dan Kawasan Hutan dengan luas dalam hektar';
 
--- 2. CTE untuk intersection dan perhitungan luas dengan validasi geometri
+-- 2. Menggunakan CTE untuk menyimpan hasil intersection dan menghitung luas
 WITH geom_intersection AS (
   SELECT
     c."NOURUT_PL",
@@ -32,7 +42,7 @@ WITH geom_intersection AS (
     e."NOURUT_KWS",
     d."FUNGSIKWS" AS "KODEKWS",
     e."FUNGSI_KWS",
-
+    
     -- Simpan hasil intersection sebagai MULTIPOLYGON
     ST_Multi(
       ST_CollectionExtract(
@@ -54,9 +64,12 @@ WITH geom_intersection AS (
   LEFT JOIN 
     kodefikasi."KODE_KWS" e ON d."FUNGSIKWS" = e."KD_KWS"
   WHERE 
-    b."WADMPR" = 'DKI Jakarta'  -- Ganti jika ingin provinsi lain
+-- WHERE b."WADMPR" IN ('DKI Jakarta', 'Jawa Barat', 'Banten')
+    b."WADMPR" = 'DKI Jakarta'
     AND a.geom && b.geom
-    AND a.geom && d.geom
+   AND a.geom && d.geom
+-- Untuk seluruh wilayah
+-- WHERE a.geom && b.geom AND a.geom && d.geom
 ),
 luas_per_provinsi AS (
   SELECT 
@@ -68,17 +81,14 @@ luas_per_provinsi AS (
     "KODEKWS",
     "FUNGSI_KWS",
     geom,
-
-    -- Hitung luas (m² ke hektar)
+    
+    -- Hitung luas dalam hektar (transformasi ke SRID 54034)
     ST_Area(ST_Transform(geom, 54034)) / 10000 AS LUAS_HA
   FROM geom_intersection
-  WHERE 
-    geom IS NOT NULL
-    AND NOT ST_IsEmpty(geom)
-    AND ST_IsValid(geom)
+  WHERE geom IS NOT NULL AND NOT ST_IsEmpty(geom)
 )
 
--- 3. Masukkan hasil ke tabel output
+-- 3. Insert hasil ke tabel output
 INSERT INTO datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_PL", 
   "KODEPL", 
@@ -102,8 +112,8 @@ SELECT
   LUAS_HA
 FROM luas_per_provinsi;
 
--- 4. Buat index GIST untuk percepat query spasial
+-- 4. Buat index GIST untuk kolom geom
 CREATE INDEX ON datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" USING GIST (geom);
 
--- 5. Cek data hasil
+-- 5. Verifikasi data yang telah disimpan
 SELECT * FROM datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" LIMIT 10;
