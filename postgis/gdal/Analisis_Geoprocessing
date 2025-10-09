@@ -55,9 +55,12 @@ WITH geom_intersection AS (
   LEFT JOIN 
     kodefikasi."KODE_KWS" e ON d."FUNGSIKWS" = e."KD_KWS"
   WHERE 
+-- WHERE b."WADMPR" IN ('DKI Jakarta', 'Jawa Barat', 'Banten')
     b."WADMPR" = 'DKI Jakarta'
     AND a.geom && b.geom
-    AND a.geom && d.geom
+   AND a.geom && d.geom
+-- Untuk seluruh wilayah
+-- WHERE a.geom && b.geom AND a.geom && d.geom
 ),
 luas_per_provinsi AS (
   SELECT 
