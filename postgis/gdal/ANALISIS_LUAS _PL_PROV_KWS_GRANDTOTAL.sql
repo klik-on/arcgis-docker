@@ -11,11 +11,11 @@ WITH luas_per_provinsi AS (
     SUM(
       ST_Area(
         ST_Intersection(
+          ST_Transform(ST_MakeValid(a.geom), 54034),  -- PL2024
           ST_Intersection(
-            ST_Transform(ST_MakeValid(a.geom), 54034), -- PL2024
-            ST_Transform(ST_MakeValid(b.geom), 54034)  -- Provinsi/Kabupaten
-          ),
-          ST_Transform(ST_MakeValid(d.geom), 54034)    -- Fungsi Kawasan
+            ST_Transform(ST_MakeValid(b.geom), 54034),  -- Provinsi/Kabupaten
+            ST_Transform(ST_MakeValid(d.geom), 54034)   -- Fungsi Kawasan
+          )
         )
       )
     ) / 10000 AS "LUAS_CEA_HA"              
