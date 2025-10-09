@@ -10,7 +10,6 @@ GROUP BY "WADMPR";
 -- Intersection 3 Tema
 -- 1. Drop dan Buat ulang tabel dengan tipe MULTIPOLYGON dan kolom LUAS_HA
 DROP TABLE IF EXISTS datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan";
-
 CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "NOURUT_PL" INT,
   "KODEPL" TEXT,
@@ -22,6 +21,7 @@ CREATE TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" (
   "geom" GEOMETRY(MULTIPOLYGON, 4326),
   "LUAS_HA" NUMERIC
 );
+COMMENT ON TABLE datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan" IS 'Hasil overlay Penutupan Lahan, Administrasi, dan Kawasan Hutan dengan luas dalam hektar';
 
 -- 2. Menggunakan CTE untuk menyimpan hasil intersection dan menghitung luas
 WITH geom_intersection AS (
