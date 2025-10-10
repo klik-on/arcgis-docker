@@ -1,10 +1,12 @@
 -- Dissolve
-CREATE TABLE datagis.ADM_PROVINSI_CLEAN AS
+CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
   ST_Union(ST_MakeValid(geom)) AS geom
-FROM datagis."ADM_KAB_KOTA"
+FROM datagis.adm_kab_kota
 GROUP BY "WADMPR";
+CREATE INDEX ON datagis.adm_provinsi_clean USING GIST (geom);
+
 
 -- Intersection 2 Tema Kawasan + Administrasi
 CREATE TABLE datagis."Fungsi_Kawasan_DKI_Jakarta_Geom" AS
