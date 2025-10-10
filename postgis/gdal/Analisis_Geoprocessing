@@ -1,10 +1,11 @@
 -- Dissolve
+DROP TABLE IF EXISTS  datagis.adm_provinsi_clean
 CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
   ST_Union(ST_MakeValid(geom)) AS geom
 FROM datagis.adm_kab_kota
-GROUP BY "WADMPR";
+GROUP BY "WADMPR"
 CREATE INDEX ON datagis.adm_provinsi_clean USING GIST (geom);
 
 
