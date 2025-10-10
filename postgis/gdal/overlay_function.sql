@@ -1,4 +1,9 @@
 -- ===============================================
+-- $ docker exec -it supabase-db /bin/bash
+-- # wget https://raw.githubusercontent.com/klik-on/arcgis-docker/refs/heads/main/postgis/gdal/overlay_function.sql
+-- # psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 -f overlay_function.sql
+-- $ docker exec -it supabase-db psql -h "$HOSTNAME" -U postgres -d postgres -p 5432
+-- postgres=> SELECT datagis.overlay_penutupan_lahan_provinsi_kawasan('DKI Jakarta');
 -- FUNCTION: overlay_penutupan_lahan_provinsi_kawasan
 -- Deskripsi: Overlay Penutupan Lahan + Kawasan + Provinsi (1 provinsi)
 -- Tabel output: datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan"
