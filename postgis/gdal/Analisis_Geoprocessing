@@ -1,6 +1,8 @@
 -- Dissolve
+-- Hapus tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.adm_provinsi_clean;
 
+-- Buat tabel provinsi dari hasil union kab/kota
 CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
@@ -8,7 +10,17 @@ SELECT
 FROM datagis.adm_kab_kota
 GROUP BY "WADMPR";
 
+-- Buat indeks spasial
 CREATE INDEX ON datagis.adm_provinsi_clean USING GIST (geom);
+
+-- Cek validitas geometri per provinsi (opsional)
+SELECT
+  nama_provinsi,
+  ST_IsValid(geom) AS is_valid,
+  ST_IsValidReason(geom) AS reason_if_not_valid
+FROM datagis.adm_provinsi_clean
+WHERE NOT ST_IsValid(geom);
+
 
 
 
