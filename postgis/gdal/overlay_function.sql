@@ -7,6 +7,7 @@
 -- Tabel output: datagis."Luas_Penutupan_Lahan_Provinsi_Kawasan"
 -- $ docker exec -it supabase-db psql -h "$HOSTNAME" -U postgres -d postgres -p 5432
 -- postgres=> SELECT datagis.overlay_penutupan_lahan_provinsi_kawasan('DKI Jakarta');
+-- # psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 -c "SELECT datagis.overlay_penutupan_lahan_provinsi_kawasan('Jawa Barat');"
 -- ===============================================
 
 CREATE OR REPLACE FUNCTION datagis.overlay_penutupan_lahan_provinsi_kawasan(nama_provinsi TEXT)
