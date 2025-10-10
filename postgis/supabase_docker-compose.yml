@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.10.06-sha-426fda2
+    image: supabase/studio:2025.10.09-sha-433e578
     restart: unless-stopped
     healthcheck:
       test:
@@ -416,7 +416,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.14.1.017
+    image: supabase/postgres:15.14.1.020
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
@@ -509,7 +509,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-pooler
-    image: supabase/supavisor:2.7.2
+    image: supabase/supavisor:2.7.3
     restart: unless-stopped
     ports:
       - ${POSTGRES_PORT}:5432
