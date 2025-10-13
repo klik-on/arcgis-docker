@@ -1,17 +1,28 @@
 -- Dissolve
--- Hapus tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.adm_provinsi_clean;
 
--- Buat tabel provinsi dari hasil union kabupaten/kota
 CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
-  ST_Union(ST_MakeValid(geom))::geometry(MultiPolygon, 4326) AS geom
-FROM datagis.adm_kab_kota
+  ST_Multi(
+    ST_Union(
+      ST_MakeValid(
+        CASE 
+          WHEN ST_SRID(geom) != 4326 THEN ST_Transform(geom, 4326)
+          ELSE geom
+        END
+      )
+    )
+  )::geometry(MultiPolygon, 4326) AS geom
+FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR";
 
--- Buat indeks spasial pada kolom geom
-CREATE INDEX ON datagis.adm_provinsi_clean USING GIST (geom);
+ALTER TABLE datagis.adm_provinsi_clean
+  ADD CONSTRAINT pk_adm_provinsi_clean PRIMARY KEY (nama_provinsi);
+
+CREATE INDEX idx_adm_provinsi_clean_geom
+  ON datagis.adm_provinsi_clean USING GIST (geom);
+
 
 -- (Opsional) Validasi geometri hasil
 SELECT
