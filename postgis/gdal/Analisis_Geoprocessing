@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS datagis.adm_provinsi_clean;
 CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
+  "kdppum" AS kode_provinsi,
   ST_Multi(
     ST_Union(
       ST_MakeValid(
@@ -15,14 +16,13 @@ SELECT
     )
   )::geometry(MultiPolygon, 4326) AS geom
 FROM datagis."ADM_KAB_KOTA"
-GROUP BY "WADMPR";
+GROUP BY "WADMPR", "kdppum";
 
 ALTER TABLE datagis.adm_provinsi_clean
   ADD CONSTRAINT pk_adm_provinsi_clean PRIMARY KEY (nama_provinsi);
 
 CREATE INDEX idx_adm_provinsi_clean_geom
   ON datagis.adm_provinsi_clean USING GIST (geom);
-
 
 -- (Opsional) Validasi geometri hasil
 SELECT
