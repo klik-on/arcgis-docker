@@ -1,3 +1,13 @@
+Jalankan perintah ini di QGIS > DB Manager > SQL Window:
+Langkah 1: Tambahkan Kolom (Jika Belum Ada)
+-- Pastikan kolom belum ada sebelum menjalankan ini
+ALTER TABLE datagis."RUMPIN"
+ADD COLUMN luas_cea double precision;
+Langkah 2: Isi Nilai Luas (Hektar)
+Setelah kolom berhasil ditambahkan, jalankan:
+UPDATE datagis."RUMPIN"
+SET luas_cea = ST_Area(ST_Transform(geom, 54034)) / 10000;
+
 -- Luas RUMPIN 
 SELECT 
    a."nkws" AS "Nama Kawasan",        -- field nama
