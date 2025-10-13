@@ -51,41 +51,61 @@ GROUP BY
   a."nkws"
 
 --- Analisa Luasan PL di RUMPIN dengan KodePL
+-- 1. Data utama per PL dan wilayah
 SELECT
-  c."NOURUT_PL",  -- Nomor urut klasifikasi PL
+  c."NOURUT_PL",  
   COALESCE(c."DESKRIPSI_PL", 'TIDAK DIKETAHUI') AS "DESKRIPSI_PL",
-  pl."pl2024_id", -- Kode PL dari layer utama
-  r."nkws" AS "WILAYAH", -- Nama wilayah dari layer RUMPIN
-  
-  SUM(
-    ST_Area(
-      ST_Transform(
-        ST_Intersection(pl.geom, r.geom),
-        54034 -- Equal area projection
+  pl."pl2024_id",
+  r."nkws" AS "WILAYAH",
+  ROUND(
+    (SUM(
+      ST_Area(
+        ST_Transform(
+          ST_Intersection(pl.geom, r.geom),
+          54034
+        )
       )
-    )
-  ) / 10000 AS "LUAS_CEA_HA" -- Luas hasil intersection dalam hektar
-
+    )::numeric) / 10000,
+    2
+  ) AS "LUAS_CEA_HA"
 FROM 
   datagis."PL2024_AR_250K" pl
 JOIN 
-  datagis."RUMPIN" r
-    ON ST_Intersects(pl.geom, r.geom)
+  datagis."RUMPIN" r ON ST_Intersects(pl.geom, r.geom)
 LEFT JOIN 
-  kodefikasi."KODE_PL" c
-    ON pl."pl2024_id" = c."KD_PL"
-
--- Optional: filter hanya geometrinya yang valid
--- WHERE ST_IsValid(pl.geom) AND ST_IsValid(r.geom)
-
+  kodefikasi."KODE_PL" c ON pl."pl2024_id" = c."KD_PL"
 GROUP BY 
   c."NOURUT_PL",
   c."DESKRIPSI_PL",
   pl."pl2024_id",
   r."nkws"
 
-ORDER BY 
-  c."NOURUT_PL";
+-- 2. Tambahkan baris total keseluruhan
+UNION ALL
+
+SELECT
+  NULL AS "NOURUT_PL",
+  'TOTAL SEMUA PL' AS "DESKRIPSI_PL",
+  NULL AS "pl2024_id",
+  NULL AS "WILAYAH",
+  ROUND(
+    (SUM(
+      ST_Area(
+        ST_Transform(
+          ST_Intersection(pl.geom, r.geom),
+          54034
+        )
+      )
+    )::numeric) / 10000,
+    2
+  ) AS "LUAS_CEA_HA"
+FROM 
+  datagis."PL2024_AR_250K" pl
+JOIN 
+  datagis."RUMPIN" r ON ST_Intersects(pl.geom, r.geom)
+
+ORDER BY
+  "NOURUT_PL" NULLS LAST;
 
 
 --- Analisa Luasan KWS di RUMPIN dengan KodeKWS
