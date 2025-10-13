@@ -109,6 +109,7 @@ ORDER BY
 
 
 --- Analisa Luasan KWS di RUMPIN dengan KodeKWS
+--- Analisa Luasan KWS di RUMPIN dengan KodeKWS
 SELECT
   c."NOURUT_KWS",     -- Nomor urut dari master KODE_PL
   c."FUNGSI_KWS",
@@ -124,12 +125,12 @@ SELECT
     )
   ) / 10000 AS "LUAS_CEA_HA"                    -- Luas dalam hektar
 FROM 
-  "KWSHUTAN_AR_250K_072024" kws
+  datagis."KWSHUTAN_AR_250K" kws
 JOIN 
-  "RUMPIN" r
+  datagis."RUMPIN" r
     ON ST_Intersects(kws.geom, r.geom)
 LEFT JOIN 
-  "KODE_KWS" c
+  kodefikasi."KODE_KWS" c
     ON kws."FUNGSIKWS" = c."KD_KWS"
 --WHERE 
  -- ST_IsValid(kws.geom) AND ST_IsValid(r.geom) -- Hanya geom yg valid saja, akan beda jika digunakan 
