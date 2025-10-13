@@ -55,7 +55,7 @@ GROUP BY
 SELECT
   c."NOURUT_PL",  
   COALESCE(c."DESKRIPSI_PL", 'TIDAK DIKETAHUI') AS "DESKRIPSI_PL",
-  pl."pl2024_id",
+  pl."PL2024_ID",
   r."nkws" AS "WILAYAH",
   ROUND(
     (SUM(
@@ -73,11 +73,11 @@ FROM
 JOIN 
   datagis."RUMPIN" r ON ST_Intersects(pl.geom, r.geom)
 LEFT JOIN 
-  kodefikasi."KODE_PL" c ON pl."pl2024_id" = c."KD_PL"
+  kodefikasi."KODE_PL" c ON pl."PL2024_ID" = c."KD_PL"
 GROUP BY 
   c."NOURUT_PL",
   c."DESKRIPSI_PL",
-  pl."pl2024_id",
+  pl."PL2024_ID",
   r."nkws"
 
 -- 2. Tambahkan baris total keseluruhan
@@ -86,7 +86,7 @@ UNION ALL
 SELECT
   NULL AS "NOURUT_PL",
   'TOTAL SEMUA PL' AS "DESKRIPSI_PL",
-  NULL AS "pl2024_id",
+  NULL AS "PL2024_ID",
   NULL AS "WILAYAH",
   ROUND(
     (SUM(
