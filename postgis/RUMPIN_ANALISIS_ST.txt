@@ -109,7 +109,6 @@ ORDER BY
 
 
 --- Analisa Luasan KWS di RUMPIN dengan KodeKWS
---- Analisa Luasan KWS di RUMPIN dengan KodeKWS
 SELECT
   c."NOURUT_KWS",     -- Nomor urut dari master KODE_PL
   c."FUNGSI_KWS",
