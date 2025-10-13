@@ -8,6 +8,14 @@ Setelah kolom berhasil ditambahkan, jalankan:
 UPDATE datagis."RUMPIN"
 SET luas_cea = ST_Area(ST_Transform(geom, 54034)) / 10000;
 
+-- Jika kamu hanya butuh melihat data + luas tanpa menulis ke tabel:
+CREATE OR REPLACE VIEW datagis.rumpin_with_luas AS
+SELECT
+  *,
+  ST_Area(ST_Transform(geom, 54034)) / 10000 AS luas_cea
+FROM datagis."RUMPIN";
+
+
 -- Luas RUMPIN 
 SELECT 
    a."nkws" AS "Nama Kawasan",        -- field nama
