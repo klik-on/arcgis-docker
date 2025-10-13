@@ -24,9 +24,10 @@ GROUP BY "WADMPR", "kdppum";
 ALTER TABLE datagis.adm_provinsi_clean
   ADD CONSTRAINT adm_provinsi_clean_pkey PRIMARY KEY (kode_provinsi);
 
--- 4. Buat index GIST pada kolom geom
-CREATE INDEX idx_adm_provinsi_clean_geom
+-- 4. Buat index spasial dengan nama sesuai konvensi
+CREATE INDEX adm_provinsi_clean_geom_idx
   ON datagis.adm_provinsi_clean USING GIST (geom);
+
 
 -- (Opsional) Validasi geometri hasil
 SELECT
