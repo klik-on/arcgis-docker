@@ -37,6 +37,14 @@ SELECT
 FROM datagis.adm_provinsi_clean
 WHERE NOT ST_IsValid(geom);
 
+-- Cek Penggunaan Index
+EXPLAIN
+SELECT * 
+FROM datagis.adm_provinsi_clean
+WHERE ST_Intersects(
+  geom,
+  ST_GeomFromText('POLYGON((115.0 -8.5, 115.2 -8.5, 115.2 -8.3, 115.0 -8.3, 115.0 -8.5))', 4326)
+);
 
 ### Export ke OpenfileGDB Shell Script (export_gdb.sh)
 #!/bin/bash
