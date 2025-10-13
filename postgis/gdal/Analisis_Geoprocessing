@@ -1,6 +1,8 @@
 -- Dissolve
+-- 1. Hapus tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.adm_provinsi_clean;
 
+-- 2. Buat tabel hasil union kabupaten/kota per provinsi
 CREATE TABLE datagis.adm_provinsi_clean AS
 SELECT
   "WADMPR" AS nama_provinsi,
@@ -18,9 +20,11 @@ SELECT
 FROM datagis."ADM_KAB_KOTA"
 GROUP BY "WADMPR", "kdppum";
 
+-- 3. Tambahkan primary key pada kode_provinsi
 ALTER TABLE datagis.adm_provinsi_clean
-  ADD CONSTRAINT pk_adm_provinsi_clean PRIMARY KEY (nama_provinsi);
+  ADD CONSTRAINT adm_provinsi_clean_pkey PRIMARY KEY (kode_provinsi);
 
+-- 4. Buat index GIST pada kolom geom
 CREATE INDEX idx_adm_provinsi_clean_geom
   ON datagis.adm_provinsi_clean USING GIST (geom);
 
