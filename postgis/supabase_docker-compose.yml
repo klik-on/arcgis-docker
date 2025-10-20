@@ -317,7 +317,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-meta
-    image: supabase/postgres-meta:v0.92.0
+    image: supabase/postgres-meta:v0.93.0
     ports:
       - "8081:8080"
     restart: unless-stopped
@@ -416,7 +416,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.14.1.023
+    image: supabase/postgres:15.14.1.024
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
