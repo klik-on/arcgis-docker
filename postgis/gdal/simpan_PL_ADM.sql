@@ -1,5 +1,5 @@
 -- Menyimpan Geometri dengan SRID 4326
--- Hapus tabel jika sudah ada (opsional)
+-- Hapus tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.hasil_luas_pl_aceh;
 
 -- Buat tabel hasil analisis spasial
@@ -11,7 +11,7 @@ WITH luas_per_provinsi AS (
     b."WADMPR",
     c."DESKRIPSI_PL",
 
-    -- Hitung luas tetap dalam SRID 54034 (untuk akurasi perhitungan luas)
+    -- Luas dihitung dalam meter (SRID 54034) lalu dikonversi ke hektar
     ST_Area(
       ST_Intersection(
         ST_Transform(a.geom, 54034),
@@ -19,13 +19,15 @@ WITH luas_per_provinsi AS (
       )
     ) / 10000 AS "LUAS_CEA_HA",
 
-    -- Geometri diubah ke SRID 4326 setelah intersect dan transform
-    ST_Transform(
-      ST_Intersection(
-        ST_Transform(a.geom, 54034),
-        ST_Transform(b.geom, 54034)
-      ),
-      4326
+    -- Geometri hasil intersect ditransform ke 4326 dan dipastikan menjadi MULTIPOLYGON
+    ST_Multi(
+      ST_Transform(
+        ST_Intersection(
+          ST_Transform(a.geom, 54034),
+          ST_Transform(b.geom, 54034)
+        ),
+        4326
+      )
     ) AS geom
 
   FROM 
@@ -50,8 +52,8 @@ SELECT
   geom
 FROM luas_per_provinsi;
 
--- Tambahkan metadata geometri ke PostGIS (jika diperlukan)
+-- Registrasi geometri ke metadata PostGIS (opsional tapi direkomendasikan)
 SELECT Populate_Geometry_Columns('datagis.hasil_luas_pl_aceh'::regclass);
 
--- Tambahkan index spasial untuk performa
+-- Tambah index spasial untuk performa
 CREATE INDEX ON datagis.hasil_luas_pl_aceh USING GIST (geom);
