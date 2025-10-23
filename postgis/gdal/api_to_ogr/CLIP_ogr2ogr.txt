@@ -17,8 +17,10 @@ ogr2ogr -f "OpenFileGDB" output_clip.gdb \
 
 ## Buat 2 Tahap untuk Stabil
 ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
   -sql "SELECT ST_Union(geom) AS geom FROM datagis.\"ADM_KAB_KOTA\" WHERE \"WADMPR\" = 'Kalimantan Timur'" \
   -nln clip_union -overwrite
+
 
 ogr2ogr -f "OpenFileGDB" output_clip.gdb \
   "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
