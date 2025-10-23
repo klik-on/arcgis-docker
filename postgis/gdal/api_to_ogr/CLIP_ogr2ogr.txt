@@ -22,14 +22,13 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
   -nln clip_union -overwrite
 ogrinfo PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" -so clip_union
 
-
-ogr2ogr -f "OpenFileGDB" output_clip.gdb \
-  "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
   -nln hasil_clip \
-  -nlt MULTIPOLYGON -skipfailures \
-  --config OGR_ORGANIZE_POLYGONS SKIP \
   -clipsrc PG:"host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
   -clipsrclayer clip_union \
-  -sql "SELECT ST_CollectionExtract(ST_MakeValid(geom), 3) AS geom, * FROM datagis.\"PL2024_AR_250K\"" \
-  -progress \
-  -overwrite
+  -nlt MULTIPOLYGON \
+  -sql "SELECT * FROM datagis.\"PL2024_AR_250K\"" \
+  -overwrite \
+  -progress
+
