@@ -1,4 +1,19 @@
 -- Dissolve
+-- Menggunakan GDAL
+ogr2ogr -f "PostgreSQL" "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  -dialect POSTGRESQL \
+  -sql "
+    SELECT
+      \"WADMPR\" AS nama_provinsi,
+      \"kdppum\" AS kode_provinsi,
+      ST_Multi(ST_Union(ST_Transform(ST_MakeValid(geom), 4326))) AS geometry
+    FROM datagis.\"ADM_KAB_KOTA\"
+    GROUP BY \"WADMPR\", \"kdppum\"
+  " \
+  -nln datagis.adm_provinsi_clean \
+  -overwrite
+
 -- 1. Hapus tabel jika sudah ada
 DROP TABLE IF EXISTS datagis.adm_provinsi_clean;
 
