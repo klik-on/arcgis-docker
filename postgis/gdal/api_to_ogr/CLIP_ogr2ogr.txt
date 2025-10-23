@@ -1,0 +1,19 @@
+# Cek Data
+ogrinfo "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" -so -al datagis."PL2024_AR_250K"
+ogrinfo "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" -so -al datagis."ADM_KAB_KOTA"
+
+# CLIP DATA POSTGIS
+ogr2ogr -f "OpenFileGDB" output_clip.gdb \
+  "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  datagis."PL2024_AR_250K" \
+  -nln hasil_clip \
+  -nlt MULTIPOLYGON -skipfailures \
+  --config OGR_ORGANIZE_POLYGONS SKIP \
+  -clipsrc "PG:host=172.16.2.122 dbname=postgres user=postgres.67888 password=password00" \
+  -clipsrclayer datagis."ADM_KAB_KOTA" \
+  -clipsrcsql "SELECT ST_Collect(geom) AS geom FROM \"datagis\".\"ADM_KAB_KOTA\" WHERE \"WADMPR\" = 'Kalimantan Timur'" \
+  -dialect SQLite \
+  -sql "SELECT ST_CollectionExtract(ST_MakeValid(geometry),3) AS geometry,* FROM \"PL2024_AR_250K\"" \
+  -progress \
+  -overwrite
+
