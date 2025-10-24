@@ -29,3 +29,14 @@ SELECT DISTINCT GeometryType(geom) FROM datagis."KWSHUTAN_AR_250K";
 -- Setelah update, pastikan semua geometri valid:
 SELECT COUNT(*) FROM "LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
 
+-- Cek Overlap data
+SELECT 
+    a.id AS id1,
+    b.id AS id2,
+    ST_Intersection(a.geom, b.geom) AS geom_overlap
+FROM datagis.rumpin_overlap a
+JOIN datagis.rumpin_overlap b
+  ON ST_Overlaps(a.geom, b.geom)
+WHERE a.id < b.id;
+
+
