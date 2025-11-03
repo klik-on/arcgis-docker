@@ -7,7 +7,7 @@
 
 
 cd /tmp
-tver='9.0.194'
+tver='9.0.111'
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v$tver/bin/apache-tomcat-$tver.tar.gz
 tar -xvf apache-tomcat-$tver.tar.gz
 cd /usr/local/tomcat
