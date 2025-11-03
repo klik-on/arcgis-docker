@@ -18,7 +18,11 @@ $ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cer
        ssl_ciphers HIGH:!aNULL:!MD5;
        ssl_prefer_server_ciphers on;
 
+
 ###### ARCGIS WEBADAPTOR
+Konversi pfx
+$ openssl pkcs12 -export -out star_menlhk_go_id.pfx -inkey star_menlhk_go_id.key -in star_menlhk_go_id.crt
+
   == > /usr/local/tomcat/conf/server.xml
   <Service name="Catalina">
     <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
