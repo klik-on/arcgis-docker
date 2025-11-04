@@ -17,7 +17,7 @@ SELECT COUNT(*) FROM "KWSHUTAN_AR_250K" WHERE NOT ST_IsValid(geom);
 -- Jiks Data count  belum 0
 -- Gunakan ST_CollectionExtract() untuk mengeluarkan bagian Polygon atau MultiPolygon dari hasil ST_MakeValid():
 -- CEK dan Perbaiki Valid GEOM
-UPDATE datagis."KWSHUTAN_AR_250K"
+UPDATE datagis."PIPPIB_2025_II_AR_250K"
 SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))  -- 3 = Polygon
 WHERE NOT ST_IsValid(geom);
 
