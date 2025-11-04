@@ -25,7 +25,7 @@ WHERE NOT ST_IsValid(geom);
 SELECT COUNT(*) FROM datagis."PIPPIB_2025_II_AR_250K" WHERE NOT ST_IsValid(geom);
 
 -- CEK  pastikan semua bertipe MultiPolygon
-SELECT DISTINCT GeometryType(geom) FROM datagis."KWSHUTAN_AR_250K";
+SELECT DISTINCT GeometryType(geom) FROM datagis."PIPPIB_2025_II_AR_250K";
 -- Setelah update, pastikan semua geometri valid:
 SELECT COUNT(*) FROM "LAHAN_KRITIS_AR_50K_291124" WHERE NOT ST_IsValid(geom);
 
