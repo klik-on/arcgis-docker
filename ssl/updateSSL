@@ -5,14 +5,14 @@ https://www.jagoanhosting.com/tutorial/tutorial-vps/cara-install-ssl-di-nginx
 #        SSLCertificateFile /etc/apache2/certificate/star.menlhk.go.id.crt
 #        SSLCertificateKeyFile /etc/apache2/certificate/star.menlhk.go.id.key
 #        SSLCertificateChainFile /etc/apache2/certificate/CAIntermediate.crt
-        SSLCertificateFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.pem
-        SSLCertificateKeyFile /etc/apache2/certificate/ssl_2023/star_menlhk_go_id_cert.key
+        SSLCertificateFile /etc/apache2/certificate/ssl_2023/star__cert.pem
+        SSLCertificateKeyFile /etc/apache2/certificate/ssl_2023/star__cert.key
         SSLCertificateChainFile /etc/apache2/certificate/ssl_2023/Chain_RootCA_Bundle.crt
 
 ###### NGINX ==> /etc/nginx/nginx.conf
-$ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cert.crt
-       ssl_certificate "/etc/ssl/newcert/star_menlhk_go_id_cert.crt";
-       ssl_certificate_key "/etc/ssl/newcert/star_menlhk_go_id_cert.key";
+$ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_cert.crt
+       ssl_certificate "/etc/ssl/newcert/_cert.crt";
+       ssl_certificate_key "/etc/ssl/newcert/_cert.key";
        ssl_session_cache shared:SSL:1m;
        ssl_session_timeout  10m;
        ssl_ciphers HIGH:!aNULL:!MD5;
@@ -21,7 +21,7 @@ $ cat star_menlhk_go_id_cert.pem Chain_RootCA_Bundle.crt > star_menlhk_go_id_cer
 
 ###### ARCGIS WEBADAPTOR
 Konversi pfx
-$ openssl pkcs12 -export -out star_menlhk_go_id.pfx -inkey star_menlhk_go_id.key -in star_menlhk_go_id.crt
+$ openssl pkcs12 -export -out star_.pfx -inkey star_.key -in star_.crt
 
   == > /usr/local/tomcat/conf/server.xml
   <Service name="Catalina">
