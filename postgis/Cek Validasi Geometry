@@ -1,4 +1,5 @@
 -- cek Index sudah ada atau belum digunakan Untuk Mempercepat Proeses
+-- docker exec -it supabase-db psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
 SELECT indexname
 FROM pg_indexes
 WHERE tablename = 'LAHAN_KRITIS_AR_50K_291124';
