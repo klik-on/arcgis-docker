@@ -86,8 +86,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-auth
-    # image: supabase/gotrue:v2.179.0
-    image: supabase/gotrue:v2.181.0
+    image: supabase/gotrue:v2.182.1
     restart: unless-stopped
     healthcheck:
       test:
@@ -339,7 +338,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.69.20
+    image: supabase/edge-runtime:v1.69.22
     restart: unless-stopped
     volumes:
       - ./volumes/functions:/home/deno/functions:Z
