@@ -34,26 +34,38 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
   -progress
 
 ### CLIP POSTGIS
--- Aktifkan paralelisme (bisa disesuaikan dengan jumlah core server)
+-- 1️⃣ Aktifkan paralelisme (sesuaikan jumlah core server)
 SET max_parallel_workers_per_gather = 4;
 
--- Buat tabel hasil clip
+-- 2️⃣ Buat tabel hasil clipping provinsi Aceh (kode_provinsi = '11')
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
     b."PL2024_ID",
     b.pl2023_id_r,
     a.nama_provinsi,
     a.kode_provinsi,
-    ST_CollectionExtract(
-        ST_MakeValid(  -- pastikan hasil valid untuk QGIS
-            ST_Intersection(b.geom, a.geom)
-        ), 
-        3  -- 3 = POLYGON
+    -- Validasi, ambil hanya polygon, dan pastikan SRID 4326
+    ST_SetSRID(
+        ST_CollectionExtract(
+            ST_MakeValid(
+                ST_Intersection(b.geom, a.geom)
+            ),
+            3  -- 3 = POLYGON
+        ),
+        4326
     ) AS geom
 FROM datagis."PL2024_AR_250K" b
 JOIN datagis."adm_provinsi_clean" a
   ON ST_Intersects(a.geom, b.geom)
 WHERE a.kode_provinsi = '11';
+
+-- 3️⃣ Tambahkan spatial index agar query dan rendering QGIS cepat
+CREATE INDEX clip_pl_aceh_geom_idx
+    ON datagis.clip_pl_aceh USING GIST (geom);
+
+-- 4️⃣ Jalankan ANALYZE untuk update statistik tabel
+ANALYZE datagis.clip_pl_aceh;
+
 
 ## TIPS Pastikan spatial index aktif di kedua tabel:
 CREATE INDEX IF NOT EXISTS pl2024_geom_idx
