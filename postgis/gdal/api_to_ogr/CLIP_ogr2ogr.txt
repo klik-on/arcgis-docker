@@ -34,17 +34,36 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
   -progress
 
 ### CLIP POSTGIS
+-- Aktifkan paralelisme (bisa disesuaikan dengan jumlah core server)
+SET max_parallel_workers_per_gather = 4;
+
+-- Buat tabel hasil clip
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
     b."PL2024_ID",
     b.pl2023_id_r,
     a.nama_provinsi,
     a.kode_provinsi,
-    ST_SetSRID(ST_Intersection(b.geom, a.geom), ST_SRID(b.geom)) AS geom
+    ST_CollectionExtract(
+        ST_MakeValid(  -- pastikan hasil valid untuk QGIS
+            ST_Intersection(b.geom, a.geom)
+        ), 
+        3  -- 3 = POLYGON
+    ) AS geom
 FROM datagis."PL2024_AR_250K" b
 JOIN datagis."adm_provinsi_clean" a
   ON ST_Intersects(a.geom, b.geom)
 WHERE a.kode_provinsi = '11';
+
+## TIPS Pastikan spatial index aktif di kedua tabel:
+CREATE INDEX IF NOT EXISTS pl2024_geom_idx
+    ON datagis."PL2024_AR_250K" USING GIST (geom);
+CREATE INDEX IF NOT EXISTS prov_clean_geom_idx
+    ON datagis."adm_provinsi_clean" USING GIST (geom);
+ANALYZE datagis."PL2024_AR_250K";
+ANALYZE datagis."adm_provinsi_clean";
+
+
 
 
 
