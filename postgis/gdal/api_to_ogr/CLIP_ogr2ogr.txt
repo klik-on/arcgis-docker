@@ -33,3 +33,11 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
   -overwrite \
   -progress
 
+### CLIP POSTGIS
+CREATE TABLE datagis.clip_aceh AS
+SELECT b.*
+FROM datagis."PERSETUJUAN_KOMITMEN_PBPH" b
+JOIN datagis."adm_provinsi_clean" a
+  ON ST_Intersects(a.geom, b.geom)
+WHERE a.kode_provinsi = '11';
+
