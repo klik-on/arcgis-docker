@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.11.03-sha-ddedae5
+    image: supabase/studio:2025.11.10-sha-5291fe3
     restart: unless-stopped
     healthcheck:
       test:
@@ -86,7 +86,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-auth
-    image: supabase/gotrue:v2.182.2-rc.2
+    image: supabase/gotrue:v2.182.2-rc.3
     restart: unless-stopped
     healthcheck:
       test:
@@ -247,7 +247,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.29.0
+    image: supabase/storage-api:v1.29.1
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
