@@ -36,6 +36,10 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
 ### CLIP POSTGIS
 -- 1️⃣ Aktifkan paralelisme (sesuaikan jumlah core server)
 SET max_parallel_workers_per_gather = 4;
+-- SET max_parallel_workers_per_gather = 8;  -- kalau server punya ≥ 8 core
+SET work_mem = '256MB';
+SET maintenance_work_mem = '512MB';
+
 
 -- 2️⃣ Hapus tabel jika sudah ada sebelumnya
 DROP TABLE IF EXISTS datagis.clip_pl_aceh;
