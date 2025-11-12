@@ -45,7 +45,7 @@ SELECT
     a.nama_provinsi,
     a.kode_provinsi,
     k."KD_PL",
-    k."LABEL_PL",
+    k."DESKRIPSI_PL",        -- diganti dari LABEL_PL
     k."KELOMPOK",
     ST_Area(inter.geom_54034) / 10000 AS luas_ha, -- luas dalam hektar
     ST_SetSRID(inter.geom_4326, 4326) AS geom      -- simpan geometri asli
