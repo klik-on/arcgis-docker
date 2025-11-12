@@ -37,44 +37,65 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
 -- 1️⃣ Aktifkan paralelisme (sesuaikan jumlah core server)
 SET max_parallel_workers_per_gather = 4;
 
--- 2️⃣ Buat tabel hasil clipping provinsi Aceh (kode_provinsi = '11')
-DROP TABLE IF EXISTS datagis.clip_pl_aceh CASCADE;
+-- 2️⃣ Hapus tabel jika sudah ada sebelumnya
+DROP TABLE IF EXISTS datagis.clip_pl_aceh;
+
+-- 3️⃣ Buat tabel hasil clipping provinsi Aceh (kode_provinsi = '11')
+--    Tambahkan kolom luas_ha (hektar) dan filter geometri valid serta luas > 0
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
     b."PL2024_ID",
     b.pl2023_id_r,
     a.nama_provinsi,
     a.kode_provinsi,
-    -- Validasi, ambil hanya polygon, dan pastikan SRID 4326
+    -- Hitung luas dalam hektar menggunakan proyeksi Equal Area (EPSG:54034)
+    ST_Area(
+        ST_Transform(
+            ST_SetSRID(
+                ST_CollectionExtract(
+                    ST_MakeValid(ST_Intersection(b.geom, a.geom)),
+                    3  -- 3 = POLYGON
+                ),
+                4326
+            ),
+            54034
+        )
+    ) / 10000 AS luas_ha,
+    -- Simpan geometri valid dengan SRID 4326
     ST_SetSRID(
         ST_CollectionExtract(
-            ST_MakeValid(
-                ST_Intersection(b.geom, a.geom)
-            ),
-            3  -- 3 = POLYGON
+            ST_MakeValid(ST_Intersection(b.geom, a.geom)),
+            3
         ),
         4326
     ) AS geom
 FROM datagis."PL2024_AR_250K" b
 JOIN datagis."adm_provinsi_clean" a
   ON ST_Intersects(a.geom, b.geom)
-WHERE a.kode_provinsi = '11';
+WHERE a.kode_provinsi = '11'
+  -- Pastikan geometri valid
+  AND ST_IsValid(ST_Intersection(b.geom, a.geom))
+  -- Hanya simpan fitur dengan luas > 0 hektar
+  AND ST_Area(
+        ST_Transform(
+            ST_SetSRID(
+                ST_CollectionExtract(
+                    ST_MakeValid(ST_Intersection(b.geom, a.geom)),
+                    3
+                ),
+                4326
+            ),
+            54034
+        )
+    ) > 0;
 
--- 3️⃣ Tambahkan spatial index agar query dan rendering QGIS cepat
+-- 4️⃣ Tambahkan spatial index agar query dan rendering QGIS cepat
 CREATE INDEX clip_pl_aceh_geom_idx
     ON datagis.clip_pl_aceh USING GIST (geom);
 
--- 4️⃣ Jalankan ANALYZE untuk update statistik tabel
+-- 5️⃣ Jalankan ANALYZE untuk update statistik tabel
 ANALYZE datagis.clip_pl_aceh;
 
-
-## TIPS Pastikan spatial index aktif di kedua tabel:
-CREATE INDEX IF NOT EXISTS pl2024_geom_idx
-    ON datagis."PL2024_AR_250K" USING GIST (geom);
-CREATE INDEX IF NOT EXISTS prov_clean_geom_idx
-    ON datagis."adm_provinsi_clean" USING GIST (geom);
-ANALYZE datagis."PL2024_AR_250K";
-ANALYZE datagis."adm_provinsi_clean";
 
 
 
