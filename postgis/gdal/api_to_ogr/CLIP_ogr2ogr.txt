@@ -37,63 +37,30 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
 -- Hapus tabel jika sudah ada sebelumnya
 DROP TABLE IF EXISTS datagis.clip_pl_aceh;
 
--- Pastikan index untuk join ada (jika belum dibuat)
-CREATE INDEX IF NOT EXISTS pl2024_id_idx
-    ON datagis."PL2024_AR_250K" ("PL2024_ID");
-
-CREATE INDEX IF NOT EXISTS kd_pl_idx
-    ON kodefikasi."KODE_PL" ("KD_PL");  -- schema kodefikasi, tabel KODE_PL
-
--- Pastikan spatial index untuk geometri sumber ada
-CREATE INDEX IF NOT EXISTS pl2024_geom_idx
-    ON datagis."PL2024_AR_250K" USING GIST (geom);
-
-CREATE INDEX IF NOT EXISTS adm_prov_geom_idx
-    ON datagis."adm_provinsi_clean" USING GIST (geom);
-
--- Gunakan CTE untuk clipping, transformasi, dan hitung luas
-WITH clipped AS (
-    SELECT
-        b."PL2024_ID",
-        b.pl2023_id_r,
-        a.nama_provinsi,
-        a.kode_provinsi,
-        k."KODE_PL",
-        -- Hitung intersection dan buat geometri valid
-        ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3) AS geom_intersect
-    FROM datagis."PL2024_AR_250K" b
-    JOIN datagis."adm_provinsi_clean" a
-      ON ST_Intersects(a.geom, b.geom)
-    LEFT JOIN kodefikasi."KODE_PL" k
-      ON b."PL2024_ID" = k."KD_PL"
-    WHERE a.kode_provinsi = '11'
-),
-transformed AS (
-    SELECT
-        *,
-        -- Transform geometri ke Equal Area untuk perhitungan luas
-        ST_Transform(ST_SetSRID(geom_intersect, 4326), 54034) AS geom_aea
-    FROM clipped
-)
--- Buat tabel final
+-- Buat tabel hasil clipping provinsi Aceh langsung
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
-    "PL2024_ID",
-    pl2023_id_r,
-    nama_provinsi,
-    kode_provinsi,
-    "KODE_PL",
-    ST_Area(geom_aea) / 10000 AS luas_ha, -- luas dalam hektar
-    ST_SetSRID(geom_intersect, 4326) AS geom
-FROM transformed
-WHERE ST_IsValid(geom_intersect)
-  AND ST_Area(geom_aea) > 0;
+    b."PL2024_ID",
+    b.pl2023_id_r,
+    a.nama_provinsi,
+    a.kode_provinsi,
+    k."KODE_PL",
+    ST_Area(ST_Transform(ST_SetSRID(ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3), 4326), 54034)) / 10000 AS luas_ha,
+    ST_SetSRID(ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3), 4326) AS geom
+FROM datagis."PL2024_AR_250K" b
+JOIN datagis."adm_provinsi_clean" a
+  ON ST_Intersects(a.geom, b.geom)
+LEFT JOIN kodefikasi."KODE_PL" k
+  ON b."PL2024_ID" = k."KD_PL"
+WHERE a.kode_provinsi = '11'
+  AND ST_IsValid(ST_Intersection(b.geom, a.geom))
+  AND ST_Area(ST_Transform(ST_SetSRID(ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3), 4326), 54034)) > 0;
 
 -- Tambahkan spatial index untuk tabel final
 CREATE INDEX clip_pl_aceh_geom_idx
     ON datagis.clip_pl_aceh USING GIST (geom);
 
--- Index tambahan untuk join atau filter cepat
+-- Index tambahan untuk join cepat
 CREATE INDEX clip_pl_aceh_pl2024_id_idx
     ON datagis.clip_pl_aceh ("PL2024_ID");
 
