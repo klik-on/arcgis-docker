@@ -38,39 +38,35 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
 DROP TABLE IF EXISTS datagis.clip_pl_aceh;
 
 -- Buat tabel hasil clipping provinsi Aceh dengan LEFT JOIN ke kodefikasi.KODE_PL
-WITH intersected AS (
-    SELECT
-        b."PL2024_ID",
-        b.pl2023_id_r,
-        a.nama_provinsi,
-        a.kode_provinsi,
-        k."KD_PL",
-        k."LABEL_PL",
-        k."KELOMPOK",
-        ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3) AS geom_intersect
-    FROM datagis."PL2024_AR_250K" b
-    JOIN datagis."adm_provinsi_clean" a
-      ON ST_Intersects(a.geom, b.geom)
-    LEFT JOIN kodefikasi."KODE_PL" k
-      ON b."PL2024_ID" = k."KD_PL"
-    WHERE a.kode_provinsi = '11'
-      AND ST_IsValid(ST_Intersection(b.geom, a.geom))
-)
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
-    "PL2024_ID",
-    pl2023_id_r,
-    nama_provinsi,
-    kode_provinsi,
-    "KD_PL",
-    "LABEL_PL",
-    "KELOMPOK",
-    ST_Area(ST_Transform(ST_SetSRID(geom_intersect, 4326), 54034)) / 10000 AS luas_ha,
-    ST_SetSRID(geom_intersect, 4326) AS geom
-FROM intersected
-WHERE ST_Area(ST_Transform(ST_SetSRID(geom_intersect, 4326), 54034)) > 0;
+    b."PL2024_ID",
+    b.pl2023_id_r,
+    a.nama_provinsi,
+    a.kode_provinsi,
+    k."KD_PL",
+    k."LABEL_PL",
+    k."KELOMPOK",
+    ST_Area(inter.geom_54034) / 10000 AS luas_ha, -- luas dalam hektar
+    ST_SetSRID(inter.geom_4326, 4326) AS geom      -- simpan geometri asli
+FROM datagis."PL2024_AR_250K" b
+JOIN datagis."adm_provinsi_clean" a
+  ON ST_Intersects(a.geom, b.geom)
+LEFT JOIN kodefikasi."KODE_PL" k
+  ON b."PL2024_ID" = k."KD_PL"
+-- Hitung intersection dan transformasi sekali menggunakan LATERAL
+CROSS JOIN LATERAL (
+    SELECT 
+        ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3) AS geom_4326,
+        ST_Transform(
+            ST_CollectionExtract(ST_MakeValid(ST_Intersection(b.geom, a.geom)), 3), 54034
+        ) AS geom_54034
+) AS inter
+WHERE a.kode_provinsi = '11'
+  AND ST_IsValid(inter.geom_4326)
+  AND ST_Area(inter.geom_54034) > 0;
 
--- Tambahkan spatial index untuk geometri
+-- Tambahkan spatial index
 CREATE INDEX clip_pl_aceh_geom_idx
     ON datagis.clip_pl_aceh USING GIST (geom);
 
@@ -78,5 +74,5 @@ CREATE INDEX clip_pl_aceh_geom_idx
 CREATE INDEX clip_pl_aceh_pl2024_id_idx
     ON datagis.clip_pl_aceh ("PL2024_ID");
 
--- Update statistik agar query cepat
+-- Update statistik tabel agar planner optimal
 ANALYZE datagis.clip_pl_aceh;
