@@ -34,17 +34,10 @@ ogr2ogr -f "PostgreSQL" PG:"host=172.16.2.122 dbname=postgres user=postgres.6788
   -progress
 
 ### CLIP POSTGIS
--- 1️⃣ Aktifkan paralelisme (sesuaikan jumlah core server)
-SET max_parallel_workers_per_gather = 4;
--- SET max_parallel_workers_per_gather = 8;  -- kalau server punya ≥ 8 core
-SET work_mem = '256MB';
-SET maintenance_work_mem = '512MB';
-
-
--- 2️⃣ Hapus tabel jika sudah ada sebelumnya
+--  Hapus tabel jika sudah ada sebelumnya
 DROP TABLE IF EXISTS datagis.clip_pl_aceh;
 
--- 3️⃣ Buat tabel hasil clipping provinsi Aceh (kode_provinsi = '11')
+--  Buat tabel hasil clipping provinsi Aceh (kode_provinsi = '11')
 --    Tambahkan kolom luas_ha (hektar) dan filter geometri valid serta luas > 0
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
@@ -93,19 +86,15 @@ WHERE a.kode_provinsi = '11'
         )
     ) > 0;
 
--- 4️⃣ Tambahkan spatial index agar query dan rendering QGIS cepat
+-- Tambahkan spatial index agar query dan rendering QGIS cepat
 CREATE INDEX clip_pl_aceh_geom_idx
     ON datagis.clip_pl_aceh USING GIST (geom);
 
--- 5️⃣ Jalankan ANALYZE untuk update statistik tabel
+--  Jalankan ANALYZE untuk update statistik tabel
 ANALYZE datagis.clip_pl_aceh;
 
 ### VERSI RINGAN
--- 1️⃣ Parallel & memori
-SET max_parallel_workers_per_gather = 8;
-SET work_mem = '256MB';
-
--- 2️⃣ Tabel provinsi Aceh (satu kali buat)
+-- Tabel provinsi Aceh (satu kali buat)
 DROP TABLE IF EXISTS tmp_aceh_geom;
 CREATE TEMP TABLE tmp_aceh_geom AS
 SELECT geom, nama_provinsi, kode_provinsi
@@ -114,10 +103,10 @@ WHERE kode_provinsi = '11';
 CREATE INDEX tmp_aceh_geom_idx ON tmp_aceh_geom USING GIST (geom);
 ANALYZE tmp_aceh_geom;
 
--- 3️⃣ Hapus tabel hasil lama
+-- Hapus tabel hasil lama
 DROP TABLE IF EXISTS datagis.clip_pl_aceh;
 
--- 4️⃣ Buat tabel hasil clipping + luas hektar
+--  Buat tabel hasil clipping + luas hektar
 CREATE TABLE datagis.clip_pl_aceh AS
 SELECT
     b."PL2024_ID",
@@ -138,7 +127,7 @@ JOIN tmp_aceh_geom a
 WHERE ST_IsValid(b.geom)
   AND ST_Area(ST_Transform(b.geom, 54034)) > 0;
 
--- 5️⃣ Index dan analyze
+-- Index dan analyze
 CREATE INDEX clip_pl_aceh_geom_idx
     ON datagis.clip_pl_aceh USING GIST (geom);
 ANALYZE datagis.clip_pl_aceh;
