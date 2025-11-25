@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.11.17-sha-6a18e49
+    image: supabase/studio:2025.11.24-sha-d990ae8
     restart: unless-stopped
     healthcheck:
       test:
@@ -86,7 +86,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-auth
-    image: supabase/gotrue:v2.183.0-rc.10
+    image: supabase/gotrue:v2.183.0
     restart: unless-stopped
     healthcheck:
       test:
@@ -200,7 +200,7 @@ services:
       - supabase-net
     # This container name looks inconsistent but is correct because realtime constructs tenant id by parsing the subdomain
     container_name: realtime-dev.supabase-realtime
-    image: supabase/realtime:v2.65.0
+    image: supabase/realtime:v2.65.2
     restart: unless-stopped
     depends_on:
       db:
@@ -338,7 +338,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.69.24
+    image: supabase/edge-runtime:v1.69.25
     restart: unless-stopped
     volumes:
       - ./volumes/functions:/home/deno/functions:Z
