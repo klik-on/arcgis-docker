@@ -37,10 +37,10 @@ ORDER BY
   pl2020_id;
 
 
--- Hitung luas per pl2024_id di wilayah Bali, ditambah deskripsi dari KODE_PL
+-- Hitung luas per pl2023_id_r di wilayah Bali, ditambah deskripsi dari KODE_PL
 WITH Luaspl AS (
   SELECT
-    a.pl2024_id::text AS pl2024_id,
+    a."pl2023_id_r"::text AS pl2023_id_r,
     SUM(
       ST_Area(
         ST_Transform(ST_Intersection(a.geom, b.geom), 54034)
@@ -54,23 +54,23 @@ WITH Luaspl AS (
   WHERE 
     b."WADMPR" = 'Bali'
   GROUP BY 
-    a.pl2024_id
+    a.pl2023_id_r
 ),
 Luaspl_dengan_ket AS (
   SELECT
-    l.pl2024_id,
+    l.pl2023_id_r,
     k."DESKRIPSI_PL",
     l."LUAS_CEA_HA"
   FROM
     Luaspl l
   LEFT JOIN
-    kodefikasi."KODE_PL" k ON l.pl2024_id = k."KD_PL"::text
+    kodefikasi."KODE_PL" k ON l.pl2023_id_r = k."KD_PL"::text
 ),
 Gabungan AS (
   SELECT * FROM Luaspl_dengan_ket
   UNION ALL
   SELECT
-    'TOTAL' AS pl2024_id,
+    'TOTAL' AS pl2023_id_r,
     NULL AS "DESKRIPSI_PL",
     SUM("LUAS_CEA_HA") AS "LUAS_CEA_HA"
   FROM Luaspl_dengan_ket
@@ -78,9 +78,8 @@ Gabungan AS (
 
 SELECT * FROM Gabungan
 ORDER BY
-  CASE WHEN pl2024_id = 'TOTAL' THEN 1 ELSE 0 END,
-  pl2024_id;
-
+  CASE WHEN pl2023_id_r = 'TOTAL' THEN 1 ELSE 0 END,
+  pl2023_id_r;
 
 
 -- Hitung luas per pl2024_id di seluruh wilayah (tanpa filter), ditambah deskripsi dari KODE_PL dan provinsi akan LAMA
