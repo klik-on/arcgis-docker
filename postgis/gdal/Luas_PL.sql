@@ -1,6 +1,12 @@
 -- psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
 -- Lihat field \d datagis."PL2024_AR_250K"
 --             \d+ datagis."PL2024_AR_250K"
+-- postgres=> 
+-- SELECT column_name, data_type
+-- FROM information_schema.columns
+-- WHERE table_schema = 'datagis'
+--  AND table_name  = 'PL2024_AR_250K';
+
 -- Luas  pl2020_id dalam hektar
 WITH Luaspl AS (
   SELECT
