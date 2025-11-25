@@ -1,3 +1,4 @@
+-- psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
 -- Luas  pl2020_id dalam hektar
 WITH Luaspl AS (
   SELECT
