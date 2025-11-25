@@ -1,4 +1,5 @@
 -- ANALISA LUAS PENUTUPAN LAHAN PER PROVINSI + GRAND TOTAL
+-- psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
 WITH luas_per_provinsi AS (
   SELECT
     c."NOURUT_PL",                         
