@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.11.26-sha-8f096b5
+    image: supabase/studio:2025.12.01-sha-4ad48b7
     restart: unless-stopped
     healthcheck:
       test:
