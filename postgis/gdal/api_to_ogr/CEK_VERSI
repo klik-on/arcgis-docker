@@ -1,5 +1,7 @@
 # Cek Version
- - Geopandas
+- Geopandas
   # python -c "import geopandas; print(geopandas.__version__)"
   # pip show geopandas
   # python -c "import geopandas; geopandas.show_versions()"
+- GDAL
+  # gdal --version
