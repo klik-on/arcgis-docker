@@ -4,4 +4,6 @@
   # pip show geopandas
   # python -c "import geopandas; geopandas.show_versions()"
 - GDAL
+  # gdal-config --version
   # gdal --version
+  # gdalinfo --version
