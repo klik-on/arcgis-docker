@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2025.12.29-sha-c223130
+    image: supabase/studio:2026.01.05-sha-1077b50
     restart: unless-stopped
     healthcheck:
       test:
@@ -338,7 +338,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-edge-functions
-    image: supabase/edge-runtime:v1.69.28
+    image: supabase/edge-runtime:v1.70.0
     restart: unless-stopped
     volumes:
       - ./volumes/functions:/home/deno/functions:Z
