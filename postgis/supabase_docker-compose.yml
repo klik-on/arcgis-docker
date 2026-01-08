@@ -13,7 +13,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-studio
-    image: supabase/studio:2026.01.05-sha-1077b50
+    image: supabase/studio:2026.01.07-sha-037e5f9
     restart: unless-stopped
     healthcheck:
       test:
@@ -415,7 +415,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.14.1.068
+    image: supabase/postgres:15.14.1.070
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
