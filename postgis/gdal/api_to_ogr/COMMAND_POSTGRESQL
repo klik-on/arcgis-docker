@@ -1,5 +1,9 @@
 Perintah di POSTGRESQL 
 psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
+postgres=> \pset pager off
+Pager usage is off.
+postgres=> \dt datagis."RK"*
+           \d+ datagis."RKTN_AR_250K"
 
 # Untuk melihat semua tabel
 psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off -c "\dt"
