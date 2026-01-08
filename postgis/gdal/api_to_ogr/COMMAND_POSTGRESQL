@@ -13,5 +13,7 @@ postgres-> \q
  datagis | ADDENDUM_ANDAL_RKL_RPL_AR_50K         | table | postgres
  datagis | RKTN_AR_250K                          | table | postgres
 
+# psql -h "$HOSTNAME" -U postgres -d postgres --pset=pager=off -c "\d+ datagis.\"RKTN_AR_250K\""
+
 # Untuk melihat daftar skema
 psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off -c "\dn"
