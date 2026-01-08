@@ -7,6 +7,11 @@ Untuk melihat daftar tabel di database saat ini:
     \dt: Menampilkan daftar tabel pada skema public (default).
     \dt *.*: Menampilkan semua tabel di semua skema.
     \dt+: Menampilkan daftar tabel dengan detail tambahan (ukuran tabel dan deskripsi).
+postgres-> \dt datagis.*
+postgres-> \q
+# psql -h "$HOSTNAME" -U postgres -d postgres -c "\dt datagis.*" | grep -i "RK"
+ datagis | ADDENDUM_ANDAL_RKL_RPL_AR_50K         | table | postgres
+ datagis | RKTN_AR_250K                          | table | postgres
 
 # Untuk melihat daftar skema
 psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off -c "\dn"
