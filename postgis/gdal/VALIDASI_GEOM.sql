@@ -26,3 +26,23 @@ WHERE NOT ST_IsValid(geom)
 
 -- CEK  pastikan semua bertipe MultiPolygon
 SELECT DISTINCT GeometryType(geom) FROM datagis."KWSHUTAN_AR_250K";
+
+
+Verifikasi Akhir di Database GEOPANDAS
+-- 1. Pastikan jumlah baris cocok
+SELECT count(*) FROM datagis."MANGROVE_AR_25K_24";
+
+-- 2. Pastikan SRID adalah 4326 (WGS84)
+SELECT ST_SRID(geom), count(*) 
+FROM datagis."MANGROVE_AR_25K_24" 
+GROUP BY 1;
+
+-- 3. Periksa validitas geometri (karena adanya warning tadi)
+SELECT count(*) 
+FROM datagis."MANGROVE_AR_25K_24" 
+WHERE ST_IsValid(geom) = false;
+
+Jika ditemukan geometri yang tidak valid (false), Anda bisa memperbaikinya langsung dengan:
+UPDATE datagis."MANGROVE_AR_25K_24" 
+SET geom = ST_MakeValid(geom) 
+WHERE ST_IsValid(geom) = false;
