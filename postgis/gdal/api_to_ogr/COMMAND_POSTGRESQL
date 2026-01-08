@@ -1,0 +1,12 @@
+Perintah di POSTGRESQL 
+psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off
+
+# Untuk melihat semua tabel
+psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off -c "\dt"
+Untuk melihat daftar tabel di database saat ini:
+    \dt: Menampilkan daftar tabel pada skema public (default).
+    \dt *.*: Menampilkan semua tabel di semua skema.
+    \dt+: Menampilkan daftar tabel dengan detail tambahan (ukuran tabel dan deskripsi).
+
+# Untuk melihat daftar skema
+psql -h "$HOSTNAME" -U postgres -d postgres -p 5432 --pset=pager=off -c "\dn"
