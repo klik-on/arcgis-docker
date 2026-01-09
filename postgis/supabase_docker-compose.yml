@@ -247,7 +247,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-storage
-    image: supabase/storage-api:v1.33.4
+    image: supabase/storage-api:v1.33.5
     restart: unless-stopped
     volumes:
       - ./volumes/storage:/var/lib/storage:z
@@ -415,7 +415,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-db
-    image: supabase/postgres:15.14.1.070
+    image: supabase/postgres:15.14.1.071
     restart: unless-stopped
     volumes:
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
