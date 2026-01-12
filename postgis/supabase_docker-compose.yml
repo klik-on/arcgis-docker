@@ -316,7 +316,7 @@ services:
     networks:
       - supabase-net
     container_name: supabase-meta
-    image: supabase/postgres-meta:v0.95.1
+    image: supabase/postgres-meta:v0.95.2
     ports:
       - "8081:8080"
     restart: unless-stopped
