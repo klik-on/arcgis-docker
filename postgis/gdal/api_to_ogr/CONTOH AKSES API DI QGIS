@@ -4,7 +4,7 @@ from qgis.core import QgsVectorLayer, QgsProject, QgsFeature, QgsGeometry, QgsFi
 
 # --- 1. KONFIGURASI ---
 BASE_URL = "http://172.16.2.122:8000/api/v1/layers/datagis/KUPS"
-HEADERS = {"X-API-TOKEN": "pgis-pass-2026"}
+HEADERS = {"X-API-TOKEN": "passwordnya disini"}
 LIMIT = 5000
 TOTAL_PAGES = 3  # Sesuaikan dengan hasil dari endpoint /stats
 
