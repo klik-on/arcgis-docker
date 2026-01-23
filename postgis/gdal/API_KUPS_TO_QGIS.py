@@ -4,7 +4,7 @@ from qgis.utils import iface
 
 # 1. Konfigurasi
 url = "https://geoportal.menlhk.go.id/datagis/api/v1/layers/datagis/KUPS"
-headers = {"X-API-KEY": "pgis-pass-2026"}
+headers = {"X-API-KEY": "pgis-pass-****"}
 
 print("Sedang mengunduh data dari Geoportal...")
 
@@ -34,3 +34,4 @@ try:
 
 except Exception as e:
     print(f"Terjadi kesalahan: {str(e)}")
+
