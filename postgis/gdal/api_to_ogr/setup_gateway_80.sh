@@ -1,21 +1,29 @@
 #!/bin/bash
 
-## Persiapan
-# sudo apt-get install apache2-utils -y
-# mkdir -p gateway-server/nginx
-# htpasswd -bc ./gateway-server/nginx/.htpasswd admin password_anda
+# =================================================================
+# SKRIP SETUP GATEWAY GEOSPASIAL (PORT 80)
+# Proteksi: Basic Auth untuk Flower
+# Optimasi: Gzip untuk GeoJSON & Sub-filter Swagger
+# =================================================================
 
-# --- KONFIGURASI ---
+# --- 1. KONFIGURASI ---
 ROOT_DIR="gateway-server"
-APP_SERVER_IP="172.16.2.122"
-GATEWAY_IP="172.16.2.130"
+APP_SERVER_IP="172.16.2.122"   # Server Backend/Frontend
+GATEWAY_IP="172.16.2.130"      # Server ini (Gateway)
 
-echo "🚀 Membangun Gateway Server dengan Proteksi Flower & Optimasi Gzip..."
+echo "🚀 Membangun Gateway Server di $GATEWAY_IP..."
 
-# Buat struktur folder
+# Persiapan Folder
 mkdir -p $ROOT_DIR/nginx/conf.d
 
-# --- 1. DOCKER COMPOSE GATEWAY ---
+# Cek apakah file .htpasswd sudah ada, jika belum buat dummy (admin:admin)
+if [ ! -f "$ROOT_DIR/nginx/.htpasswd" ]; then
+    echo "⚠️ File .htpasswd tidak ditemukan. Membuat user default (admin:admin123)..."
+    echo "admin:\$apr1\$vS7Esq6z\$8X/L.Xp6YhE6mQ.tLh/mJ/" > $ROOT_DIR/nginx/.htpasswd
+    echo "👉 Silakan ganti password nanti menggunakan command 'htpasswd'."
+fi
+
+# --- 2. DOCKER COMPOSE GATEWAY ---
 cat <<EOF > $ROOT_DIR/docker-compose.yml
 services:
   gateway:
@@ -25,24 +33,22 @@ services:
     ports:
       - "80:80"
     volumes:
-      # Mapping file satu per satu untuk menghindari konflik read-only folder
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
 EOF
 
-# --- 2. NGINX CONFIGURATION ---
-# Gunakan EOF tanpa kutipan untuk mengizinkan substitusi variabel IP Bash ke file
+# --- 3. NGINX CONFIGURATION ---
+# Menggunakan '\$' untuk variabel internal Nginx agar tidak diproses oleh Bash
 cat <<EOF > $ROOT_DIR/nginx/conf.d/default.conf
 server {
     listen 80;
     server_name $GATEWAY_IP;
 
-    # --- OPTIMASI GZIP ---
+    # --- OPTIMASI GZIP (Untuk GeoJSON Besar) ---
     gzip on;
     gzip_vary on;
     gzip_proxied any;
     gzip_comp_level 6;
-    # text/html tidak ditulis karena default Nginx sudah menyertakannya
     gzip_types text/plain text/css application/json application/javascript application/xml application/geo+json application/vnd.geo+json;
     gzip_min_length 1024;
 
@@ -67,10 +73,14 @@ server {
 
     # --- 3. DOKUMENTASI API (SWAGGER) ---
     location /datagis {
+        # Redirect otomatis /datagis ke /datagis/docs/
+        rewrite ^/datagis/?$ /datagis/docs/ permanent;
+
         proxy_pass http://$APP_SERVER_IP:8000;
         proxy_set_header Host \$host;
         proxy_set_header Accept-Encoding ""; 
 
+        # Injeksi path sub-direktori agar Swagger UI tidak broken
         sub_filter '"/openapi.json"' '"/datagis/openapi.json"';
         sub_filter "'./openapi.json'" "'/datagis/openapi.json'";
         sub_filter '/static' '/datagis/static';
@@ -82,7 +92,7 @@ server {
         proxy_pass http://$APP_SERVER_IP:8000/openapi.json;
     }
 
-    # --- 4. FLOWER DENGAN PROTEKSI PASSWORD ---
+    # --- 4. FLOWER MONITORING (PROTECTED) ---
     location /flower/ {
         auth_basic "Restricted Access: Geo-Monitor";
         auth_basic_user_file /etc/nginx/.htpasswd;
@@ -97,6 +107,22 @@ server {
 EOF
 
 echo "--------------------------------------------------------"
-echo "✅ Konfigurasi Gateway Berhasil Dimodifikasi!"
-echo "🚀 Jalankan perintah berikut:"
-echo "cd $ROOT_DIR && docker-compose down && docker-compose up -d"
+echo "✅ Konfigurasi Berhasil Dibuat!"
+echo "📍 Lokasi: $ROOT_DIR"
+echo "🚀 Menjalankan Docker Gateway..."
+echo "--------------------------------------------------------"
+
+cd $ROOT_DIR
+docker-compose down --remove-orphans
+docker-compose up -d
+
+echo "--------------------------------------------------------"
+echo "🎉 GATEWAY SELESAI DIINSTAL"
+echo "🔗 Frontend: http://$GATEWAY_IP/"
+echo "📖 API Docs: http://$GATEWAY_IP/datagis/"
+echo "🌸 Flower:   http://$GATEWAY_IP/flower/"
+echo "--------------------------------------------------------"
+
+# ganti password default
+# htpasswd -bc ./gateway-server/nginx/.htpasswd admin password_baru_anda
+# cd gateway-server && docker-compose restart gateway
