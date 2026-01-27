@@ -1,6 +1,6 @@
 
 # langsung buka browser dan akses halaman Direct Link
-http://172.16.2.122:8000/datagis/api/v1/sync/files?api_key=***-***-***
+HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 
 {
   "script_name": "utils/export_to_nextcloud.py",
@@ -19,7 +19,7 @@ http://172.16.2.122:8000/datagis/api/v1/sync/files?api_key=***-***-***
   "script_name": "utils/export_to_nextcloud.py",
   "args": ["datagis", "KUPS"],
   "env": {
-    "NC_PATH": "GIS/GIS/Export", "DEBUG_MODE": "true"}
+    "NC_PATH": "GIS/Export", "DEBUG_MODE": "true"}
 }
 
 {
