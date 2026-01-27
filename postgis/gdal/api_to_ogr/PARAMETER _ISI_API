@@ -23,12 +23,6 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 }
 
 {
-  "script_name": "proses/gpd_GDBtoPGIS.py",
-  "args": [],
-  "env": { "IGT": "PERSETUJUAN_KOMITMEN_PBPH" }
-}
-
-{
   "script_name": "proses/gpd_CLIP_IGT_ADM.py",
   "args": ["DKI Jakarta"],
   "env": {
@@ -59,8 +53,15 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
+### POSTGIS <> GDB ###
 {
   "script_name": "proses/pgis_to_gdb.sh",
   "args": ["KWS_DKI_JAKARTA"],
   "env": {"DB_SCHEMA": "analisis"}
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": [],
+  "env": { "IGT": "PERSETUJUAN_KOMITMEN_PBPH" }
 }
