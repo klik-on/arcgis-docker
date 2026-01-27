@@ -1,0 +1,66 @@
+
+# langsung buka browser dan akses halaman Direct Link
+http://172.16.2.122:8000/datagis/api/v1/sync/files?api_key=***-***-***
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis", "KUPS"],
+  "env": {"NC_PATH": "GIS/Export"}
+}
+	 
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis","KUPS"],
+  "env": {}
+}
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis", "KUPS"],
+  "env": {
+    "NC_PATH": "GIS/GIS/Export", "DEBUG_MODE": "true"}
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": [],
+  "env": { "IGT": "PERSETUJUAN_KOMITMEN_PBPH" }
+}
+
+{
+  "script_name": "proses/gpd_CLIP_IGT_ADM.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+{
+  "script_name": "proses/gpd_BATCH_CLIP_PARALLEL.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+
+{
+  "script_name": "proses/gpd_BUAT_NATIONAL_REKAP.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+{
+  "script_name": "proses/pgis_to_gdb.sh",
+  "args": ["KWS_DKI_JAKARTA"],
+  "env": {"DB_SCHEMA": "analisis"}
+}
