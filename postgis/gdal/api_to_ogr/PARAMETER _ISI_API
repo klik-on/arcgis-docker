@@ -1,4 +1,3 @@
-
 # langsung buka browser dan akses halaman Direct Link
 HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 
@@ -71,5 +70,23 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   "args": ["KWS_DKI_JAKARTA"],
   "env": {
     "DB_SCHEMA": "analisis"
+  }
+}
+
+{
+  "script_name": "proses/gpd_CLIP_IGT_ADM.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["KWS_DKI_JAKARTA"],
+  "env": {
+    "SCHEMA_DATA": "analisis"
   }
 }
