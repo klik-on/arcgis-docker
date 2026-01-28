@@ -86,6 +86,15 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 {
   "script_name": "proses/gpd_GDBtoPGIS.py",
   "args": ["KWS_DKI_JAKARTA"],
+
+## Upload gdb.zip ke Postgis untuk data Data Tatakelola
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["PPKH_EKSPLORASI_AR_50K_0525"],
+  "env": {
+    "SCHEMA_DATA": "datagis"
+  }
+}
   "env": {
     "SCHEMA_DATA": "analisis"
   }
