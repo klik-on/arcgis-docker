@@ -20,7 +20,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   "env": {
     "NC_PATH": "GIS/Export", "DEBUG_MODE": "true"}
 }
-
+### CLIP DATA DENGAN FIELD KATEGORI ###
 {
   "script_name": "proses/gpd_CLIP_IGT_ADM.py",
   "args": ["DKI Jakarta"],
