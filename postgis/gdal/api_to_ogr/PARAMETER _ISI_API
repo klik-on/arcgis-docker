@@ -100,9 +100,8 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
-
 {
-  "script_name": "utils/upper_field.py",
+  "script_name": "utils/upper_TAB_COL.py",
   "args": ["ADM_KAB_KOTA"],
   "env": {
     "SCHEMA_DATA": "datagis"
