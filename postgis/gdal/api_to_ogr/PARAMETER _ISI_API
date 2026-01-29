@@ -22,7 +22,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 }
 ### CLIP DATA DENGAN FIELD KATEGORI ###
 {
-  "script_name": "proses/gpd_CLIP_IGT_ADM.py",
+  "script_name": "proses/gpd_CLIP.py",
   "args": ["DKI Jakarta"],
   "env": {
     "SCHEMA_DATA": "datagis",
@@ -32,7 +32,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 }
 
 {
-  "script_name": "proses/gpd_CLIP_IGT_ADM.py",
+  "script_name": "proses/gpd_CLIP.py",
   "args": ["DKI Jakarta"],
   "env": {
     "SCHEMA_DATA": "datagis",
@@ -41,7 +41,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "PREFIX_TAB": "PL",
     "TABLE_A": "PL2024_AR_250K",
     "FIELD_CATEGORY_A": "PL2024_ID",
-    "MASTER_SCHEMA": "kodefikasi",
+    "MASTER_SCHEMA": "kamusdata",
     "MASTER_TABLE": "KODE_PL",
     "MASTER_JOIN_FIELD": "KD_PL",
     "TABLE_B": "ADM_KAB_KOTA",
