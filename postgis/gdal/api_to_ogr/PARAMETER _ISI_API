@@ -1,6 +1,30 @@
 # langsung buka browser dan akses halaman Direct Link
 HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 
+#### Template JSON (Full Distribution)
+{
+  "script_name": "proses/gpd_CLIP_ST_Subdivide.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR",
+    "NC_REMOTE": "nextcloud",
+    "NC_PATH": "GIS/Export/Penutupan_Lahan_2024"
+  }
+}
+####
+
+
 {
   "script_name": "utils/export_to_nextcloud.py",
   "args": ["datagis", "KUPS"],
