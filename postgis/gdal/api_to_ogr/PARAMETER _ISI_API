@@ -60,7 +60,26 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
-
+#####
+{
+  "script_name": "proses/gpd_BATCH_CLIP_PARALLEL.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR"
+  }
+}
+############
 {
   "script_name": "proses/gpd_BUAT_NATIONAL_REKAP.py",
   "args": [],
