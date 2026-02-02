@@ -38,9 +38,11 @@
     "MASTER_TABLE": "KODE_PL",
     "MASTER_JOIN_FIELD": "KD_PL",
     "TABLE_B": "ADM_KAB_KOTA",
-    "FIELD_FILTER_B": "WADMPR"
+    "FIELD_FILTER_B": "WADMPR",
+    "SUBDIVIDE": "false"
   }
 }
+
 
 
 #langsung buka browser dan akses halaman Direct Link
