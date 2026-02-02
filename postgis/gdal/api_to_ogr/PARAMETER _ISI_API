@@ -4,12 +4,14 @@
   "script_name": "proses/gpd_CLIP2.py",
   "args": ["DKI Jakarta"],
   "env": {
+    "PYTHONUNBUFFERED": "1",
     "SCHEMA_DATA": "datagis",
     "SCHEMA_OUT": "analisis",
     "RKP_SCHEMA": "rekap",
     "MASTER_SCHEMA": "kamusdata",
     "MASTER_TABLE": "KODE_KWS",
     "MASTER_JOIN_FIELD": "KD_KWS",
+    "SUM_SORT": "NOURUT_KWS",
     "SUBDIVIDE": "false"
   }
 }
