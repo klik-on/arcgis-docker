@@ -8,8 +8,12 @@
     "SCHEMA_OUT": "analisis",
     "RKP_SCHEMA": "rekap",
     "SUBDIVIDE": "false"
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_KWS",
+    "MASTER_JOIN_FIELD": "KD_KWS",
   }
 }
+
 ## TRUE
 {
   "script_name": "proses/gpd_CLIP2.py",
