@@ -1,4 +1,5 @@
 ## Penggunaan Parameter CLIP {SUBDIVIDE default true ::: si_subdivide atau st_union 
+### FALSE contoh default Data Kawasan
 {
   "script_name": "proses/gpd_CLIP2.py",
   "args": ["DKI Jakarta"],
@@ -9,8 +10,19 @@
     "SUBDIVIDE": "false"
   }
 }
+## TRUE
+{
+  "script_name": "proses/gpd_CLIP2.py",
+  "args": ["Sulawesi Tenggara"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "SUBDIVIDE": "true"
+  }
+}
 
-# langsung buka browser dan akses halaman Direct Link
+#langsung buka browser dan akses halaman Direct Link
 HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 
 #### Template JSON (Full Distribution)
