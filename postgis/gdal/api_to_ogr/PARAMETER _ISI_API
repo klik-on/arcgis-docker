@@ -14,7 +14,7 @@
     "MASTER_SCHEMA": "kamusdata",
     "MASTER_TABLE": "KODE_KWS",
     "MASTER_JOIN_FIELD": "KD_KWS",
-    "SUM_SORT": "NOURUT_PL",
+    "SUM_SORT": "NOURUT_KWS",
     "TABLE_B": "ADM_KAB_KOTA",
     "FIELD_FILTER_B": "WADMPR",
     "SUBDIVIDE": "false"
