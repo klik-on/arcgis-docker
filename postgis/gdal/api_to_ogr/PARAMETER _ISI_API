@@ -8,7 +8,7 @@
     "SCHEMA_DATA": "datagis",
     "SCHEMA_OUT": "analisis",
     "RKP_SCHEMA": "rekap",
-    "PREFIX_TAB": "PL",
+    "PREFIX_TAB": "KWS",
     "TABLE_A": "KWSHUTAN_AR_250K_DES2025",
     "FIELD_CATEGORY_A": "FUNGSIKWS",
     "MASTER_SCHEMA": "kamusdata",
