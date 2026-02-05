@@ -5,7 +5,7 @@
 # Menggunakan Format JSON
 {
   "script_name": "utils/backup_db.py",
-  "args": ["datagis", "rekap", "analisis", "kamusdata"],
+  "args": ["rekap","kamusdata","analisis","datagis"],
   "env": {
     "DB_HOST": "dbgis",
     "S3_ENDPOINT": "http://s3-storage:9000",
@@ -272,3 +272,4 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
