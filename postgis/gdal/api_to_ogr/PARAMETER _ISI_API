@@ -29,7 +29,7 @@ NO  | NAMA FILE (Path S3)                                                    | U
 
 # Menggunakan Format JSON
 {
-  "script_name": "utils/master_restore.py",
+  "script_name": "utils/multi_restore_db.py",
   "args": [
     "database_backups/analisis/backup_gisdb_analisis_20260205_102213.dump",
     "database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump ",
