@@ -1,3 +1,18 @@
+# Backup Data
+# Menggunakan Format JSON
+{
+  "script_name": "utils/backup_db.py",
+  "args": ["datagis", "rekap", "analisis", "kamusdata"],
+  "env": {
+    "DB_HOST": "dbgis",
+    "S3_ENDPOINT": "http://s3-storage:9000",
+    "PYTHONUNBUFFERED": "1"
+  }
+}
+
+# Akses Langsung 
+# docker exec -it -e DB_HOST=dbgis -e S3_ENDPOINT=http://s3-storage:9000 geo-api python3 scripts/utils/backup_db.py kamusdata datagis
+
 ## Penggunaan Parameter CLIP {SUBDIVIDE default true ::: si_subdivide atau st_union 
 ### FALSE contoh default Data Kawasan
 {
