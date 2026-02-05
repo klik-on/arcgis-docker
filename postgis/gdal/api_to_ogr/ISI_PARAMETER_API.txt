@@ -128,6 +128,27 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 }
 ####
 
+#### GDBtoPGIS <> PGIStoGDB
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["MANGROVE_AR_25K_2025"],
+  "env": {
+    "DB_HOST": "dbgis",
+    "SCHEMA_DATA": "datagis",
+    "S3_BUCKET": "geospatial-bucket"
+  }
+}
+
+{
+  "script_name": "proses/gpd_PGIStoGDB.py",
+  "args": ["KUPS"],
+  "env": {
+    "DB_HOST": "dbgis",
+    "SCHEMA_DATA": "datagis",
+    "S3_BUCKET": "geospatial-bucket"
+  }
+}
+####
 
 {
   "script_name": "utils/export_to_nextcloud.py",
@@ -272,4 +293,5 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
