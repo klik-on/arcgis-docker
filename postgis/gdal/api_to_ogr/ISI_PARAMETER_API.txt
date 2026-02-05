@@ -1,0 +1,274 @@
+# Backup Data
+# Akses Langsung 
+# docker exec -it -e DB_HOST=dbgis -e S3_ENDPOINT=http://s3-storage:9000 geo-api python3 scripts/utils/backup_db.py kamusdata datagis
+
+# Menggunakan Format JSON
+{
+  "script_name": "utils/backup_db.py",
+  "args": ["datagis", "rekap", "analisis", "kamusdata"],
+  "env": {
+    "DB_HOST": "dbgis",
+    "S3_ENDPOINT": "http://s3-storage:9000",
+    "PYTHONUNBUFFERED": "1"
+  }
+}
+
+# RESTORE
+# Akses Langsung 
+# docker exec -it geo-api python3 scripts/utils/restore_db.py
+🔍 Mencari file backup di bucket: geospatial-bucket...
+NO  | NAMA FILE (Path S3)                                                    | UKURAN
+------------------------------------------------------------------------------------------
+1   | database_backups/analisis/backup_gisdb_analisis_20260205_102213.dump   |  650.57 MB
+2   | database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump     | 18943.96 MB
+3   | database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump |    0.01 MB
+4   | database_backups/rekap/backup_gisdb_rekap_20260205_102213.dump         |    0.03 MB
+
+💡 Tips: Salin path file di atas atau masukkan nomor.
+👉 Masukkan Nomor atau Path File S3:
+
+# Menggunakan Format JSON
+{
+  "script_name": "utils/multi_restore_db.py",
+  "args": [
+    "database_backups/analisis/backup_gisdb_analisis_20260205_102213.dump",
+    "database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump ",
+    "database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump",
+    "database_backups/rekap/backup_gisdb_rekap_20260205_102213.dump"
+  ],
+  "env": {
+    "DB_HOST": "dbgis",
+    "S3_ENDPOINT": "http://s3-storage:9000",
+    "PYTHONUNBUFFERED": "1"
+  }
+}
+
+## Penggunaan Parameter CLIP {SUBDIVIDE default true ::: si_subdivide atau st_union 
+### FALSE contoh default Data Kawasan
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "KWS",
+    "TABLE_A": "KWSHUTAN_AR_250K_DES2025",
+    "FIELD_CATEGORY_A": "FUNGSIKWS",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_KWS",
+    "MASTER_JOIN_FIELD": "KD_KWS",
+    "SUM_SORT": "NOURUT_KWS",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR",
+    "SUBDIVIDE": "false"
+  }
+}
+
+## TRUE
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["Sulawesi Tenggara"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "SUBDIVIDE": "true"
+  }
+}
+
+### FULL
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "SUM_SORT": "NOURUT_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR",
+    "SUBDIVIDE": "false"
+  }
+}
+
+
+
+#langsung buka browser dan akses halaman Direct Link
+HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
+
+#### Template JSON (Full Distribution)
+{
+  "script_name": "proses/gpd_CLIP_ST_Subdivide.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR",
+    "NC_REMOTE": "nextcloud",
+    "NC_PATH": "GIS/Export/Penutupan_Lahan_2024"
+  }
+}
+####
+
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis", "KUPS"],
+  "env": {"NC_PATH": "GIS/Export"}
+}
+	 
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis","KUPS"],
+  "env": {}
+}
+
+{
+  "script_name": "utils/export_to_nextcloud.py",
+  "args": ["datagis", "KUPS"],
+  "env": {
+    "NC_PATH": "GIS/Export", "DEBUG_MODE": "true"}
+}
+### CLIP DATA DENGAN FIELD KATEGORI ###
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR"
+  }
+}
+
+{
+  "script_name": "proses/gpd_BATCH_CLIP_PARALLEL.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+#####
+{
+  "script_name": "proses/gpd_BATCH_CLIP_PARALLEL.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "PL",
+    "TABLE_A": "PL2024_AR_250K",
+    "FIELD_CATEGORY_A": "PL2024_ID",
+    "MASTER_SCHEMA": "kamusdata",
+    "MASTER_TABLE": "KODE_PL",
+    "MASTER_JOIN_FIELD": "KD_PL",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR"
+  }
+}
+############
+{
+  "script_name": "proses/gpd_BUAT_NATIONAL_REKAP.py",
+  "args": [],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+### POSTGIS <> GDB ###
+{
+  "script_name": "proses/pgis_to_gdb.sh",
+  "args": ["KWS_DKI_JAKARTA"],
+  "env": {"DB_SCHEMA": "analisis"}
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": [],
+  "env": { "IGT": "PERSETUJUAN_KOMITMEN_PBPH" }
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["KWS_DKI_JAKARTA"],
+  "env": {
+    "DB_SCHEMA": "analisis"
+  }
+}
+
+{
+  "script_name": "proses/gpd_CLIP_IGT_ADM.py",
+  "args": ["DKI Jakarta"],
+  "env": {
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap"
+  }
+}
+
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["KWS_DKI_JAKARTA"],
+
+## Upload gdb.zip ke Postgis untuk data Data Tatakelola
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["PPKH_EKSPLORASI_AR_50K_0525"],
+  "env": {
+    "SCHEMA_DATA": "datagis"
+  }
+}
+  "env": {
+    "SCHEMA_DATA": "analisis"
+  }
+}
+
+{
+  "script_name": "utils/upper_TAB_COL.py",
+  "args": ["ADM_KAB_KOTA"],
+  "env": {
+    "SCHEMA_DATA": "datagis"
+  }
+}
