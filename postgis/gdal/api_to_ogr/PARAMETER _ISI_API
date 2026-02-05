@@ -21,9 +21,8 @@ NO  | NAMA FILE (Path S3)                                                    | U
 ------------------------------------------------------------------------------------------
 1   | database_backups/analisis/backup_gisdb_analisis_20260205_102213.dump   |  650.57 MB
 2   | database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump     | 18943.96 MB
-3   | database_backups/kamusdata/backup_gisdb_kamusdata_20260205_022250.dump |    0.01 MB
-4   | database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump |    0.01 MB
-5   | database_backups/rekap/backup_gisdb_rekap_20260205_102213.dump         |    0.03 MB
+3   | database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump |    0.01 MB
+4   | database_backups/rekap/backup_gisdb_rekap_20260205_102213.dump         |    0.03 MB
 
 💡 Tips: Salin path file di atas atau masukkan nomor.
 👉 Masukkan Nomor atau Path File S3:
@@ -32,9 +31,9 @@ NO  | NAMA FILE (Path S3)                                                    | U
 {
   "script_name": "utils/master_restore.py",
   "args": [
-    "database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump",
-    "database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump",
     "database_backups/analisis/backup_gisdb_analisis_20260205_102213.dump",
+    "database_backups/datagis/backup_gisdb_datagis_20260205_022250.dump ",
+    "database_backups/kamusdata/backup_gisdb_kamusdata_20260205_102213.dump",
     "database_backups/rekap/backup_gisdb_rekap_20260205_102213.dump"
   ],
   "env": {
