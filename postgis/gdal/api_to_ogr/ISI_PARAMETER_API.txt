@@ -100,6 +100,36 @@ NO  | NAMA FILE (Path S3)                                                    | U
   }
 }
 
+## TANPA join kamusdata
+{
+  "script_name": "proses/gpd_CLIP.py",
+  "args": ["Kalimantan Barat"],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "SCHEMA_DATA": "datagis",
+    "SCHEMA_OUT": "analisis",
+    "RKP_SCHEMA": "rekap",
+    "PREFIX_TAB": "DAS",
+    "TABLE_A": "DAS_AR_50K_03_2025",
+    "FIELD_CATEGORY_A": "NAMA_DAS",
+    "TABLE_B": "ADM_KAB_KOTA",
+    "FIELD_FILTER_B": "WADMPR",
+    "SUBDIVIDE": "false"
+  }
+}
+
+### INTERSECT
+{
+  "script_name": "proses/gpd_INTERSECT.py",
+  "args": ["Banten"],
+  "env": {
+    "OUT_SCHEMA": "analisis",
+    "S3_BUCKET": "geospatial-bucket",
+    "PREFIX_TAB": "INT_KWS",
+    "SUBDIVIDE": "false"
+  }
+}
+
 
 
 #langsung buka browser dan akses halaman Direct Link
@@ -293,5 +323,6 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
