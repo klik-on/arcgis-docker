@@ -153,7 +153,7 @@ NO  | NAMA FILE (Path S3)                                                    | U
   "script_name": "proses/gpd_UNION.py",
   "args": ["Kalimantan Barat"],
   "env": {
-    "LAYERS_PREFIX": "KWS,PL,DAS"
+    "LAYERS_PREFIX": "KWS,PL,DAS,LHNKRTS"
   }
 }
 
@@ -350,6 +350,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
