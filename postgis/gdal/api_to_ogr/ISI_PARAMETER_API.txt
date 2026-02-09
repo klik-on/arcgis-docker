@@ -230,8 +230,9 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
 }
 
 {
-  "script_name": "proses/gpd_PGIStoGDB.py",
-  "args": ["KUPS"],
+{
+  "script_name": "proses/gpd_GDBtoPGIS.py",
+  "args": ["PBPH_DEFINITIF.gdb.zip"],
   "env": {
     "DB_HOST": "dbgis",
     "SCHEMA_DATA": "datagis",
@@ -383,6 +384,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
