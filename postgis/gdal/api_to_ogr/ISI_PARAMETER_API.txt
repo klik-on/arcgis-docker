@@ -11,25 +11,12 @@ $./post_restore_cleanup.sh
 
 ### CEK HASIL RESTORE
 $ docker exec -it db-pgis psql -U dbgis -d gisdb -c "SELECT name, default_version, installed_version FROM pg_available_extensions WHERE name = 'postgis';"
-$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "SELECT * FROM public.geometry_columns WHERE f_table_name = 'PL2024_AR_250K';"
-ERROR:  relation "public.geometry_columns" does not exist
-LINE 1: SELECT * FROM public.geometry_columns WHERE f_table_name = '...
-                      ^
-$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "SELECT * FROM extensions.geometry_columns WHERE f_table_name = 'PL2024_AR_250K';"
- f_table_catalog | f_table_schema |  f_table_name  | f_geometry_column | coord_dimension | srid |     type
------------------+----------------+----------------+-------------------+-----------------+------+--------------
- gisdb           | datagis        | PL2024_AR_250K | geom              |               2 | 4326 | MULTIPOLYGON
-(1 row)
 
 $ docker exec -it db-pgis psql -U dbgis -d gisdb -c "ALTER DATABASE gisdb SET search_path TO datagis, extensions, public;"
 ALTER DATABASE
+
 $ docker exec -i db-pgis psql -U dbgis -d gisdb -c "CREATE OR REPLACE VIEW public.geometry_columns AS SELECT * FROM extensions.geometry_columns;"
 $ docker exec -i db-pgis psql -U dbgis -d gisdb -c "CREATE OR REPLACE VIEW public.spatial_ref_sys AS SELECT * FROM extensions.spatial_ref_sys;"
-
-### CEK PRIMARY
-$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "\d datagis.\"PL2024_AR_250K\""
-$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "ALTER TABLE datagis.\"PL2024_AR_250K\" ADD COLUMN gid SERIAL PRIMARY KEY;"
-#################
 
 # Backup Data
 # Akses Langsung 
@@ -384,6 +371,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
