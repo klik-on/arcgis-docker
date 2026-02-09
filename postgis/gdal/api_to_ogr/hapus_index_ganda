@@ -1,0 +1,22 @@
+docker exec -i db-pgis psql -U dbgis -d gisdb -c "
+DO \$\$
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (
+        SELECT 
+            indrelid::regclass AS table_name,
+            array_agg(indexrelid::regclass ORDER BY indexrelid) AS duplicate_indexes
+        FROM pg_index
+        WHERE indrelid::regnamespace = 'datagis'::regnamespace
+        GROUP BY indrelid, indkey, indam, indisunique
+        HAVING COUNT(*) > 1
+    )
+    LOOP
+        -- Loop mulai dari indeks kedua, sisakan indeks pertama
+        FOR i IN 2..array_length(r.duplicate_indexes, 1) LOOP
+            EXECUTE 'DROP INDEX IF EXISTS ' || r.duplicate_indexes[i];
+            RAISE NOTICE 'Dihapus indeks duplikat: % pada tabel %', r.duplicate_indexes[i], r.table_name;
+        END LOOP;
+    END LOOP;
+END \$\$;"
