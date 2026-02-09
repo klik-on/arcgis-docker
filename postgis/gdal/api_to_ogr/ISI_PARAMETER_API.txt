@@ -4,7 +4,7 @@ $ ./new_restore_db.sh
 $ docker exec -it db-pgis psql -U dbgis -d gisdb -c "SELECT pg_size_pretty(pg_database_size('gisdb'));"
  pg_size_pretty
 ----------------
- 23 GB
+ 26 GB
 (1 row)
 
 $./post_restore_cleanup.sh
@@ -362,6 +362,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
