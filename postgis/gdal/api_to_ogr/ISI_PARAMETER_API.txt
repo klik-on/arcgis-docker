@@ -22,6 +22,11 @@ $ docker exec -it db-pgis psql -U dbgis -d gisdb -c "SELECT * FROM extensions.ge
 (1 row)
 
 $ docker exec -it db-pgis psql -U dbgis -d gisdb -c "ALTER DATABASE gisdb SET search_path TO datagis, extensions, public;"
+ALTER DATABASE
+
+### CEK PRIMARY
+$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "\d datagis.\"PL2024_AR_250K\""
+$ docker exec -it db-pgis psql -U dbgis -d gisdb -c "ALTER TABLE datagis.\"PL2024_AR_250K\" ADD COLUMN gid SERIAL PRIMARY KEY;"
 #################
 
 # Backup Data
@@ -376,6 +381,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
