@@ -170,13 +170,13 @@ NO  | NAMA FILE (Path S3)                                                    | U
 
 ### UNION MULTI
 {
-  "script_name": "proses/gpd_UNION.py",
+  "script_name": "scripts/proses/gpd_UNION.py",
   "args": ["Kalimantan Barat"],
   "env": {
-    "LAYERS_PREFIX": "KWS,PL,DAS,LHNKRTS"
+    "LAYERS_PREFIX": "KWS,PL,DAS,LHNKRTS",
+    "OUT_SCHEMA": "analisis"
   }
 }
-
 ####
 
 #langsung buka browser dan akses halaman Direct Link
@@ -371,6 +371,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
