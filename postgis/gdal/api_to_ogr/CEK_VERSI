@@ -21,4 +21,8 @@ app.conf.beat_schedule = {
 # Paksa jalankan sekarang
 $ docker exec -it geo-beat celery -A app.worker call execute_kups_sync
 ff705aee-7c48-4c36-b7ce-2bd6fdb4a467
-# Cek IP/flower/
+
+# Cek http://domain-ip/flower/
+
+# Cek ukuran log docker
+$ sudo docker ps -q | xargs -I {} docker inspect --format='{{.LogPath}}' {} | xargs du -sh
