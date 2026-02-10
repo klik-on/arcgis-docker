@@ -7,3 +7,18 @@
   # gdal-config --version
   # gdal --version
   # gdalinfo --version
+
+#####  AUTO SINKRON ==> CEK $ more backend/app/worker.py
+$ docker compose down
+$ docker compose up -d
+$ docker exec geo-beat cat /app/app/worker.py | grep -A 5 "beat_schedule"
+app.conf.beat_schedule = {
+    'sync-kups-setiap-malam': {
+        'task': 'execute_kups_sync',
+        'schedule': crontab(minute=0, hour=0),  # Setiap jam 00:00 WIB
+    },
+}
+# Paksa jalankan sekarang
+$ docker exec -it geo-beat celery -A app.worker call execute_kups_sync
+ff705aee-7c48-4c36-b7ce-2bd6fdb4a467
+# Cek IP/flower/
