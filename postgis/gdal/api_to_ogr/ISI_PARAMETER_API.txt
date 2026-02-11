@@ -227,7 +227,6 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
-
 #### GDB TATAKELOLA to POSTGIS
 {
   "script_name": "proses/gpd_TATAKELOLAtoPGIS.py",
@@ -400,22 +399,4 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
