@@ -227,6 +227,8 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
+
+#### GDB TATAKELOLA to POSTGIS
 {
   "script_name": "proses/gpd_TATAKELOLAtoPGIS.py",
 "args": ["7a554af2-08c6-44d1-8ddc-81d20b9e5611", "CAPAIAN_PE_AR_25K"],
@@ -245,6 +247,14 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
   }
 }
 
+{
+  "script_name": "proses/gpd_TATAKELOLAtoPGIS.py",
+"args": ["9b835d4a-28aa-4bf8-957c-6ee694fb6666", "PENERAPAN_TKT_PNT_25K_20202024"],
+  "env": {
+    "DB_SCHEMA": "datagis",
+    "SIGAP_URL": "https://sigap.kehutanan.go.id/tatakelola/api-new"
+  }
+}
 ####
 
 {
@@ -390,6 +400,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
