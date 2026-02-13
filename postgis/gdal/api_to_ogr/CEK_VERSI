@@ -22,6 +22,9 @@ app.conf.beat_schedule = {
 $ docker exec -it geo-beat celery -A app.worker call execute_kups_sync
 ff705aee-7c48-4c36-b7ce-2bd6fdb4a467
 
+# Perintah manual untuk mengetes task via shell container (opsional)
+docker exec -it geo-worker python3 -m celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
+
 # Cek http://domain-ip/flower/
 
 # Cek ukuran log docker
