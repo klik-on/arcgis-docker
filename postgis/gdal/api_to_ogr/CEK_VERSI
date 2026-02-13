@@ -27,6 +27,10 @@ $ docker exec -it geo-worker celery -A app.worker call execute_geo_script --args
 Rekomendasi Perintah Fix:
 $ docker exec -it geo-worker celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
 
+Cara Pantau via Log File (Paling Detail)
+docker exec -it geo-worker tail -f /app/data/sync.log
+docker exec -it geo-worker celery -A app.worker events
+
 # Cek http://domain-ip/flower/
 
 # Cek ukuran log docker
