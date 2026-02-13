@@ -22,7 +22,10 @@ app.conf.beat_schedule = {
 $ docker exec -it geo-beat celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'  
 # disarankan pakai opsi dibawah ini
 # Perintah manual untuk mengetes task via shell container (opsional)
-docker exec -it geo-worker python3 -m celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
+$ docker exec -it geo-worker python3 -m celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
+$ docker exec -it geo-worker celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
+Rekomendasi Perintah Fix:
+$ docker exec -it geo-worker celery -A app.worker call execute_geo_script --args='["integrasi/api_KUPS_with_S3.py"]'
 
 # Cek http://domain-ip/flower/
 
