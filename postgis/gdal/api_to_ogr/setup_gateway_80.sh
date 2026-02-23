@@ -4,12 +4,12 @@
 # 1. KONFIGURASI
 # ============================================================
 ROOT_DIR="gateway-server"
-APP_SERVER_IP="172.16.2.122"   # Server Backend & Frontend
-GATEWAY_IP="172.16.2.130"      # Server Gateway
+APP_SERVER_IP="192.16.12.122"   # Server Backend & Frontend
+GATEWAY_IP="192.16.12.130"      # Server Gateway
 
 # Kredensial Admin (Flower & Minio)
 ADMIN_USER="flower"
-ADMIN_PASS="flower-pass-2026"
+ADMIN_PASS="flower-pass-****"
 
 echo "🚀 [$(date)] Updating Gateway with Gzip & GIS Optimization..."
 
