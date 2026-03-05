@@ -63,6 +63,15 @@ NO  | NAMA FILE (Path S3)                                                    | U
   }
 }
 
+## PBPH
+{
+  "script_name": "integrasi/api_PBPH_with_S3.py",
+  "args": [],
+  "env": {
+    "IGT": "PBPH_DEFINITIF,PERSETUJUAN_KOMITMEN_PBPH"
+  }
+}
+
 ## Penggunaan Parameter CLIP {SUBDIVIDE default true ::: si_subdivide atau st_union 
 ### FALSE contoh default Data Kawasan
 {
@@ -408,5 +417,6 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
