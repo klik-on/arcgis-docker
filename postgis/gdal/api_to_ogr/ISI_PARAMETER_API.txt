@@ -178,6 +178,7 @@ NO  | NAMA FILE (Path S3)                                                    | U
 }
 
 ### UNION MULTI
+## Akses CLI : docker exec -it -e LAYERS_PREFIX="KWS,PL" geo-worker python3 scripts/proses/gpd_UNION_tile.py "Bali"
 {
   "script_name": "proses/gpd_UNION.py",
   "args": ["Kalimantan Barat"],
@@ -417,6 +418,7 @@ HTTP://PROXY-SERVER/datagis/api/v1/sync/files?api_key=***-***-***
     "SCHEMA_DATA": "datagis"
   }
 }
+
 
 
 
