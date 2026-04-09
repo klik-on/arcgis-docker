@@ -1,27 +1,46 @@
-version: '3.8'
 
 services:
-
   webadaptor:
-    build: . 
-    image: arcgis/webadaptor:10.9.1
-    restart: always
-    hostname: wbgis.ddns.net  
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: WEBADAPTOR
+    hostname: dbgis.planologi.kehutanan.go.id
+    restart: always
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
     environment:
-      -  HOST_IP_ADDRESS=192.168.1.100
+      - TZ=Asia/Jakarta
+      - HOST_IP_ADDRESS=103.52.213.122
+      - JAVA_OPTS=-Xms512m -Xmx1536m -Djava.security.egd=file:/dev/./urandom -Dfile.encoding=UTF-8
+      - CATALINA_OPTS=-Dorg.apache.catalina.connector.RECYCLE_FACADES=true
+
     ports:
-      -  "80:80"
-      -  "443:443"
-    networks:
-      - webgis
+      - "80:80"
+      - "443:443"
+
+    extra_hosts:
+      - "server.domain.go.id:192.16.2.122"
+      - "portal.agis.lokal:192.168.90.10"
+      - "server.agis.lokal:192.168.90.11"
+      - "datastore.agis.lokal:192.168.90.12"
+
     volumes:
-      - webapps:/usr/local/tomcat/webapps
+      - ./logs:/usr/local/tomcat/logs
+      - ./wildcard.pfx:/usr/local/tomcat/conf/wildcard.pfx
+      - ./server.xml:/usr/local/tomcat/conf/server.xml
+
+    networks:
+      src_agis_app_net:
+        ipv4_address: 192.168.90.100
 
 networks:
-  webgis:
-    name: docker-arcgis-enterprise_webgis
+  src_agis_app_net:
+    name: src_agis_app_net
     external: true
-
-volumes:
-  webapps:
